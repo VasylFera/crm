@@ -23,6 +23,7 @@ namespace web.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly string adminEmail;
         private readonly string chiefMobist;
+        private readonly string officer;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
@@ -34,6 +35,7 @@ namespace web.Areas.Identity.Pages.Account
             _logger = logger;
             adminEmail = configuration.GetValue<string>("Admin:Login");
             chiefMobist = "chiefMobist@outlook.com";
+            officer = "officer@outlook.com";
         }
 
         [BindProperty]
@@ -110,6 +112,19 @@ namespace web.Areas.Identity.Pages.Account
                     {
                         await _signInManager.SignInAsync(findUser, isPersistent: false);
                         return LocalRedirect("~/chiefMobist-home");
+                    }
+
+                }
+
+                if (Input.Email == officer)
+                {
+                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+
+                    var findUser = await _userManager.FindByEmailAsync(user.Email);
+                    if (findUser != null)
+                    {
+                        await _signInManager.SignInAsync(findUser, isPersistent: false);
+                        return LocalRedirect("~/officer-home");
                     }
 
                 }
