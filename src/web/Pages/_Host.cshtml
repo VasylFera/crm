@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="./assets/vendor/animate.css/animate.min.css">
 
     <link rel="stylesheet" href="./assets/css/theme.css">
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
 
 </head>
 <body>
@@ -85,5 +87,6 @@
     <!-- JS Implementing Plugins -->
     <script src="./assets/vendor/hs-megamenu/src/hs.megamenu.js"></script>
     <script src="_framework/blazor.server.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 </html>
