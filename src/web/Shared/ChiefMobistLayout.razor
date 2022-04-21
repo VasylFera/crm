@@ -1,7 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-<h3>ChiefMobistLayout</h3>
+<div class="page">
+    <div class="main">
+        <div class="top-row px-4 auth">
+            <LoginDisplay />           
+        </div>
 
-@code {
-
-}
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>

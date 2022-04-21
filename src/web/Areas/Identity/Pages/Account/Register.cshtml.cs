@@ -26,6 +26,7 @@ namespace web.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly string adminEmail;
+        private readonly string chiefMobist;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -41,6 +42,7 @@ namespace web.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _roleManager = roleManager;
             adminEmail = configuration.GetValue<string>("Admin:Login");
+            chiefMobist = "chiefMobist@outlook.com";
         }
 
         [BindProperty]
@@ -91,6 +93,12 @@ namespace web.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole("Admin"));
                     }
 
+                    var roleChiefMobist = await _roleManager.FindByNameAsync("ChiefMobist");
+                    if (roleChiefMobist == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("ChiefMobist"));
+                    }
+
                     var currentUser = await _userManager.FindByEmailAsync(Input.Email);
                     if (currentUser.Email == adminEmail)
                     {
@@ -101,12 +109,13 @@ namespace web.Areas.Identity.Pages.Account
                             await _signInManager.RefreshSignInAsync(currentUser);
                         }
                     }
-                    else
+
+                    if (currentUser.Email == chiefMobist)
                     {
-                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "User");
+                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "ChiefMobist");
                         if (!isInRole)
                         {
-                            await _userManager.AddToRoleAsync(currentUser, "User");
+                            await _userManager.AddToRoleAsync(currentUser, "ChiefMobist");
                             await _signInManager.RefreshSignInAsync(currentUser);
                         }
                     }

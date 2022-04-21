@@ -5,7 +5,13 @@
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Admin Home</h3>
+
+ <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page">Admin Home</li>
+        </ol>
+  </nav>
+
 
 @code {
 

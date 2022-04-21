@@ -1,9 +1,14 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="main">
-  
-    <div class="content px-4 m-md-7 space-0 space-lg-2">
-        @Body
+ 
+<div class="page">
+    <div class="main">
+        <div class="top-row px-4 auth">
+            <LoginDisplay />           
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
     </div>
-   
 </div>
