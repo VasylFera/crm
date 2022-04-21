@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-
+@inject IStringLocalizer<App> _localizer
 <div class="page">
    @* <div class="sidebar">
         <NavMenu />
@@ -7,6 +7,7 @@
 
     <div class="main">
         <div class="top-row px-4 auth">
+             <span class="pr-2" style="color:blue">@_localizer["Site Language"]</span><ChooseLanguage />
             <LoginDisplay />
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>

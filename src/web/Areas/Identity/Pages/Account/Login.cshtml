@@ -1,5 +1,8 @@
 ﻿@page
 @model LoginModel
+@using Microsoft.Extensions.Localization 
+@inject IStringLocalizer<App> _localizer
+@using web.Resources
 
 @{
     ViewData["Title"] = "Log in";
@@ -12,15 +15,15 @@
                 <div class="card-img-left d-none d-md-flex">
                 </div>
                 <div class="card-body p-4 p-sm-5">
-                    <h6 class="card-title text-center mb-3 fw-light fs-5">Login</h6>
+                    <h6 class="card-title text-center mb-3 fw-light fs-5">Логін</h6>
                     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        <h4>Please select a login method.</h4>
+                        <h4>@_localizer["Будь ласка введіть логін та пароль."]</h4>
                         <hr />
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-floating mb-3">
                             <input asp-for="Input.Email" class="form-control" />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            <label for="floatingInputEmail">Email address</label>
+                            <label for="floatingInputEmail">@_localizer["Email"]</label>
                         </div>
                         <hr>
                         <div class="form-floating mb-3">
