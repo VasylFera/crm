@@ -1,0 +1,12 @@
+﻿@page "/admin-home"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Admin Home</h3>
+
+@code {
+
+}
