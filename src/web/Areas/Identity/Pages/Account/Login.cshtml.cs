@@ -24,6 +24,8 @@ namespace web.Areas.Identity.Pages.Account
         private readonly string adminEmail;
         private readonly string chiefMobist;
         private readonly string officer;
+        private readonly string conscription;
+        private readonly string vehicle;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
@@ -36,6 +38,8 @@ namespace web.Areas.Identity.Pages.Account
             adminEmail = configuration.GetValue<string>("Admin:Login");
             chiefMobist = "chiefMobist@outlook.com";
             officer = "officer@outlook.com";
+            conscription = "conscription@outlook.com";
+            vehicle = "vehicle@outlook.com";
         }
 
         [BindProperty]
@@ -129,6 +133,31 @@ namespace web.Areas.Identity.Pages.Account
 
                 }
 
+                if (Input.Email == conscription)
+                {
+                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+
+                    var findUser = await _userManager.FindByEmailAsync(user.Email);
+                    if (findUser != null)
+                    {
+                        await _signInManager.SignInAsync(findUser, isPersistent: false);
+                        return LocalRedirect("~/conscription-home");
+                    }
+
+                }
+
+                if (Input.Email == vehicle)
+                {
+                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+
+                    var findUser = await _userManager.FindByEmailAsync(user.Email);
+                    if (findUser != null)
+                    {
+                        await _signInManager.SignInAsync(findUser, isPersistent: false);
+                        return LocalRedirect("~/vehicle-home");
+                    }
+
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

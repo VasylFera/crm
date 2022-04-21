@@ -28,6 +28,8 @@ namespace web.Areas.Identity.Pages.Account
         private readonly string adminEmail;
         private readonly string chiefMobist;
         private readonly string officer;
+        private readonly string conscription;
+        private readonly string vehicle;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -45,6 +47,8 @@ namespace web.Areas.Identity.Pages.Account
             adminEmail = configuration.GetValue<string>("Admin:Login");
             chiefMobist = "chiefMobist@outlook.com";
             officer = "officer@outlook.com";
+            conscription = "conscription@outlook.com";
+            vehicle = "vehicle@outlook.com";
         }
 
         [BindProperty]
@@ -107,6 +111,18 @@ namespace web.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole("Officer"));
                     }
 
+                    var roleConscription = await _roleManager.FindByNameAsync("Conscription");
+                    if (roleConscription == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Conscription"));
+                    }
+
+                    var roleVehicle = await _roleManager.FindByNameAsync("Vehicle");
+                    if (roleVehicle == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Vehicle"));
+                    }
+
                     var currentUser = await _userManager.FindByEmailAsync(Input.Email);
                     if (currentUser.Email == adminEmail)
                     {
@@ -134,6 +150,26 @@ namespace web.Areas.Identity.Pages.Account
                         if (!isInRole)
                         {
                             await _userManager.AddToRoleAsync(currentUser, "Officer");
+                            await _signInManager.RefreshSignInAsync(currentUser);
+                        }
+                    }
+
+                    if (currentUser.Email == conscription)
+                    {
+                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "Conscription");
+                        if (!isInRole)
+                        {
+                            await _userManager.AddToRoleAsync(currentUser, "Conscription");
+                            await _signInManager.RefreshSignInAsync(currentUser);
+                        }
+                    }
+
+                    if (currentUser.Email == vehicle)
+                    {
+                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "Vehicle");
+                        if (!isInRole)
+                        {
+                            await _userManager.AddToRoleAsync(currentUser, "Vehicle");
                             await _signInManager.RefreshSignInAsync(currentUser);
                         }
                     }
