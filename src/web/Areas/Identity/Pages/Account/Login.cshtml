@@ -23,27 +23,28 @@
                         <div class="form-floating mb-3">
                             <input asp-for="Input.Email" class="form-control" />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            <label for="floatingInputEmail">@_localizer["Email"]</label>
+                            <label for="floatingInputEmail">@_localizer["Логін"]</label>
                         </div>
                         <hr>
                         <div class="form-floating mb-3">
                             <input asp-for="Input.Password" class="form-control" />
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            <label for="floatingPassword">Password</label>
+                            <label for="floatingPassword">@_localizer["Пароль"]</label>
                         </div>
                         <div class="d-grid mb-2">
                             <div class="checkbox">
                                 <label asp-for="Input.RememberMe">
                                     <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    @*@Html.DisplayNameFor(m => m.Input.RememberMe)*@
+                                     <label for="floatingInputEmail">@_localizer["Запам'ятати мене?"]</label>
                                 </label>
                             </div>
                         </div>
                         <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Login</button>
+                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Вхід</button>
                         </div>
                         <p>
-                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            <a id="forgot-password" asp-page="./ForgotPassword">@_localizer["Забув пароль?"]</a>
                         </p>
                         <hr class="my-4">
                     </form>                 
