@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using web.Areas.Identity;
@@ -43,21 +44,16 @@ namespace web
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<WeatherForecastService>();
+            
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("uk-UA")};
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("uk-UA");
+                options.SupportedUICultures = supportedCultures;
+            });
         }
 
-        private RequestLocalizationOptions GetLocalizationOptions()
-        {
-            var cultures = Configuration.GetSection("Cultures")
-                .GetChildren().ToDictionary(x => x.Key, x => x.Value);
-
-            var supportedCultures = cultures.Keys.ToArray();
-
-            var localizationOptions = new RequestLocalizationOptions()
-                .AddSupportedCultures(supportedCultures)
-                .AddSupportedUICultures(supportedCultures);
-
-            return localizationOptions;
-        }
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,7 +72,8 @@ namespace web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRequestLocalization(GetLocalizationOptions());
+            app.UseRequestLocalization();
+            
             app.UseRouting();
 
             app.UseAuthentication();

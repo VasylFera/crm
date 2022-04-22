@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422113405_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,9 +320,6 @@ namespace web.Data.Migrations
                     b.Property<string>("Sex")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("ЬaritalІtatus")
                         .HasColumnType("bit");
 
@@ -329,8 +328,6 @@ namespace web.Data.Migrations
                     b.HasIndex("BloodTypeId");
 
                     b.HasIndex("PlaceOfBirthId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PersonalData");
                 });
@@ -438,15 +435,9 @@ namespace web.Data.Migrations
                         .WithMany()
                         .HasForeignKey("PlaceOfBirthId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("BloodType");
 
                     b.Navigation("PlaceOfBirth");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

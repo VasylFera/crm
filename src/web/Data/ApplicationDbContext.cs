@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using web.EF;
 using web.Extension;
 
 namespace web.Data
@@ -17,5 +19,9 @@ namespace web.Data
                 ConnectionString.Value = Database.GetDbConnection().ConnectionString;
             }
         }
+
+        public DbSet<EF.PersonalDataModel> PersonalData { get; set; }
+        public DbSet<PlaceOfBirthModel> PlaceOfBirth { get; set; }
+        public DbSet<BloodTypeModel> BloodType { get; set; }
     }
 }

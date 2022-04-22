@@ -1,18 +1,105 @@
 ﻿@page "/admin-home"
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
-
+@inject IStringLocalizer<App> _localizer
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 
+<div class="alert alert-primary" role="alert" @onclick="Collaps">
+    <p class="text-right" style="color:blue;">@_localizer["Admin Home"]
+        <i class="fa fa-bar-chart text-left p-2" style="font-size:36px; text-align:left;"></i>      
+    </p>
 
- <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
-            <li class="breadcrumb-item active" aria-current="page">Admin Home</li>
-        </ol>
-  </nav>
+</div>
+<div class="@(Collapsed? "collapse": "" )">
+
+    <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />
+        <div>
+               <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["Last Name"]:</label>
+                    <input type="text" class="form-control" @bind-value="model.LastName" />
+                </div>
+            </div>
+               <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["First Name"]:</label>
+                    <input type="text" class="form-control" @bind-value="model.FirstName" />
+                </div>
+            </div>
+               <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["Individual Personal Number"]:</label>
+                    <input type="number" class="form-control" @bind-value="model.IndividualPersonalNumber" />
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["Start Date"]:</label>
+                    <input type="date" class="form-control" @bind-value="model.StartDate" />
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["End Date"]:</label>
+                    <input type="date" class="form-control" @bind-value="model.EndDate" />
+                </div>
+            </div>           
+            <div class="row d-flex">
+                <div class="col-lg-12 form-group">
+                    <label for="additional">@_localizer["Choose an option"]:</label>
+                    <InputSelect @bind-Value="model.Filter" class="form-control">
+                        @foreach (var item in Enum.GetValues(typeof(Filter)))
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ml-lg-3 m-3">
+                <button type="submit" class="btn btn-primary">&nbsp;@_localizer["Search"]&nbsp;</button>
+                <NavLink class="btn btn-outline-secondary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+            </div>
+        </div>
+    </EditForm>
+</div>
 
 
 @code {
+    protected bool Collapsed = true;
 
+    PersonalDataDto model = new PersonalDataDto();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        model.StartDate = DateTime.Now;
+        model.EndDate = DateTime.Now;
+    }
+
+    private void Collaps()
+    {       
+        Collapsed = !Collapsed;
+    }
+
+    private void HandleValidSubmit()
+    {
+
+    }
+
+    public void ResetSearch()
+    {
+
+    }
+
+    public enum Filter
+    {
+        GetAll,
+        Officers,
+        Soldiers
+    }
+   
 }

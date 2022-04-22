@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EF\" />
+    <Folder Include="Data\Adapter\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

@@ -1,10 +1,11 @@
 ﻿@page "/chiefMobist-home"
 @layout ChiefMobistLayout
+@inject IStringLocalizer<App> _localizer
 @attribute [Authorize(Roles = "ChiefMobist")]
 
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
-            <li class="breadcrumb-item active" aria-current="page">Chief Mobist Home</li>
+            <li class="breadcrumb-item active" aria-current="page">@_localizer["Chief Mobist Home"]</li>
         </ol>
   </nav>
 
