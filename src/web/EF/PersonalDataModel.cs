@@ -23,5 +23,6 @@ namespace web.EF
         public virtual IdentityUser User { get; set; }
         public virtual PlaceOfBirthModel PlaceOfBirth { get; set; }
         public virtual BloodTypeModel BloodType { get; set; }
+        public virtual StatusModel Status { get; set; }
     }
 }

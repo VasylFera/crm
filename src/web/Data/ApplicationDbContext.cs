@@ -23,5 +23,6 @@ namespace web.Data
         public DbSet<EF.PersonalDataModel> PersonalData { get; set; }
         public DbSet<PlaceOfBirthModel> PlaceOfBirth { get; set; }
         public DbSet<BloodTypeModel> BloodType { get; set; }
+        public DbSet<StatusModel> Status { get; set; }
     }
 }
