@@ -123,6 +123,9 @@
   <data name="Admin Home" xml:space="preserve">
     <value>Комісар</value>
   </data>
+  <data name="Brand Of Mmachine" xml:space="preserve">
+    <value>Марка</value>
+  </data>
   <data name="Chief Mobist Home" xml:space="preserve">
     <value>Начальник відділення обліково-мобілізаційної роботи</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Enterprise" xml:space="preserve">
     <value>Назва підприємства</value>
+  </data>
+  <data name="Factory Name" xml:space="preserve">
+    <value>Найменування підприємства</value>
   </data>
   <data name="FatherName" xml:space="preserve">
     <value>По батькові</value>
@@ -162,10 +168,28 @@
   <data name="Please select a login method." xml:space="preserve">
     <value>Будь ласка введіть логін.</value>
   </data>
+  <data name="Position" xml:space="preserve">
+    <value>Посада</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
   <data name="Site Language" xml:space="preserve">
     <value>Мова програми</value>
+  </data>
+  <data name="State Car of the Number" xml:space="preserve">
+    <value>Номер реєстрації</value>
+  </data>
+  <data name="Type Car" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Year of graduation" xml:space="preserve">
+    <value>Рік випуску</value>
+  </data>
+  <data name="№ Teams" xml:space="preserve">
+    <value>№ Команди</value>
   </data>
 </root>

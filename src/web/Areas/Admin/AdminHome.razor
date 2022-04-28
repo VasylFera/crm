@@ -11,117 +11,6 @@
     </p>
 </div>
 
-@*<div class="input-group input-group-pill">
-                <input type="email" class="form-control" name="email" id="subscribeSrEmail" placeholder="Email address" aria-label="Email address" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid email address." aria-invalid="true">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary btn-sm-wide" id="subscribeButton">Join</button>
-                </div>
-</div>*@
-
-@*<div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-  <div class="card card-frame transition-3d-hover mb-3">
-    <!-- Card -->
-    <a class="card-body" href="#">
-      <div class="media">
-        <div class="u-avatar">
-          <img class="img-fluid rounded" src="./assets/img/160x160/img3.jpg" alt="Image Description">
-        </div>
-        <div class="media-body px-4">
-          <h4 class="h6 text-dark mb-1">@_localizer["Accounting card"]</h4>
-          <small class="d-block text-muted">@_localizer["Major Fera"]</small>
-        </div>
-      </div>
-    </a>
-    <!-- End Card -->
-  </div>
-
-  <div class="card card-frame transition-3d-hover mb-3">
-    <!-- Card -->
-    <a class="card-body" href="#">
-      <div class="media">
-        <div class="u-avatar">
-          <img class="img-fluid rounded" src="./assets/img/160x160/img4.jpg" alt="Image Description">
-        </div>
-        <div class="media-body px-4">
-          <h4 class="h6 text-dark mb-1">Junior UX Designer</h4>
-          <small class="d-block text-muted">Manchester, UK</small>
-        </div>
-      </div>
-    </a>
-    <!-- End Card -->
-  </div>
-
-  <div class="card card-frame transition-3d-hover mb-3">
-    <!-- Card -->
-    <a class="card-body" href="#">
-      <div class="media">
-        <div class="u-avatar">
-          <img class="img-fluid rounded" src="./assets/img/160x160/img5.jpg" alt="Image Description">
-        </div>
-        <div class="media-body px-4">
-          <h4 class="h6 text-dark mb-1">Product Director</h4>
-          <small class="d-block text-muted">New York, NY</small>
-        </div>
-      </div>
-    </a>
-    <!-- End Card -->
-  </div>
-</div>*@
-@*<div class="@(Collapsed? "collapse": "" )">
-
-    <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />
-        <div>
-               <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["Last Name"]:</label>
-                    <input type="text" class="form-control" @bind-value="model.LastName" />
-                </div>
-            </div>
-               <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["First Name"]:</label>
-                    <input type="text" class="form-control" @bind-value="model.FirstName" />
-                </div>
-            </div>
-               <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["Individual Personal Number"]:</label>
-                    <input type="number" class="form-control" @bind-value="model.IndividualPersonalNumber" />
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["Start Date"]:</label>
-                    <input type="date" class="form-control" @bind-value="model.StartDate" />
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["End Date"]:</label>
-                    <input type="date" class="form-control" @bind-value="model.EndDate" />
-                </div>
-            </div>           
-            <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                    <label for="additional">@_localizer["Choose an option"]:</label>
-                    <InputSelect @bind-Value="model.Filter" class="form-control">
-                        @foreach (var item in Enum.GetValues(typeof(Filter)))
-                        {
-                            <option value="@item">@item</option>
-                        }
-                    </InputSelect>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="ml-lg-3 m-3">
-                <button type="submit" class="btn btn-primary">&nbsp;@_localizer["Search"]&nbsp;</button>
-                <NavLink class="btn btn-outline-secondary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
-            </div>
-        </div>
-    </EditForm>
-</div>*@
 
 <!-- Accordion -->
 <div id="paymentDetails" class="accordion">
@@ -154,101 +43,54 @@
               </span>
             </span>
           </span>
-        </button>      
+        </button>    
 
-      </h5>
-
-     
+      </h5>         
 
     </div>
     <div id="cardOne" class="collapse" aria-labelledby="cardHeadingOne" data-parent="#paymentDetails">
-        <div class="row">
-                <div class="card-body px-4">
+           <div class="card-body px-4">
         <!-- Card Details -->
         <div class="row">
-          <div class="col-sm-4 mb-2 mb-sm-0">
-            <h4 class="h6 mb-1 m-3">@_localizer["Search"]</h4>
-           
-
-    <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+           <EditForm Model="@modelPerson" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />
        
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.LastName" placeholder="@_localizer["Last Name"]" aria-label="Last Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid last name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelPerson.LastName" placeholder="@_localizer["Last Name"]" aria-label="Last Name"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.FirstName" placeholder="@_localizer["First Name"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelPerson.FirstName" placeholder="@_localizer["First Name"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.FatherName" placeholder="@_localizer["FatherName"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelPerson.FatherName" placeholder="@_localizer["FatherName"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.IndividualPersonalNumber" placeholder="@_localizer["Individual Personal Number"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Personal Number." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelPerson.IndividualPersonalNumber" placeholder="@_localizer["Individual Personal Number"]" aria-label="Individual Personal Number"  aria-invalid="true">
                   </div>
                 </div>             
-               </div>
-          @*  <div class="row d-flex">                 
-                    <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="date" class="form-control" @bind-value="model.DateOfBirth" placeholder="@_localizer["Date Of Birth"]" aria-label="DateOfBirth" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Date Of Birth." aria-invalid="true">
-                 </div>
-             </div>         
-            </div>*@
-           @*  <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.MilitaryAccountingSpecialty" placeholder="@_localizer["Military Accounting Specialty"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Military Accounting Specialty." aria-invalid="true">
-                  </div>
-                </div>             
-             </div>*@
+               </div>        
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.PlaceOfResidence" placeholder="@_localizer["Place Of Residence"]" aria-label="Individual Place Of Residence" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Place Of Residence." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelPerson.PlaceOfResidence" placeholder="@_localizer["Place Of Residence"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
-             </div>
-             @* <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Enterprise" placeholder="@_localizer["Enterprise"]" aria-label="Individual Enterprise" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Enterprise." aria-invalid="true">
-                  </div>
-                </div>             
-             </div>*@
-      @*   <div class="row d-flex">
-                <div class="col-lg-12 form-group">
-                  <div class="input-group input-group-pill">
-                       <input type="date" class="form-control" @bind-value="model.EndDate" placeholder="@_localizer["Start End"]" aria-label="End Date" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual End Date." aria-invalid="true">
-                 </div>
-                </div>             
-          </div> *@          
-           @* <div class="row d-flex">              
-                <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                    <label for="additional">@_localizer["Choose an option"]:</label>
-                    <InputSelect @bind-Value="model.Filter" class="form-control">
-                        @foreach (var item in Enum.GetValues(typeof(Filter)))
-                        {
-                            <option class="input-group input-group-pill" value="@item">@item</option>
-                        }
-                    </InputSelect>
-                </div>   
-                </div>
-            </div>*@
+             </div>             
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
@@ -256,11 +98,9 @@
                 </div>
             </div>
         </EditForm>
-      </div>
-      <br/>
-     <div class="row d-flex m-10">
-                 <div class="col-lg-12 col-md-12 col-sm-12">
-            <table class="table">
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+              <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -269,30 +109,29 @@
                        <th scope="col">Ім'я</th>
                        <th scope="col">Побатькові</th>
                        <th scope="col">Дата народження</th>
-                      <th scope="col">Населений пункт</th>                     
+                       <th scope="col">Населений пункт</th> 
+                       <th scope="col">Команда</th>  
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">1</th>
+                      <NavLink  href="counter"> 
+                          <th scope="row">1</th> 
+                      </NavLink> 
                       <td>лейтенант</td>
-                       <td>Столярчук</td>
+                      <td>Столярчук</td>
                       <td>Василь</td>
                       <td>Степанович</td>
                       <td>16.09.1984</td>  
-                      <td>Павлів</td>   
+                      <td>Павлів</td> 
+                      <td>А0284</td> 
                    </tr>                   
             </tbody>
           </table>
-        </div>
-        </div>
-
+          </div>
         </div>
         <!-- End Card Details -->
-     
-      </div>
-        </div>
-  
+      </div>     
     </div>
   </div>
   <!-- End Card -->
@@ -311,14 +150,14 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img6.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="d-block font-size-1">Солдати та сержанти</span>
+                  <span class="d-block font-size-1">Облік техніки на підприємствах</span>
                 </span>
               </span>
             </span>
             <span class="col-4 col-md-2 text-md-right">
             </span>
             <span class="col-6 col-md-3">
-              <span class="font-size-1">Expires: 06/2021</span>
+              <span class="font-size-1"></span>
             </span>
             <span class="col-2 col-md-1 text-right">
               <span class="card-btn-arrow">
@@ -330,28 +169,83 @@
       </h5>
     </div>
     <div id="cardTwo" class="collapse" aria-labelledby="cardHeadingTwo" data-parent="#paymentDetails">
-      <div class="card-body px-4">
+          <div class="card-body px-4">
         <!-- Card Details -->
         <div class="row">
-          <div class="col-sm-7 mb-2 mb-sm-0">
-            <h4 class="h6 mb-1">Natalie Curtis</h4>
-            <span class="d-block font-size-1 mb-1">Payoneer</span>
-            <p class="small">
-              <span class="fas fa-info-circle mr-1"></span>
-              Use this card to add funds to Your Front Balance. <a href="#">See Benefits</a>
-            </p>
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+          <EditForm Model="@modelVechicle" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />       
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelVechicle.TypeCar" placeholder="@_localizer["Type Car"]" aria-label="Last Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid last name." aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelVechicle.BrandOfMmachine" placeholder="@_localizer["Brand Of Mmachine"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelVechicle.StateCarNumber" placeholder="@_localizer["State Car of the Number"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelVechicle.YearOfGraduation" placeholder="@_localizer["Year of graduation"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Personal Number." aria-invalid="true">
+                  </div>
+                </div>             
+               </div>
+  
+                <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelVechicle.FactoryName" placeholder="@_localizer["Factory Name"]" aria-label="Individual Place Of Residence" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Place Of Residence." aria-invalid="true">
+                  </div>
+                </div>             
+             </div>                        
+            <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+                </div>
+            </div>
+        </EditForm>
           </div>
-          <div class="col-sm-5 mb-2 mb-sm-0">
-            <h5 class="h6 mb-0">Billing address</h5>
-            <h5 class="h6">Brian Robson</h5>
-            <address class="font-size-1">
-              9455 NE ALDERWOOD RD<br>
-              C/O UZW-FH PORTLAND OREGON 97252<br>
-              PORTLAND, OR, 97252-1777<br>
-              United States
-            </address>
-            <button type="button" class="btn btn-xs btn-soft-secondary mr-1">Delete</button>
-            <button type="button" class="btn btn-xs btn-primary">Edit</button>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Тип</th>
+                        <th scope="col">Марка</th>
+                       <th scope="col">Реєстраційний №</th>
+                       <th scope="col">Рік випуску</th>
+                       <th scope="col">Найменування підприємства</th>
+                       <th scope="col">Технічний стан</th>                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                          <NavLink  href="counter"> 
+                          <th scope="row">1</th> 
+                      </NavLink>                                           
+                      <td>Бус</td>
+                      <td>Mercedess</td>
+                      <td>321-234DC</td>
+                      <td>2010</td>
+                      <td>Галичина</td>  
+                      <td>Справний</td>                     
+                   </tr>                   
+            </tbody>
+          </table>          
           </div>
         </div>
         <!-- End Card Details -->
@@ -359,6 +253,8 @@
     </div>
   </div>
   <!-- End Card -->
+
+
 
   <!-- Card -->
   <div class="card">
@@ -381,7 +277,7 @@
             <span class="col-4 col-md-2 text-md-right">
             </span>
             <span class="col-6 col-md-3">
-              <span class="text-danger font-size-1">Expired: 03/2018</span>
+              <span class="text-danger font-size-1"></span>
             </span>
             <span class="col-2 col-md-1 text-right">
               <span class="card-btn-arrow">
@@ -396,45 +292,83 @@
       <div class="card-body px-4">
         <!-- Card Details -->
         <div class="row">
-          <div class="col-sm-7 mb-2 mb-sm-0">
-            <h4 class="h6 mb-1">Natalie Curtis</h4>
-            <span class="d-block font-size-1 mb-1">Discover Network</span>
-            <p class="small">
-              <span class="fas fa-info-circle mr-1"></span>
-              Use this card to add funds to Your Front Balance. <a href="#">See Benefits</a>
-            </p>
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+           <EditForm Model="@modelMobOfficer" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />
+       
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelMobOfficer.NumberTeam" placeholder="@_localizer["№ Teams"]" aria-label="Last Name"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelMobOfficer.MilitaryAccountingSpecialty" placeholder="@_localizer["Military Accounting Specialty"]" aria-label="First Name"  aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelMobOfficer.Position" placeholder="@_localizer["Position"]" aria-label="First Name"  aria-invalid="true">
+                 </div>
+                </div>             
+              </div>                
+                         
+            <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+                </div>
+            </div>
+        </EditForm>
           </div>
-          <div class="col-sm-5 mb-2 mb-sm-0">
-            <h5 class="h6 mb-0">Billing address</h5>
-            <h5 class="h6">Brian Robson</h5>
-            <address class="font-size-1">
-              63703 Greenfelder Center Suite<br>
-              767 South Jennings, QC Y4E-1K9<br>
-              United States
-            </address>
-            <button type="button" class="btn btn-xs btn-soft-secondary mr-1">Delete</button>
-            <button type="button" class="btn btn-xs btn-primary">Edit</button>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">№ Команди</th>
+                        <th scope="col">ВОС</th>
+                        <th scope="col">Посада</th>  
+                        <th scope="col">В/звання</th> 
+                        <th scope="col">Прізвище Ім'я Побатькові</th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                          <NavLink  href="counter"> 
+                          <th scope="row">1</th> 
+                      </NavLink>                                           
+                      <td>А0284</td>
+                      <td>700 232</td>
+                      <td>Командир відділення</td>   
+                      <td>сержант</td>   
+                      <td>Дмитренко Іван Петрович</td>   
+                   </tr>                   
+            </tbody>
+          </table>          
           </div>
         </div>
         <!-- End Card Details -->
       </div>
     </div>
   </div>
-  <!-- End Card -->
+  <!-- End Card -->    
 </div>
-<!-- End Accordion -->
-
 
 @code {
     protected bool Collapsed = true;
 
-    PersonalDataDto model = new PersonalDataDto();
-
+    PersonalDataDto modelPerson = new PersonalDataDto();
+    VehicleModelDto modelVechicle = new VehicleModelDto();
+    MobOfficerDto modelMobOfficer = new MobOfficerDto();
 
     protected override async Task OnInitializedAsync()
     {
-        model.StartDate = DateTime.Now;
-        model.EndDate = DateTime.Now;
     }
 
     private void Collaps()
