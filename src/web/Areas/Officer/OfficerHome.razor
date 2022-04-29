@@ -1,12 +1,153 @@
 ﻿@page "/officer-home"
 @layout OfficerLayout
+@inject IStringLocalizer<App> _localizer
 @attribute [Authorize(Roles = "Officer")]
 
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
-            <li class="breadcrumb-item active" aria-current="page">Officer Home</li>
+            <li class="breadcrumb-item active" aria-current="page">@_localizer["Mob Officer"]</li>
         </ol>
   </nav>
+
+  <div class="container">
+    <div class="container space-1 space-lg-1">         
+        <div class="w-lg-50 text-center mx-lg-auto mb-7">
+            <h2 class="h1 text-indigo font-weight-medium mb-0" style="font-family:consolas">Облік особового складу</h2>
+        </div>
+    </div>
+    <div class="row mx-n2">
+        <div class="col-sm-6 col-lg-3 px-2 mb-3"> 
+         <NavLink  href="personal-data"> 
+             <div class="card shadow transition-3d-hover p-4">                         
+                 <h4 class="h5 text-lh-sm">Персональні дані</h4>
+                <p class="font-size-1">Додати дані в Облікову картку</p>
+            </div>    
+        </NavLink>                   
+        </div>     
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">           
+            <div class="card shadow transition-3d-hover p-4">                
+                <h4 class="h5 text-lh-sm">Статус</h4>
+                <p class="font-size-1">Додати статус </p>
+            </div>         
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3 mb-sm-0">         
+            <div class="card shadow transition-3d-hover p-4">                
+                <h4 class="h5 text-lh-sm">Населенні пункти</h4>
+                <p class="font-size-1">Додати населений пункт</p>
+            </div>         
+        </div>      
+        <div class="col-sm-6 col-lg-3 px-2">           
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm">Група крові</h4>
+                <p class="font-size-1">Додати групу крові</p>
+            </div>            
+        </div>
+    </div>
+    <div class="row mx-n2">
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">           
+            <div class="card shadow transition-3d-hover p-4">                        
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>               
+            </div>         
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">   
+            <div class="card shadow transition-3d-hover p-4">                              
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>             
+            </div>           
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3 mb-sm-0">          
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>         
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2">         
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>        
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="container space-1 space-lg-1">    
+        <div class="w-lg-50 text-center mx-lg-auto mb-7">
+            <h2 class="h1 text-indigo font-weight-medium mb-0" style="font-family:consolas">Облік техніки</h2>
+        </div>
+    </div>
+    <div class="row mx-n2">
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">         
+            <div class="card shadow transition-3d-hover p-4">                          
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>          
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">          
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>         
+        </div>
+         <div class="col-sm-6 col-lg-3 px-2 mb-3">         
+            <div class="card shadow transition-3d-hover p-4">                             
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>          
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">          
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>         
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="container space-1 space-lg-1">       
+        <div class="w-lg-50 text-center mx-lg-auto mb-7">
+            <h2 class="h1 text-indigo font-weight-medium mb-0" style="font-family:consolas">Мобілізаційне відділення</h2>
+        </div>
+    </div>
+    <div class="row mx-n2">
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">           
+            <div class="card shadow transition-3d-hover p-4">
+                <div class="u-lg-avatar mb-4" style="width:43%;height:43%">
+                    <img class="img-fluid " src="./skills/Azure-DevOps-3.png">
+                </div>            
+                 <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>            
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3">          
+            <div class="card shadow transition-3d-hover p-4">
+                <div class="u-lg-avatar mb-4" style="width:40%;height:40%">
+                    <img class="img-fluid " src="./skills/plug-in_azure-storage.png">
+                </div>
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>                               
+            </div>           
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3 mb-sm-0">           
+            <div class="card shadow transition-3d-hover p-4">
+                <div class="u-lg-avatar mb-6" style="width:95%;height:95%">
+                    <img class="img-fluid rounded-circle" src="./skills/AzureAD.png">
+                </div>
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>          
+        </div>      
+        <div class="col-sm-6 col-lg-3 px-2">          
+            <div class="card shadow transition-3d-hover p-5">
+                <div class="u-lg-avatar mb-4" style="width:100%;height:100%">
+                    <img class="img-fluid " src="./skills/azure.png">
+                </div>               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>           
+        </div>
+    </div>
+</div>
 
 @code {
 

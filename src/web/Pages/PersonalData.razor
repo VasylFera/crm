@@ -1,0 +1,111 @@
+﻿@page "/personal-data"
+@layout OfficerLayout
+@inject IStringLocalizer<App> _localizer
+
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page"><h2>@_localizer["Add personal data"]</h2></li>
+        </ol>
+</nav>
+
+<div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+  <div class="col-md-6 mb-3 mb-md-0">
+    <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="Прізвище" aria-label="Прізвище">
+    </div>
+
+    <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="Ім'я'" aria-label="Ім'я">
+    </div>
+
+     <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="По батькові" aria-label="По батькові" >
+    </div>
+
+    <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="Попереднє прізвище" aria-label="Попереднє прізвище" >
+    </div>
+
+     <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
+    </div>
+
+     <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Стать</option>
+            <option class="input-group-pill mb-2">Чоловіча</option>
+            <option class="input-group-pill mb-2">Жіноча</option>
+     </select>
+
+     <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="Дата народження" aria-label="Дата народження" >
+    </div>
+
+    <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="Відмовився від використання ІПН" >
+    </div>
+
+     <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="ІПН">
+    </div>
+
+     <div class="input-group-pill mb-2">
+      <input type="text" class="form-control" placeholder="УНЗР">
+    </div>
+    <hr />
+    <h3>Місце народження</h3>
+      <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Країна</option>
+            <option class="input-group-pill mb-2">Україна</option>          
+     </select>
+       <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Область</option>
+            <option class="input-group-pill mb-2">Львівська</option>            
+     </select>
+     <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Місто</option>
+            <option class="input-group-pill mb-2">Радехів</option>          
+     </select>
+
+      <div class="input-group-pill mb-2">
+         <input type="text" class="form-control" placeholder="Інше">
+      </div>
+       <hr />
+     <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Група крові</option>
+            <option class="input-group-pill mb-2">O(I)</option>          
+     </select>
+       <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Резус</option>
+            <option class="input-group-pill mb-2">Rh+</option>            
+     </select>
+
+      <div class="input-group-pill mb-2">
+       <input type="text" class="form-control" placeholder="Мобільний телефон">
+    </div>
+     <div class="input-group-pill mb-2">
+       <input type="text" class="form-control" placeholder="Мобільний телефон">
+    </div>
+     <select class="form-control input-group-pill mb-2" >
+            <option class="input-group-pill mb-2" placeholder="Стать">Сімейний стан</option>
+            <option class="input-group-pill mb-2">Одружений</option>          
+     </select>
+       <div class="input-group-pill mb-2">
+       <input type="text" class="form-control" placeholder="Службові відмітки">
+    </div>
+    <div >
+        <br />
+         <div class="col-md-6 mb-3 mb-md-0">
+              <button type="submit" class="btn btn-soft-primary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
+               <NavLink class="btn btn-secondary" href="officer-home">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+         </div>
+    </div> 
+  </div>     
+</div>
+
+</div>
+
+
+@code {
+
+}

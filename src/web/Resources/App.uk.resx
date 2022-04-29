@@ -120,11 +120,17 @@
   <data name="Accounting card" xml:space="preserve">
     <value>Облікова карта</value>
   </data>
+  <data name="Add personal data" xml:space="preserve">
+    <value>Наповнення персональних даних</value>
+  </data>
   <data name="Admin Home" xml:space="preserve">
     <value>Комісар</value>
   </data>
   <data name="Brand Of Mmachine" xml:space="preserve">
     <value>Марка</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Відмінити</value>
   </data>
   <data name="Chief Mobist Home" xml:space="preserve">
     <value>Начальник відділення обліково-мобілізаційної роботи</value>
@@ -162,6 +168,9 @@
   <data name="Military Accounting Specialty" xml:space="preserve">
     <value>ВОС</value>
   </data>
+  <data name="Mob Officer" xml:space="preserve">
+    <value>Начальник мобілізаційного відділу</value>
+  </data>
   <data name="Place Of Residence" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Очистити</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>

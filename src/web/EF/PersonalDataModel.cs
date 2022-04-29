@@ -18,7 +18,7 @@ namespace web.EF
         public bool RefusalOfIndividualPersonalNumber { get; set; }
         public int IndividualPersonalNumber { get; set; }
         public string Email { get; set; }
-        public bool ЬaritalІtatus { get; set; }
+        public bool MaritalStatus { get; set; }
         public string Note { get; set; }
         public virtual IdentityUser User { get; set; }
         public virtual PlaceOfBirthModel PlaceOfBirth { get; set; }
