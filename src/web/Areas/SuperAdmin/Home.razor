@@ -1,0 +1,61 @@
+﻿@page "/home"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<App> _localizer
+@layout AdminLayout
+@attribute [Authorize(Roles = "SuperAdmin")]
+
+
+<div class="alert alert-primary" role="alert" @onclick="Collaps">
+    <p class="text-right" style="color:blue;">@_localizer["Super Admin Home"]
+        <i class="fa fa-bar-chart text-left p-2" style="font-size:36px; text-align:left;"></i>      
+    </p>
+</div>
+
+ <div class="container">
+    <div class="container space-1 space-lg-1">         
+        <div class="w-lg-50 text-center mx-lg-auto mb-7">
+            <h2 class="h1 text-indigo font-weight-medium mb-0" style="font-family:consolas">Наповнення даними</h2>
+        </div>
+    </div>
+    <div class="row mx-n2">
+        <div class="col-sm-6 col-lg-3 px-2 mb-3"> 
+         <NavLink  href="filling-with-data"> 
+             <div class="card shadow transition-3d-hover p-4">                         
+                 <h4 class="h5 text-lh-sm">Наседенні пункти</h4>
+                <p class="font-size-1">Додати назви </p>
+            </div>    
+        </NavLink>                   
+        </div>     
+    @*    <div class="col-sm-6 col-lg-3 px-2 mb-3">           
+            <div class="card shadow transition-3d-hover p-4">                
+                <h4 class="h5 text-lh-sm">Райони</h4>
+                <p class="font-size-1">Додати район </p>
+            </div>         
+        </div>
+        <div class="col-sm-6 col-lg-3 px-2 mb-3 mb-sm-0">         
+            <div class="card shadow transition-3d-hover p-4">                
+                <h4 class="h5 text-lh-sm">Населенні пункти</h4>
+                <p class="font-size-1">Додати населений пункт</p>
+            </div>         
+        </div>      
+        <div class="col-sm-6 col-lg-3 px-2">           
+            <div class="card shadow transition-3d-hover p-4">               
+                <h4 class="h5 text-lh-sm"></h4>
+                <p class="font-size-1"></p>
+            </div>            
+        </div>*@
+    </div>
+ </div>
+
+@code {
+
+    protected bool Collapsed = true;
+
+
+    private void Collaps()
+    {       
+        Collapsed = !Collapsed;
+    }
+
+}

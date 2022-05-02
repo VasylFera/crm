@@ -25,5 +25,8 @@ namespace web.Data
         public DbSet<BloodTypeModel> BloodType { get; set; }
         public DbSet<StatusModel> Status { get; set; }
         public DbSet<VehicleModel> Vehicles { get; set; }
+        public DbSet<RegionModel> Regions { get; set; }
+        public DbSet<DistrictModel> Districts { get; set; }
+        public DbSet<VillageModel> Villages { get; set; }
     }
 }

@@ -120,6 +120,9 @@
   <data name="Accounting card" xml:space="preserve">
     <value>Облікова карта</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
   <data name="Add personal data" xml:space="preserve">
     <value>Наповнення персональних даних</value>
   </data>

@@ -30,6 +30,7 @@ namespace web.Areas.Identity.Pages.Account
         private readonly string officer;
         private readonly string conscription;
         private readonly string vehicle;
+        private readonly string mainAdmin;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -49,6 +50,7 @@ namespace web.Areas.Identity.Pages.Account
             officer = "officer@outlook.com";
             conscription = "conscription@outlook.com";
             vehicle = "vehicle@outlook.com";
+            mainAdmin = "superAdmin@outlook.com";
         }
 
         [BindProperty]
@@ -99,6 +101,12 @@ namespace web.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole("Admin"));
                     }
 
+                    var superAdmin = await _roleManager.FindByNameAsync("SuperAdmin");
+                    if (superAdmin == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
+                    }
+
                     var roleChiefMobist = await _roleManager.FindByNameAsync("ChiefMobist");
                     if (roleChiefMobist == null)
                     {
@@ -130,6 +138,16 @@ namespace web.Areas.Identity.Pages.Account
                         if (!isInRole)
                         {
                             await _userManager.AddToRoleAsync(currentUser, "Admin");
+                            await _signInManager.RefreshSignInAsync(currentUser);
+                        }
+                    }
+
+                    if (currentUser.Email == mainAdmin)
+                    {
+                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "SuperAdmin");
+                        if (!isInRole)
+                        {
+                            await _userManager.AddToRoleAsync(currentUser, "SuperAdmin");
                             await _signInManager.RefreshSignInAsync(currentUser);
                         }
                     }
