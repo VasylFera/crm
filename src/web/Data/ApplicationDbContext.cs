@@ -28,5 +28,6 @@ namespace web.Data
         public DbSet<RegionModel> Regions { get; set; }
         public DbSet<DistrictModel> Districts { get; set; }
         public DbSet<VillageModel> Villages { get; set; }
+        public DbSet<OtgModel> Otgs { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace web.EF
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual VillageModel Village { get; set; }
+        public string Name { get; set; }       
+        public virtual RegionModel Region { get; set; }
     }
 }

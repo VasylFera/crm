@@ -144,6 +144,9 @@
   <data name="Date Of Birth" xml:space="preserve">
     <value>Дата народження</value>
   </data>
+  <data name="District" xml:space="preserve">
+    <value>Район</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Пошта</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="Mob Officer" xml:space="preserve">
     <value>Начальник мобілізаційного відділу</value>
   </data>
+  <data name="Otg" xml:space="preserve">
+    <value>Об'єднана територіальна громада</value>
+  </data>
   <data name="Place Of Residence" xml:space="preserve">
     <value>Населений пункт</value>
   </data>
@@ -182,6 +188,9 @@
   </data>
   <data name="Position" xml:space="preserve">
     <value>Посада</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Область</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Очистити</value>

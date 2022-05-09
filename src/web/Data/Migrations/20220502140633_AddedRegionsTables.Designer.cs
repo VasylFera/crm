@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220502140633_AddedRegionsTables")]
+    partial class AddedRegionsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,52 +285,14 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RegionId")
+                    b.Property<int?>("VillageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RegionId");
+                    b.HasIndex("VillageId");
 
                     b.ToTable("Districts");
-                });
-
-            modelBuilder.Entity("web.EF.OtgModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DistrictId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ImportDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsImported")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("NeedToReimport")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DistrictId");
-
-                    b.ToTable("Otgs");
                 });
 
             modelBuilder.Entity("web.EF.PersonalDataModel", b =>
@@ -471,6 +435,9 @@ namespace web.Data.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ImportDate")
                         .HasColumnType("datetime2");
 
@@ -486,12 +453,9 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("DistrictId");
 
                     b.ToTable("Regions");
                 });
@@ -625,12 +589,7 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("OtgId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OtgId");
 
                     b.ToTable("Villages");
                 });
@@ -688,20 +647,11 @@ namespace web.Data.Migrations
 
             modelBuilder.Entity("web.EF.DistrictModel", b =>
                 {
-                    b.HasOne("web.EF.RegionModel", "Region")
+                    b.HasOne("web.EF.VillageModel", "Village")
                         .WithMany()
-                        .HasForeignKey("RegionId");
+                        .HasForeignKey("VillageId");
 
-                    b.Navigation("Region");
-                });
-
-            modelBuilder.Entity("web.EF.OtgModel", b =>
-                {
-                    b.HasOne("web.EF.DistrictModel", "District")
-                        .WithMany()
-                        .HasForeignKey("DistrictId");
-
-                    b.Navigation("District");
+                    b.Navigation("Village");
                 });
 
             modelBuilder.Entity("web.EF.PersonalDataModel", b =>
@@ -733,11 +683,11 @@ namespace web.Data.Migrations
 
             modelBuilder.Entity("web.EF.RegionModel", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("web.EF.DistrictModel", "District")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("DistrictId");
 
-                    b.Navigation("User");
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("web.EF.VehicleModel", b =>
@@ -747,15 +697,6 @@ namespace web.Data.Migrations
                         .HasForeignKey("PersonalDriverId");
 
                     b.Navigation("PersonalDriver");
-                });
-
-            modelBuilder.Entity("web.EF.VillageModel", b =>
-                {
-                    b.HasOne("web.EF.OtgModel", "Otg")
-                        .WithMany()
-                        .HasForeignKey("OtgId");
-
-                    b.Navigation("Otg");
                 });
 #pragma warning restore 612, 618
         }

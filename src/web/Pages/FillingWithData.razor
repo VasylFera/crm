@@ -1,16 +1,16 @@
 ﻿@page "/filling-with-data"
+
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> _localizer
 
 <div class="alert alert-primary" role="alert" @onclick="Collaps">
-    <p class="text-right" style="color:blue;">@_localizer["Admin Home"]
+    <p class="text-right" style="color:blue;">@_localizer["Super Admin Home"]
         <i class="fa fa-bar-chart text-left p-2" style="font-size:36px; text-align:left;"></i>      
     </p>
 </div>
 
 
-<!-- Accordion -->
 <div id="paymentDetails" class="accordion">
   <!-- Card -->
   <div class="card">
@@ -26,7 +26,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img3.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="font-size-1">Назва населених пунктів</span>
+                  <span class="font-size-1">Область</span>
                 </span>
               </span>
             </span>        
@@ -51,82 +51,50 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@fillingWithData" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />
+           <EditForm Model="@fillingWithData" OnValidSubmit="HandleValidSubmitRegion"  class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />
        
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="fillingWithData.Region" placeholder="@_localizer["Область"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="fillingWithData.Name" placeholder="@_localizer["Add new Region"]" aria-label="Region"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
              <div class="row">
                 <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
-            <hr />
-             <select class="form-control input-group-pill mb-2" >
-                   <option class="input-group-pill mb-2" placeholder="Стать">Львівська</option>
-                   <option class="input-group-pill mb-2">Волинська</option>          
-            </select>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="fillingWithData.District" placeholder="@_localizer["Район"]" aria-label="First Name" aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-            <div class="row">
-                <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
-                </div>
-            </div>
-            <hr />
-               <select class="form-control input-group-pill mb-2" >
-                   <option class="input-group-pill mb-2" placeholder="Територіальна громада">Територіальна громада</option>
-                   <option class="input-group-pill mb-2">Радехівська територіальна громада</option>          
-               </select>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="fillingWithData.Village" placeholder="@_localizer["Село"]" aria-label="First Name" aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-                  
-            <div class="row">
-                <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
-                </div>
-            </div>
-        </EditForm>
+         </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-              @*<table class="table">
+              <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">Область</th>
-                        <th scope="col">Район</th>
-                       <th scope="col">Село</th>                       
+                      <th scope="col">Назва</th>     
+                      <th scope="col">Дія</th>   
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <NavLink  href="counter"> 
-                          <th scope="row">1</th> 
-                      </NavLink> 
-                      <td>Львівська</td>
-                      <td>Червоноградський район</td>
-                      <td>Павлів</td>                     
-                   </tr>                   
-            </tbody>
-          </table>*@
+                   
+                  @foreach(var item in getAllRegion)
+                    {        
+                      int index = @getAllRegion.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>          
+                              <td scope="row">@index</td> 
+                              <td >@item.Name</td>    
+                              <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupRegion(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
+                                   </button>
+                              </td>
+                       </tr>                                           
+                      </tbody>      
+                    }    
+          </table>
           </div>
         </div>
         <!-- End Card Details -->
@@ -136,7 +104,7 @@
   <!-- End Card -->
 
   <!-- Card -->
- @* <div class="card">
+  <div class="card">
     <div class="card-header card-collapse" id="cardHeadingTwo">
       <h5 class="mb-0">
         <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
@@ -149,7 +117,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img6.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="d-block font-size-1">Облік техніки на підприємствах</span>
+                  <span class="d-block font-size-1">Район</span>
                 </span>
               </span>
             </span>
@@ -172,91 +140,68 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-          <EditForm Model="@modelVechicle" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />       
+          <EditForm Model="@districtModel" OnValidSubmit="HandleValidSubmitDistrict" class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />           
+             <InputSelect  id="department" @bind-Value="regionId" @oninput="OnValueChangedDistrict"   class="form-control input-group-pill mb-2">
+               <option value="0">-- Виберіть область --</option>
+                @foreach (var item in getAllRegion)
+                {                    
+                    <option class="input-group-pill mb-2" placeholder="Виберіть район" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.TypeCar" placeholder="@_localizer["Type Car"]" aria-label="Last Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid last name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="districtModel.Name" placeholder="@_localizer["Add new District"]" aria-label="District"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.BrandOfMmachine" placeholder="@_localizer["Brand Of Mmachine"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.StateCarNumber" placeholder="@_localizer["State Car of the Number"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.YearOfGraduation" placeholder="@_localizer["Year of graduation"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Personal Number." aria-invalid="true">
-                  </div>
-                </div>             
-               </div>
-  
-                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.FactoryName" placeholder="@_localizer["Factory Name"]" aria-label="Individual Place Of Residence" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Place Of Residence." aria-invalid="true">
-                  </div>
-                </div>             
-             </div>                        
-            <div class="row">
+             <div class="row">
                 <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
-        </EditForm>
+         </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+            <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">Тип</th>
-                        <th scope="col">Марка</th>
-                       <th scope="col">Реєстраційний №</th>
-                       <th scope="col">Рік випуску</th>
-                       <th scope="col">Найменування підприємства</th>
-                       <th scope="col">Технічний стан</th>                      
+                      <th scope="col">Назва</th>                       
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                          <NavLink  href="counter"> 
-                          <th scope="row">1</th> 
-                      </NavLink>                                           
-                      <td>Бус</td>
-                      <td>Mercedess</td>
-                      <td>321-234DC</td>
-                      <td>2010</td>
-                      <td>Галичина</td>  
-                      <td>Справний</td>                     
-                   </tr>                   
-            </tbody>
-          </table>          
+                   @if(count > 0)
+                   {
+                     @foreach(var item in getAllDistrict)
+                      {
+                        int index = @getAllDistrict.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>  
+                             <th scope="row">@index</th> 
+                             <NavLink  href="counter"> 
+                                 <td>@item.Name</td> 
+                            </NavLink> 
+                                                                                         
+                       </tr>                                           
+                      </tbody>      
+                     }       
+                   }                                 
+          </table>
           </div>
         </div>
         <!-- End Card Details -->
       </div>
     </div>
-  </div>*@
+  </div>
   <!-- End Card -->
 
 
 
   <!-- Card -->
-@*  <div class="card">
+  <div class="card">
     <div class="card-header card-collapse" id="cardHeadingThree">
       <h5 class="mb-0">
         <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
@@ -269,7 +214,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img7.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="d-block font-size-1">Начальник моб підготовки</span>
+                  <span class="d-block font-size-1">ОТГ</span>
                 </span>
               </span>
             </span>
@@ -292,91 +237,311 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@modelMobOfficer" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />
-       
+           <EditForm Model="@otgModel" OnValidSubmit="HandleValidSubmitOtg" class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />
+          
+             <InputSelect id="department" @bind-Value="otgId" @oninput="OnValueChangedOtg" class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть район --</option>
+                @foreach (var item in getAllDistrict)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelMobOfficer.NumberTeam" placeholder="@_localizer["№ Teams"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="otgModel.Name" placeholder="@_localizer["Add new Otg"]" aria-label="Otg"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelMobOfficer.MilitaryAccountingSpecialty" placeholder="@_localizer["Military Accounting Specialty"]" aria-label="First Name"  aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelMobOfficer.Position" placeholder="@_localizer["Position"]" aria-label="First Name"  aria-invalid="true">
-                 </div>
-                </div>             
-              </div>                
-                         
-            <div class="row">
+             <div class="row">
                 <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
-        </EditForm>
+         </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
              <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">№ Команди</th>
-                        <th scope="col">ВОС</th>
-                        <th scope="col">Посада</th>  
-                        <th scope="col">В/звання</th> 
-                        <th scope="col">Прізвище Ім'я Побатькові</th> 
+                       <th scope="col">Назва</th>                       
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                          <NavLink  href="counter"> 
-                          <th scope="row">1</th> 
-                      </NavLink>                                           
-                      <td>А0284</td>
-                      <td>700 232</td>
-                      <td>Командир відділення</td>   
-                      <td>сержант</td>   
-                      <td>Дмитренко Іван Петрович</td>   
-                   </tr>                   
-            </tbody>
+                 @foreach(var item in getAllOtg)
+                    {
+                       int index = @getAllOtg.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>   
+                             <th scope="row">@index</th> 
+                             <NavLink  href="counter"> 
+                                <td>@item.Name</td> 
+                            </NavLink>                                                                                           
+                       </tr>                                           
+                      </tbody>      
+                    }      
           </table>          
           </div>
         </div>
         <!-- End Card Details -->
       </div>
     </div>
-  </div>*@
+  </div>
+  <!-- End Card -->    
+
+   <!-- Card -->
+  <div class="card">
+    <div class="card-header card-collapse" id="cardHeadingForth">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
+                data-toggle="collapse"
+                data-target="#cardForth"
+                aria-expanded="false"
+                aria-controls="cardForth">
+          <span class="row align-items-center">
+            <span class="col-md-6 mb-2 mb-md-0">
+              <span class="media align-items-center">
+                <img class="max-width-9 mr-3" src="./assets/img/160x160/img4.jpg" alt="Image Description">
+                <span class="media-body">
+                  <span class="d-block font-size-1">Село</span>
+                </span>
+              </span>
+            </span>
+            <span class="col-4 col-md-2 text-md-right">
+            </span>
+            <span class="col-6 col-md-3">
+              <span class="text-danger font-size-1"></span>
+            </span>
+            <span class="col-2 col-md-1 text-right">
+              <span class="card-btn-arrow">
+                <span class="fas fa-arrow-down small"></span>
+              </span>
+            </span>
+          </span>
+        </button>
+      </h5>
+    </div>
+    <div id="cardForth" class="collapse" aria-labelledby="cardHeadingForth" data-parent="#paymentDetails">
+      <div class="card-body px-4">
+        <!-- Card Details -->
+        <div class="row">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+          <EditForm Model="@villageModel" OnValidSubmit="HandleValidSubmitVillage" class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />
+          
+             <InputSelect id="department" @bind-Value="otgId" @oninput="OnValueChangedVillages" class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть ОТГ --</option>
+                @foreach (var item in getAllOtg)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="villageModel.Name" placeholder="@_localizer["Add new Village"]" aria-label="Village"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+             <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                </div>
+            </div>
+         </EditForm> 
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Назва</th>                     
+                    </tr>
+                  </thead>
+                  @if(count>0)
+                  {
+                   @foreach(var item in getAllVillages)
+                    {  
+                       int index = @getAllVillages.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>           
+                             <th scope="row">@index</th> 
+                             <NavLink  href="counter"> 
+                                 <td>@item.Name</td>  
+                            </NavLink> 
+                                                                                        
+                       </tr>                                           
+                      </tbody>      
+                    }            
+                  }
+                            
+          </table>          
+          </div>
+        </div>
+        <!-- End Card Details -->
+      </div>
+    </div>
+  </div>
   <!-- End Card -->    
 </div>
 
 
-@code {
-    FillingWithDataDto  fillingWithData = new FillingWithDataDto();
+@if (showRegion)
+{
+    <EditForm Model="@fillingWithData" OnValidSubmit="HandleValidSubmitRegion" class="body  p-3 mb-5 rounded ">
+        <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" style="color:red">Редагувати!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(() => ClosePopup())">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-sm">
+                            <tr class="form-group">
+                                <td>Назва</td>
+                                <td><input class="form-control" type="text" @bind-value="fillingWithData.Name" /></td>
+                            </tr>                          
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" @onclick="(() => ClosePopup())" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
 
+
+
+
+@code {
+    RegionDto  fillingWithData = new RegionDto();
+    DistrictDto districtModel = new DistrictDto();
+    OtgDto otgModel = new OtgDto();
+    VillageDto villageModel = new VillageDto();
+
+    string userId ;
+    int regionId;
+    int districtId;
+    int otgId;
     protected bool Collapsed = true;
+    int count = 0;
+    int index = 0;
+    bool showRegion = false;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    List<RegionDto> getAllRegion = new List<RegionDto>();
+    List<DistrictDto> getAllDistrict = new List<DistrictDto>();
+    List<OtgDto> getAllOtg = new List<OtgDto>();
+    List<VillageDto> getAllVillages = new List<VillageDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateTask;
+        userId = authState.User.Claims.FirstOrDefault().Value;
+
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            getAllRegion = RegionAdapter.GetAllRegions();
+            getAllDistrict = RegionAdapter.GetAllDistricts();
+            getAllOtg = RegionAdapter.GetAllOtgs();
+            getAllVillages = RegionAdapter.GetAllVillages();
+
+        }
+    }
 
     private void Collaps()
     {       
-      //  Collapsed = !Collapsed;
+        //  Collapsed = !Collapsed;
     }
 
-     private void HandleValidSubmit()
+    public void ClosePopup()
     {
+        showRegion = false;
+    }
 
+    public void ShowPopupRegion(int id)
+    {
+        showRegion = true;
+        fillingWithData.Id = id;
+        fillingWithData = RegionAdapter.GetRegionId(id);
+
+
+    }
+
+    private void HandleValidSubmitRegion()
+    {       
+        regionId = RegionAdapter.SaveRegion(fillingWithData);
+        getAllRegion = RegionAdapter.GetAllRegions();
+        fillingWithData.Name = string.Empty;
+    }
+
+    private void HandleValidSubmitDistrict()
+    {
+        count++;
+        districtModel.RegionId = regionId;
+        districtId = RegionAdapter.SaveDistrict(districtModel);
+        getAllDistrict = RegionAdapter.GetAllDistricts();
+        districtModel.Name = string.Empty;
+    }
+
+    private void HandleValidSubmitOtg()
+    {
+        otgModel.DistrictId = otgId;
+        otgId = RegionAdapter.SaveOtg(otgModel);
+        getAllOtg = RegionAdapter.GetAllOtgs();
+        otgModel.Name = string.Empty;
+    }
+
+    private void HandleValidSubmitVillage()
+    {
+        villageModel.OtgId = otgId;
+        RegionAdapter.SaveVillage(villageModel);
+        getAllVillages = RegionAdapter.GetAllVillages();
+        villageModel.Name = string.Empty;
     }
 
     public void ResetSearch()
     {
+        count = 0;
+        NavigationManager.NavigateTo("/home");
 
+    }
+
+
+    private void OnValueChangedDistrict(ChangeEventArgs  e)
+    {
+        count++;
+        var getId = e.Value.ToString();
+        int regionId = Int32.Parse(getId);
+        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(regionId);
+        this.StateHasChanged();
+    }
+
+    private void OnValueChangedOtg(ChangeEventArgs  e)
+    {
+        var getId = e.Value.ToString();
+        int districtId = Int32.Parse(getId);
+        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(districtId);
+    }
+
+    private void OnValueChangedVillages(ChangeEventArgs  e)
+    {
+        count++;
+        var getId = e.Value.ToString();
+        int otgId = Int32.Parse(getId);
+        getAllVillages = RegionAdapter.GetAllDistrictsForVillages(otgId);
     }
 }
