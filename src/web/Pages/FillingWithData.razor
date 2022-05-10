@@ -170,7 +170,8 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Назва</th>                       
+                      <th scope="col">Назва</th> 
+                       <th scope="col">Дія</th> 
                     </tr>
                   </thead>
                    @if(count > 0)
@@ -180,11 +181,13 @@
                         int index = @getAllDistrict.IndexOf(item)+1;
                       <tbody>                                           
                         <tr>  
-                             <th scope="row">@index</th> 
-                             <NavLink  href="counter"> 
-                                 <td>@item.Name</td> 
-                            </NavLink> 
-                                                                                         
+                             <th scope="row">@index</th>                              
+                             <td>@item.Name</td>                           
+                             <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupDistrict(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
+                                   </button>
+                              </td>                                                                                         
                        </tr>                                           
                       </tbody>      
                      }       
@@ -268,7 +271,8 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">Назва</th>                       
+                       <th scope="col">Назва</th>   
+                        <th scope="col">Дія</th>
                     </tr>
                   </thead>
                  @foreach(var item in getAllOtg)
@@ -277,9 +281,12 @@
                       <tbody>                                           
                         <tr>   
                              <th scope="row">@index</th> 
-                             <NavLink  href="counter"> 
-                                <td>@item.Name</td> 
-                            </NavLink>                                                                                           
+                            <td>@item.Name</td> 
+                                <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupOtg(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
+                                   </button>
+                              </td>                                                                                     
                        </tr>                                           
                       </tbody>      
                     }      
@@ -360,7 +367,8 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">Назва</th>                     
+                       <th scope="col">Назва</th>
+                        <th scope="col">Дія</th>
                     </tr>
                   </thead>
                   @if(count>0)
@@ -371,9 +379,12 @@
                       <tbody>                                           
                         <tr>           
                              <th scope="row">@index</th> 
-                             <NavLink  href="counter"> 
-                                 <td>@item.Name</td>  
-                            </NavLink> 
+                             <td>@item.Name</td>  
+                            <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupVillage(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
+                                   </button>
+                              </td>  
                                                                                         
                        </tr>                                           
                       </tbody>      
@@ -421,6 +432,95 @@
     </EditForm>
 }
 
+@if (showDistrict)
+{
+    <EditForm Model="@districtModel" OnValidSubmit="HandleValidSubmitDistrict" class="body  p-3 mb-5 rounded ">
+        <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" style="color:red">Редагувати!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(() => ClosePopup())">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-sm">
+                            <tr class="form-group">
+                                <td>Назва</td>
+                                <td><input class="form-control" type="text" @bind-value="districtModel.Name" /></td>
+                            </tr>                          
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" @onclick="(() => ClosePopup())" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+@if (showOtg)
+{
+    <EditForm Model="@otgModel" OnValidSubmit="HandleValidSubmitOtg" class="body  p-3 mb-5 rounded ">
+        <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" style="color:red">Редагувати!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(() => ClosePopup())">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-sm">
+                            <tr class="form-group">
+                                <td>Назва</td>
+                                <td><input class="form-control" type="text" @bind-value="otgModel.Name" /></td>
+                            </tr>                          
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" @onclick="(() => ClosePopup())" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+@if (showVillage)
+{
+    <EditForm Model="@villageModel" OnValidSubmit="HandleValidSubmitVillage" class="body  p-3 mb-5 rounded ">
+        <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" style="color:red">Редагувати!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(() => ClosePopup())">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-sm">
+                            <tr class="form-group">
+                                <td>Назва</td>
+                                <td><input class="form-control" type="text" @bind-value="villageModel.Name" /></td>
+                            </tr>                          
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" @onclick="(() => ClosePopup())" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
 
 
 
@@ -438,6 +538,9 @@
     int count = 0;
     int index = 0;
     bool showRegion = false;
+    bool showDistrict = false;
+    bool showOtg = false;
+    bool showVillage = false;
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -470,6 +573,9 @@
     public void ClosePopup()
     {
         showRegion = false;
+        showDistrict = false;
+        showOtg = false;
+        showVillage = false;
     }
 
     public void ShowPopupRegion(int id)
@@ -477,8 +583,29 @@
         showRegion = true;
         fillingWithData.Id = id;
         fillingWithData = RegionAdapter.GetRegionId(id);
+    }
+
+    public void ShowPopupDistrict(int id)
+    {
+        showDistrict = true;
+        districtModel.Id = id;
+        districtModel = RegionAdapter.GetDistrictId(id);
+    }
 
 
+
+    public void ShowPopupOtg(int id)
+    {
+        showOtg = true;
+        otgModel.Id = id;
+        otgModel = RegionAdapter.GetOtgId(id);
+    }
+
+    public void ShowPopupVillage(int id)
+    {
+        showVillage = true;
+        villageModel.Id = id;
+        villageModel = RegionAdapter.GetVillageId(id);
     }
 
     private void HandleValidSubmitRegion()
@@ -486,6 +613,7 @@
         regionId = RegionAdapter.SaveRegion(fillingWithData);
         getAllRegion = RegionAdapter.GetAllRegions();
         fillingWithData.Name = string.Empty;
+        showRegion = false;
     }
 
     private void HandleValidSubmitDistrict()
@@ -495,14 +623,16 @@
         districtId = RegionAdapter.SaveDistrict(districtModel);
         getAllDistrict = RegionAdapter.GetAllDistricts();
         districtModel.Name = string.Empty;
+        showDistrict = false;
     }
 
     private void HandleValidSubmitOtg()
     {
         otgModel.DistrictId = otgId;
-        otgId = RegionAdapter.SaveOtg(otgModel);
+        RegionAdapter.SaveOtg(otgModel);
         getAllOtg = RegionAdapter.GetAllOtgs();
         otgModel.Name = string.Empty;
+        showOtg = false;
     }
 
     private void HandleValidSubmitVillage()
@@ -511,6 +641,7 @@
         RegionAdapter.SaveVillage(villageModel);
         getAllVillages = RegionAdapter.GetAllVillages();
         villageModel.Name = string.Empty;
+        showVillage = false;
     }
 
     public void ResetSearch()

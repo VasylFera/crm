@@ -141,6 +141,27 @@ namespace web.Data.Adapter
             return result;
         }
 
+        public static DistrictDto GetDistrictId(int Id)
+        {
+            DistrictDto result = new DistrictDto();
+
+            var sql = string.Format(@"EXEC [sp_GetDistrictId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new DistrictDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Name = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Name")
+                };
+            }
+
+            return result;
+        }
+
+
         public static List<DistrictDto> GetAllDistrictsForRegion(int regionId)
         {
             var result = new List<DistrictDto>();
@@ -222,6 +243,26 @@ namespace web.Data.Adapter
             return result;
         }
 
+        public static OtgDto GetOtgId(int Id)
+        {
+           OtgDto result = new OtgDto();
+
+            var sql = string.Format(@"EXEC [sp_GetOtgId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new OtgDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Name = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Name")
+                };
+            }
+
+            return result;
+        }
+
         public static List<OtgDto> GetAllDistrictsForOtg(int districtId)
         {
             var result = new List<OtgDto>();
@@ -289,6 +330,26 @@ namespace web.Data.Adapter
                         Name = DataBaseHelper.GetValueFromRowByName(item, "Name")
                     });
                 }
+            }
+
+            return result;
+        }
+
+        public static VillageDto GetVillageId(int Id)
+        {
+            VillageDto result = new VillageDto();
+
+            var sql = string.Format(@"EXEC [sp_GetVillageId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new VillageDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Name = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Name")
+                };
             }
 
             return result;
