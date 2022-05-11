@@ -378,5 +378,45 @@ namespace web.Data.Adapter
 
             return result;
         }
+
+        public static void DeleteVillage(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_DeleteVillage {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteOtg(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_DeleteOtg {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteDistrict(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_DeleteDistrict {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteRegion(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_DeleteRegion {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
     }
 }

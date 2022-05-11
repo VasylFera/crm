@@ -70,7 +70,7 @@
          </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-              <table class="table">
+              <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -90,6 +90,7 @@
                                    <button class="btn btn-sm btn btn-outline-info">
                                             <img @onclick="(() => ShowPopupRegion(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
                                    </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteRegion(item.Id))" disabled="@DeleteDisabled">Delete</button>
                               </td>
                        </tr>                                           
                       </tbody>      
@@ -166,7 +167,7 @@
          </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-            <table class="table">
+            <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -187,6 +188,7 @@
                                    <button class="btn btn-sm btn btn-outline-info">
                                             <img @onclick="(() => ShowPopupDistrict(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
                                    </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteDistrict(item.Id))" disabled="@DeleteDisabled">Delete</button>
                               </td>                                                                                         
                        </tr>                                           
                       </tbody>      
@@ -267,7 +269,7 @@
          </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+             <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -286,6 +288,7 @@
                                    <button class="btn btn-sm btn btn-outline-info">
                                             <img @onclick="(() => ShowPopupOtg(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
                                    </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteOtg(item.Id))" disabled="@DeleteDisabled">Delete</button>
                               </td>                                                                                     
                        </tr>                                           
                       </tbody>      
@@ -363,7 +366,7 @@
          </EditForm> 
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+             <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -384,6 +387,7 @@
                                    <button class="btn btn-sm btn btn-outline-info">
                                             <img @onclick="(() => ShowPopupVillage(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
                                    </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteVillage(item.Id))" disabled="@DeleteDisabled">Delete</button>
                               </td>  
                                                                                         
                        </tr>                                           
@@ -530,6 +534,7 @@
     OtgDto otgModel = new OtgDto();
     VillageDto villageModel = new VillageDto();
 
+    string DeleteDisabled { get; set; } = null;
     string userId ;
     int regionId;
     int districtId;
@@ -674,5 +679,29 @@
         var getId = e.Value.ToString();
         int otgId = Int32.Parse(getId);
         getAllVillages = RegionAdapter.GetAllDistrictsForVillages(otgId);
+    }
+
+    private void DeleteVillage(int id)
+    {
+        RegionAdapter.DeleteVillage(id);
+        getAllVillages = RegionAdapter.GetAllVillages();
+    }
+
+    private void DeleteOtg(int id)
+    {
+        RegionAdapter.DeleteOtg(id);
+        getAllOtg = RegionAdapter.GetAllOtgs();
+    }
+
+    private void DeleteDistrict(int id)
+    {
+        RegionAdapter.DeleteDistrict(id);
+        getAllDistrict = RegionAdapter.GetAllDistricts();
+    }
+
+     private void DeleteRegion(int id)
+    {
+        RegionAdapter.DeleteRegion(id);
+        getAllRegion = RegionAdapter.GetAllRegions();
     }
 }
