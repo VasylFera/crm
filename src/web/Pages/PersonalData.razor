@@ -10,103 +10,181 @@
 
 <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
-  <div class="col-md-6 mb-3 mb-md-0">
-    <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="Прізвище" aria-label="Прізвище">
-    </div>
+          <div class="col-md-6 mb-3 mb-md-0">
+          <EditForm Model="@personalDataModel" OnValidSubmit="HandleValidSubmitPersonalData" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />       
+           
+        <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.LastName" placeholder="Прізвище" aria-label="Прізвище">
+        </div>
 
-    <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="Ім'я'" aria-label="Ім'я">
-    </div>
+        <div class="input-group-pill mb-2">
+          <input type="text" class="form-control"  @bind-value="personalDataModel.FirstName" placeholder="Ім'я'" aria-label="Ім'я">
+        </div>
 
-     <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="По батькові" aria-label="По батькові" >
-    </div>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.FatherName" placeholder="По батькові" aria-label="По батькові" >
+        </div>
 
-    <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="Попереднє прізвище" aria-label="Попереднє прізвище" >
-    </div>
+        <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.PreviousLastName" placeholder="Попереднє прізвище" aria-label="Попереднє прізвище" >
+        </div>
 
-     <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
-    </div>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.FullNamePatronymicInTheGenitiveCase" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
+        </div>
 
-     <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Стать</option>
-            <option class="input-group-pill mb-2">Чоловіча</option>
-            <option class="input-group-pill mb-2">Жіноча</option>
-     </select>
+         <select class="form-control input-group-pill mb-2" >
+                <option class="input-group-pill mb-2" placeholder="Стать">Стать</option>
+                <option class="input-group-pill mb-2">Чоловіча</option>
+                <option class="input-group-pill mb-2">Жіноча</option>
+         </select>
+                
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження" >
+        </div>
 
-     <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="Дата народження" aria-label="Дата народження" >
-    </div>
+        <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.RefusalOfIndividualPersonalNumber" placeholder="Відмовився від використання ІПН" >
+        </div>
 
-    <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="Відмовився від використання ІПН" >
-    </div>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.PlaceOfResidence" placeholder="ІПН">
+        </div>
 
-     <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="ІПН">
-    </div>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="personalDataModel.Note" placeholder="УНЗР">
+        </div>
+        <hr />
+        <h3>Місце народження</h3>
+          <select class="form-control input-group-pill mb-2" >
+                <option class="input-group-pill mb-2" placeholder="Стать">Країна</option>
+                <option class="input-group-pill mb-2">Україна</option>          
+         </select>
+             <InputSelect id="department" @bind-Value="regionId" @oninput="OnValueChangedRegion"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть Область --</option>
+                @foreach (var item in getAllRegion)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+           <InputSelect id="department" @bind-Value="districtId" @oninput="OnValueChangedDistrict"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть район --</option>
+                @foreach (var item in getAllDistrict)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
 
-     <div class="input-group-pill mb-2">
-      <input type="text" class="form-control" placeholder="УНЗР">
-    </div>
-    <hr />
-    <h3>Місце народження</h3>
-      <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Країна</option>
-            <option class="input-group-pill mb-2">Україна</option>          
-     </select>
-       <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Область</option>
-            <option class="input-group-pill mb-2">Львівська</option>            
-     </select>
-     <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Місто</option>
-            <option class="input-group-pill mb-2">Радехів</option>          
-     </select>
+               <InputSelect id="department" @bind-Value="otgId"  @oninput="OnValueChangedOtg"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть територіальну громаду --</option>
+                @foreach (var item in getAllOtg)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
 
-      <div class="input-group-pill mb-2">
-         <input type="text" class="form-control" placeholder="Інше">
-      </div>
-       <hr />
-     <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Група крові</option>
-            <option class="input-group-pill mb-2">O(I)</option>          
-     </select>
-       <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Резус</option>
-            <option class="input-group-pill mb-2">Rh+</option>            
-     </select>
+              <InputSelect id="department" @bind-Value="villageId"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть село --</option>
+                @foreach (var item in getAllVillages)
+                {
+                    <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
 
-      <div class="input-group-pill mb-2">
-       <input type="text" class="form-control" placeholder="Мобільний телефон">
-    </div>
-     <div class="input-group-pill mb-2">
-       <input type="text" class="form-control" placeholder="Мобільний телефон">
-    </div>
-     <select class="form-control input-group-pill mb-2" >
-            <option class="input-group-pill mb-2" placeholder="Стать">Сімейний стан</option>
-            <option class="input-group-pill mb-2">Одружений</option>          
-     </select>
-       <div class="input-group-pill mb-2">
-       <input type="text" class="form-control" placeholder="Службові відмітки">
-    </div>
-    <div >
-        <br />
-         <div class="col-md-6 mb-3 mb-md-0">
-              <button type="submit" class="btn btn-soft-primary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
-               <NavLink class="btn btn-secondary" href="officer-home">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
-         </div>
-    </div> 
-  </div>     
+          <div class="input-group-pill mb-2">
+             <input type="text" class="form-control" placeholder="Інше">
+          </div>
+           <hr />
+         <select class="form-control input-group-pill mb-2" >
+                <option class="input-group-pill mb-2" placeholder="Стать">Група крові</option>
+                <option class="input-group-pill mb-2">O(I)</option>          
+         </select>
+           <select class="form-control input-group-pill mb-2" >
+                <option class="input-group-pill mb-2" placeholder="Стать">Резус</option>
+                <option class="input-group-pill mb-2">Rh+</option>            
+         </select>
+
+          <div class="input-group-pill mb-2">
+           <input type="text" class="form-control" placeholder="Мобільний телефон">
+        </div>
+         <div class="input-group-pill mb-2">
+           <input type="text" class="form-control" placeholder="Мобільний телефон">
+        </div>
+         <select class="form-control input-group-pill mb-2" >
+                <option class="input-group-pill mb-2" placeholder="Стать">Сімейний стан</option>
+                <option class="input-group-pill mb-2">Одружений</option>          
+         </select>
+           <div class="input-group-pill mb-2">
+           <input type="text" class="form-control" placeholder="Службові відмітки">
+        </div>
+        <div >
+            <br />
+             <div class="col-md-6 mb-3 mb-md-0">
+                  <button type="submit" class="btn btn-soft-primary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
+                   <NavLink class="btn btn-secondary" href="officer-home">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+             </div>
+        </div> 
+    
+     </EditForm>  
+    </div>   
 </div>
-
 </div>
 
 
 @code {
-    PersonalData personalDataModel = new PersonalData();
+    PersonalDataDto personalDataModel = new PersonalDataDto();
+    // RegionDto regionModel = new RegionDto();
 
+
+
+    List<RegionDto> getAllRegion = new List<RegionDto>();
+    List<DistrictDto> getAllDistrict = new List<DistrictDto>();
+    List<OtgDto> getAllOtg = new List<OtgDto>();
+    List<VillageDto> getAllVillages = new List<VillageDto>();
+
+    int regionId;
+    int districtId;
+    int otgId;
+    int villageId;
+
+    protected override void OnInitialized()
+    {
+        getAllRegion = RegionAdapter.GetAllRegions();
+
+    }
+
+    private void HandleValidSubmitPersonalData()
+    {
+
+    }
+
+    private void OnValueChangedRegion(ChangeEventArgs  e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);
+        regionId = tempId;
+        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(tempId);
+        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(tempId);
+        getAllVillages = RegionAdapter.GetAllDistrictsForVillages(tempId);
+    }
+
+    private void OnValueChangedDistrict(ChangeEventArgs  e)
+    {        
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);
+        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(regionId);
+        var id = getAllDistrict.Select(w => w.Id).FirstOrDefault();
+        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(id);
+    }
+
+    private void OnValueChangedOtg(ChangeEventArgs e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);        
+        var getVillageIg = getAllOtg.Select(q => q.Id).FirstOrDefault();
+        getAllVillages = RegionAdapter.GetAllDistrictsForVillages(tempId);
+    }
+
+   
 }

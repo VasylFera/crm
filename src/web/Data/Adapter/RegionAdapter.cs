@@ -84,6 +84,7 @@ namespace web.Data.Adapter
             return result;
         }
 
+
         public static int SaveDistrict(DistrictDto model)
         {
             var sql = string.Empty;
@@ -355,13 +356,13 @@ namespace web.Data.Adapter
             return result;
         }
 
-        public static List<VillageDto> GetAllDistrictsForVillages(int otgId)
+        public static List<VillageDto> GetAllDistrictsForVillages(int id)
         {
             var result = new List<VillageDto>();
 
             string sql = null;
             sql = string.Format(@"exec [sp_GetAllDistrictsForVillages] {0}",
-            DataBaseHelper.RawSafeSqlString(otgId));
+            DataBaseHelper.RawSafeSqlString(id));
             var sqlResult = DataBaseHelper.GetSqlResult(sql);
 
             if (sqlResult.Rows.Count > 0)
