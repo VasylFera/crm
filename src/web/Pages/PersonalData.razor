@@ -57,10 +57,13 @@
         </div>
         <hr />
         <h3>Місце народження</h3>
-          <select class="form-control input-group-pill mb-2" >
-                <option class="input-group-pill mb-2" placeholder="Стать">Країна</option>
-                <option class="input-group-pill mb-2">Україна</option>          
-         </select>
+           <InputSelect  id="department" @bind-Value="countryId" @oninput="OnValueChangedCountry"   class="form-control input-group-pill mb-2">
+           <option value="0">-- Виберіть країну --</option>
+             @foreach (var item in getAllCountry)
+              {                    
+                  <option class="input-group-pill mb-2" placeholder="Виберіть країну" value="@item.Id">@item.Name</option>
+              }
+          </InputSelect>
              <InputSelect id="department" @bind-Value="regionId" @oninput="OnValueChangedRegion"  class="form-control input-group-pill mb-2">
                    <option value="0">-- Виберіть Область --</option>
                 @foreach (var item in getAllRegion)
@@ -137,12 +140,13 @@
     // RegionDto regionModel = new RegionDto();
 
 
-
+    List<CountryDto> getAllCountry = new List<CountryDto>();
     List<RegionDto> getAllRegion = new List<RegionDto>();
     List<DistrictDto> getAllDistrict = new List<DistrictDto>();
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
 
+    int countryId;
     int regionId;
     int districtId;
     int otgId;
@@ -150,7 +154,7 @@
 
     protected override void OnInitialized()
     {
-        getAllRegion = RegionAdapter.GetAllRegions();
+        getAllCountry= RegionAdapter.GetAllCountries();
 
     }
 
@@ -159,32 +163,40 @@
 
     }
 
+    private void OnValueChangedCountry(ChangeEventArgs  e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);      
+        getAllRegion = RegionAdapter.GetAllRegionsForCountry(tempId);
+
+        this.StateHasChanged();
+    }
+
     private void OnValueChangedRegion(ChangeEventArgs  e)
     {
         var getId = e.Value.ToString();
-        int tempId = Int32.Parse(getId);
-        regionId = tempId;
-        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(tempId);
-        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(tempId);
-        getAllVillages = RegionAdapter.GetAllDistrictsForVillages(tempId);
+        int tempId = Int32.Parse(getId);     
+        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(tempId);  
+        
+        this.StateHasChanged();
     }
 
     private void OnValueChangedDistrict(ChangeEventArgs  e)
     {        
         var getId = e.Value.ToString();
-        int tempId = Int32.Parse(getId);
-        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(regionId);
-        var id = getAllDistrict.Select(w => w.Id).FirstOrDefault();
-        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(id);
+        int tempId = Int32.Parse(getId);   
+        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(tempId);
+
+        this.StateHasChanged();
     }
 
     private void OnValueChangedOtg(ChangeEventArgs e)
     {
         var getId = e.Value.ToString();
-        int tempId = Int32.Parse(getId);        
-        var getVillageIg = getAllOtg.Select(q => q.Id).FirstOrDefault();
+        int tempId = Int32.Parse(getId);       
         getAllVillages = RegionAdapter.GetAllDistrictsForVillages(tempId);
-    }
 
-   
+        this.StateHasChanged();
+    }
+       
 }

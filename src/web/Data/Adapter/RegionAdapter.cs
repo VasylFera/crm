@@ -8,6 +8,106 @@ namespace web.Data.Adapter
 {
     public static class RegionAdapter
     {
+
+        public static int SaveCountry(CountryDto model)
+        {
+            var sql = string.Empty;
+            var countryId = 0;
+
+            if (model.Id > 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveCountry] {0}, {1}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Name));
+                var sqlResult = DataBaseHelper.RunSql(sql);
+                return 0;
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveCountry] {0}, {1}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Name));
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        countryId = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "CountryId");
+                    }
+                }
+            }
+
+            return countryId;
+        }
+
+        public static List<CountryDto> GetAllCountries()
+        {
+            var result = new List<CountryDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllCountries] ");
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new CountryDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
+                        Name = DataBaseHelper.GetValueFromRowByName(item, "Name")
+                    });
+                }
+            }
+
+            return result;
+        }
+
+
+        public static CountryDto GetCountryId(int Id)
+        {
+            CountryDto result = new CountryDto();
+
+            var sql = string.Format(@"EXEC [sp_GetCountryId] {0}",
+               DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new CountryDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Name = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Name")
+                };
+            }
+
+            return result;
+        }
+
+        public static List<RegionDto> GetAllRegionsForCountry(int countryIdId)
+        {
+            var result = new List<RegionDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllRegionsForCountry] {0}",
+            DataBaseHelper.RawSafeSqlString(countryIdId));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new RegionDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
+                        Name = DataBaseHelper.GetValueFromRowByName(item, "Name")
+                    });
+                }
+            }
+
+            return result;
+        }
         public static int SaveRegion(RegionDto model)
         {
             var sql = string.Empty;
@@ -23,9 +123,10 @@ namespace web.Data.Adapter
             }
             else
             {
-                sql = string.Format(@"EXEC [sp_SaveRegion] {0}, {1}",
+                sql = string.Format(@"EXEC [sp_SaveRegion] {0}, {1}, {2}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
-                DataBaseHelper.SafeSqlString(model.Name));
+                DataBaseHelper.SafeSqlString(model.Name),
+                DataBaseHelper.RawSafeSqlString(model.CountryId));
                 var  dataResult = DataBaseHelper.GetSqlResult(sql);
 
                 if (dataResult != null && dataResult.Rows.Count > 0)
@@ -415,6 +516,16 @@ namespace web.Data.Adapter
             if (id > 0)
             {
                 string sql = string.Format(@"exec sp_DeleteRegion {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteCountry(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_DeleteCountry {0}",
                 DataBaseHelper.RawSafeSqlString(id));
                 DataBaseHelper.RunSql(sql);
             }
