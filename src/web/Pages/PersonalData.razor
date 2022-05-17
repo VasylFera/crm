@@ -99,25 +99,35 @@
              <input type="text" class="form-control" placeholder="Інше">
           </div>
            <hr />
-         <select class="form-control input-group-pill mb-2" >
-                <option class="input-group-pill mb-2" placeholder="Стать">Група крові</option>
-                <option class="input-group-pill mb-2">O(I)</option>          
-         </select>
-           <select class="form-control input-group-pill mb-2" >
-                <option class="input-group-pill mb-2" placeholder="Стать">Резус</option>
-                <option class="input-group-pill mb-2">Rh+</option>            
-         </select>
-
+          <label for="additional">@_localizer["Choose an option"]:</label>
+                <InputSelect @bind-Value="personalDataModel.BloodType" class="form-control input-group-pill mb-2">
+                   @foreach (var item in GetTypeBlood)
+                   {
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
+          <label for="additional">@_localizer["Choose an option"]:</label>
+                <InputSelect @bind-Value="personalDataModel.RezusTypeBlood"  class="form-control input-group-pill mb-2" >
+                   @foreach (var item in GetAllTypeBlood)
+                   {
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
+         
           <div class="input-group-pill mb-2">
            <input type="text" class="form-control" placeholder="Мобільний телефон">
         </div>
          <div class="input-group-pill mb-2">
            <input type="text" class="form-control" placeholder="Мобільний телефон">
         </div>
-         <select class="form-control input-group-pill mb-2" >
-                <option class="input-group-pill mb-2" placeholder="Стать">Сімейний стан</option>
-                <option class="input-group-pill mb-2">Одружений</option>          
-         </select>
+        
+           <label for="additional">@_localizer["Choose an option"]:</label>
+                <InputSelect @bind-Value="personalDataModel.Filter" class="form-control input-group-pill mb-2">
+                   @foreach (var item in Enum.GetValues(typeof(Filter)))
+                   {
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
            <div class="input-group-pill mb-2">
            <input type="text" class="form-control" placeholder="Службові відмітки">
         </div>
@@ -151,6 +161,8 @@
     int districtId;
     int otgId;
     int villageId;
+    string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
+    string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
 
     protected override void OnInitialized()
     {
@@ -160,7 +172,7 @@
 
     private void HandleValidSubmitPersonalData()
     {
-
+        
     }
 
     private void OnValueChangedCountry(ChangeEventArgs  e)
@@ -177,7 +189,7 @@
         var getId = e.Value.ToString();
         int tempId = Int32.Parse(getId);     
         getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(tempId);  
-        
+
         this.StateHasChanged();
     }
 
@@ -198,5 +210,26 @@
 
         this.StateHasChanged();
     }
-       
+
+
+
+    public enum Filter
+    {
+        Married,
+        NotMarried           
+    }
+
+    public enum BloodType
+    {
+        I=1,
+        II=2,
+        III=3,
+        IV=4
+    }
+
+    public enum RezusTypeBlood
+    {
+        mines=1,
+        pluse=2
+    }
 }

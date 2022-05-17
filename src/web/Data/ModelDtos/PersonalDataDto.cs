@@ -18,6 +18,8 @@ namespace web.Data.ModelDtos
         public string Email { get; set; }
         public bool FamilyStatus { get; set; }
         public string Note { get; set; }
+        public string BloodType { get; set; }
+        public string RezusTypeBlood { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Filter { get; set; }
