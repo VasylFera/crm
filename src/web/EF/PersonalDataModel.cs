@@ -7,15 +7,16 @@ namespace web.EF
     public class PersonalDataModel: BasicModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string LastName { get; set; }
         public string FatherName { get; set; }
+        public string FirstName { get; set; }
         public string NoneFatherName { get; set; }
         public string PreviousLastName { get; set; }
         public string FullNamePatronymicInTheGenitiveCase { get; set; }
         public string Sex { get; set; }
         public string DateOfBirth { get; set; }
-        public bool RefusalOfIndividualPersonalNumber { get; set; }
+        public string RefusalOfIndividualPersonalNumber { get; set; }
         public int IndividualPersonalNumber { get; set; }
         public string Email { get; set; }
         public bool MaritalStatus { get; set; }

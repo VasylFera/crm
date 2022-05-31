@@ -1,0 +1,54 @@
+﻿@page "/show-data-personal/{Id:int}"
+
+
+<div class="col-sm-12 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Прізвище</th>
+                        <th scope="col">Ім'я</th>
+                         <th scope="col">По батькові</th>
+                         <th scope="col">Дата народження</th>
+                          <th scope="col">Сімейний стан</th>
+                           <th scope="col">Прізвище в родовому відмінку</th>
+                            <th scope="col">ІПН</th>
+                             <th scope="col">Стать</th>
+                    </tr>
+                  </thead>
+                
+                      <tbody>                                           
+                        <tr>           
+                             <th scope="row">1</th> 
+                             <td>@personalDataModel.LastName</td>
+                             <td>@personalDataModel.FirstName</td>  
+                             <td>@personalDataModel.FatherName</td>
+                             <td>@personalDataModel.DateOfBirth</td>
+                             <td>@personalDataModel.FamilyStatus</td>
+                             <td>@personalDataModel.FullNamePatronymicInTheGenitiveCase</td>
+                             <td>@personalDataModel.IndividualPersonalNumber</td>
+                             <td>@personalDataModel.Sex</td>
+                           @* <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupVillage(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
+                                   </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteVillage(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                             </td> *@ 
+                                                                                        
+                       </tr>                                           
+                      </tbody>   
+                            
+          </table>          
+          </div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    PersonalDataDto personalDataModel = new PersonalDataDto();
+
+    protected override  void OnInitialized()
+    {
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+    }
+}

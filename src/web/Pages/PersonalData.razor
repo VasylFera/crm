@@ -1,6 +1,7 @@
 ﻿@page "/personal-data"
 @layout OfficerLayout
 @inject IStringLocalizer<App> _localizer
+@inject NavigationManager _navigationManager
 
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
@@ -34,22 +35,33 @@
           <input type="text" class="form-control" @bind-value="personalDataModel.FullNamePatronymicInTheGenitiveCase" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
         </div>
 
-         <select class="form-control input-group-pill mb-2" >
-                <option class="input-group-pill mb-2" placeholder="Стать">Стать</option>
-                <option class="input-group-pill mb-2">Чоловіча</option>
-                <option class="input-group-pill mb-2">Жіноча</option>
-         </select>
+       @*  <label for="additional">@_localizer["Виберіть стать"]:</label>*@
+                <InputSelect @bind-Value="personalDataModel.Sex"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть стать --</option>
+                   @foreach (var item in GetChooseSex)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
                 
          <div class="input-group-pill mb-2">
-          <input type="text" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження" >
+          <input type="date" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження" >
         </div>
 
-        <div class="input-group-pill mb-2">
-          <input type="text" class="form-control" @bind-value="personalDataModel.RefusalOfIndividualPersonalNumber" placeholder="Відмовився від використання ІПН" >
-        </div>
+      @*   <label for="additional">@_localizer["Виберіть наявність ІПН "]:</label>*@
+             
+                <InputSelect   @bind-Value="personalDataModel.RefusalOfIndividualPersonalNumber" class="form-control input-group-pill mb-2" >
+                       <option value="0">-- Виберіть статус присвоєння ІПН --</option>
+                       @foreach(var item in Enum.GetValues(typeof(RefusalIdNumber)))
+                         {
+                           <option value="@item">@item</option>
+                           
+                        }
+                   
+                </InputSelect>
 
          <div class="input-group-pill mb-2">
-          <input type="text" class="form-control" @bind-value="personalDataModel.PlaceOfResidence" placeholder="ІПН">
+          <input type="text" class="form-control" @bind-value="personalDataModel.IndividualPersonalNumber" placeholder="ІПН">
         </div>
 
          <div class="input-group-pill mb-2">
@@ -114,11 +126,11 @@
                    }
                 </InputSelect>
          
-          <div class="input-group-pill mb-2">
-           <input type="text" class="form-control" placeholder="Мобільний телефон">
+       @*   <div class="input-group-pill mb-2">
+           <input type="text" class="form-control"@bind-value="personalDataModel.Phone1" placeholder="Мобільний телефон">
         </div>
          <div class="input-group-pill mb-2">
-           <input type="text" class="form-control" placeholder="Мобільний телефон">
+           <input type="text" class="form-control" @bind-value="personalDataModel.Phone2" placeholder="Мобільний телефон">
         </div>
         
            <label for="additional">@_localizer["Choose an option"]:</label>
@@ -129,8 +141,8 @@
                    }
                 </InputSelect>
            <div class="input-group-pill mb-2">
-           <input type="text" class="form-control" placeholder="Службові відмітки">
-        </div>
+           <input type="text" class="form-control" @bind-value="personalDataModel.ServiceNote" placeholder="Службові відмітки">
+        </div>*@
         <div >
             <br />
              <div class="col-md-6 mb-3 mb-md-0">
@@ -156,6 +168,7 @@
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
 
+
     int countryId;
     int regionId;
     int districtId;
@@ -163,16 +176,19 @@
     int villageId;
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
+    string[] GetChooseSex = { "чоловік", "жінка" };
 
     protected override void OnInitialized()
     {
         getAllCountry= RegionAdapter.GetAllCountries();
+        personalDataModel.DateOfBirth = DateTime.Now;
 
     }
 
     private void HandleValidSubmitPersonalData()
-    {
-        
+    {        
+        var id = PersonalDataAdapter.SavePersonalData(personalDataModel,countryId,regionId,districtId,otgId,villageId);
+        _navigationManager.NavigateTo("/show-data-personal/" + id);
     }
 
     private void OnValueChangedCountry(ChangeEventArgs  e)
@@ -231,5 +247,12 @@
     {
         mines=1,
         pluse=2
+    }
+
+
+    public enum RefusalIdNumber
+    {
+        yes = 0,
+        no = 1
     }
 }

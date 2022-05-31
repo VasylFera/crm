@@ -10,8 +10,8 @@ using web.Data;
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220502143725_AddedNewMigration")]
-    partial class AddedNewMigration
+    [Migration("20220523144659_AddFildFirstName")]
+    partial class AddFildFirstName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -257,6 +257,44 @@ namespace web.Data.Migrations
                     b.ToTable("BloodType");
                 });
 
+            modelBuilder.Entity("web.EF.CountryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsImported")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NeedToReimport")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Country");
+                });
+
             modelBuilder.Entity("web.EF.DistrictModel", b =>
                 {
                     b.Property<int>("Id")
@@ -333,11 +371,67 @@ namespace web.Data.Migrations
                     b.ToTable("Otgs");
                 });
 
+            modelBuilder.Entity("web.EF.PersonalDataCountryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsImported")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("NeedToReimport")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OtgId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VillageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("DistrictId");
+
+                    b.HasIndex("OtgId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("PersonalDataCountries");
+                });
+
             modelBuilder.Entity("web.EF.PersonalDataModel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("BloodTypeId")
                         .HasColumnType("int");
@@ -355,6 +449,9 @@ namespace web.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullNamePatronymicInTheGenitiveCase")
@@ -467,6 +564,9 @@ namespace web.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -488,12 +588,9 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Regions");
                 });
@@ -577,8 +674,8 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("PersonalDriverId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("PersonalDriverId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StateCarNumber")
                         .HasColumnType("int");
@@ -688,6 +785,15 @@ namespace web.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("web.EF.CountryModel", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("web.EF.DistrictModel", b =>
                 {
                     b.HasOne("web.EF.RegionModel", "Region")
@@ -704,6 +810,39 @@ namespace web.Data.Migrations
                         .HasForeignKey("DistrictId");
 
                     b.Navigation("District");
+                });
+
+            modelBuilder.Entity("web.EF.PersonalDataCountryModel", b =>
+                {
+                    b.HasOne("web.EF.CountryModel", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("web.EF.DistrictModel", "District")
+                        .WithMany()
+                        .HasForeignKey("DistrictId");
+
+                    b.HasOne("web.EF.OtgModel", "Otg")
+                        .WithMany()
+                        .HasForeignKey("OtgId");
+
+                    b.HasOne("web.EF.RegionModel", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("web.EF.VillageModel", "Village")
+                        .WithMany()
+                        .HasForeignKey("VillageId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Otg");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Village");
                 });
 
             modelBuilder.Entity("web.EF.PersonalDataModel", b =>
@@ -735,11 +874,11 @@ namespace web.Data.Migrations
 
             modelBuilder.Entity("web.EF.RegionModel", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("web.EF.CountryModel", "Country")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CountryId");
 
-                    b.Navigation("User");
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("web.EF.VehicleModel", b =>

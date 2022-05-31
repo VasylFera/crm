@@ -4,7 +4,7 @@ namespace web.Data.ModelDtos
 {
     public class PersonalDataDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string LastName { get; set; }
         public string FatherName { get; set; }
         public string FirstName { get; set; }
@@ -13,7 +13,7 @@ namespace web.Data.ModelDtos
         public string FullNamePatronymicInTheGenitiveCase { get; set; }
         public string Sex { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public bool RefusalOfIndividualPersonalNumber { get; set; }
+        public string RefusalOfIndividualPersonalNumber { get; set; }
         public string IndividualPersonalNumber { get; set; }
         public string Email { get; set; }
         public bool FamilyStatus { get; set; }
@@ -26,5 +26,6 @@ namespace web.Data.ModelDtos
         public string MilitaryAccountingSpecialty { get; set; }
         public string PlaceOfResidence { get; set; }
         public string  Enterprise { get; set; }
+        public bool MaritalStatus { get; set; }
     }
 }
