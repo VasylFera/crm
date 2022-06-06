@@ -187,6 +187,11 @@
 
     private void HandleValidSubmitPersonalData()
     {        
+        if(string.IsNullOrEmpty(personalDataModel.IndividualPersonalNumber))
+        {
+            personalDataModel.IndividualPersonalNumber = "0000000000";
+        }
+
         var id = PersonalDataAdapter.SavePersonalData(personalDataModel,countryId,regionId,districtId,otgId,villageId);
         _navigationManager.NavigateTo("/show-data-personal/" + id);
     }

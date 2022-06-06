@@ -20,7 +20,7 @@ namespace web.Data.Adapter
             //, {12},{13}, {14}, {15}, {16},{17}, {18}, {19}, {20},{21},{22}
             if(personalDataModel.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17}",
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19}",
                 DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
                 DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
                 DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
@@ -38,6 +38,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.RawSafeSqlString(countryId),
                 DataBaseHelper.RawSafeSqlString(regionId),
                 DataBaseHelper.RawSafeSqlString(districtId),
+                DataBaseHelper.RawSafeSqlString(otgId),
+                DataBaseHelper.RawSafeSqlString(villageId),
                 DataBaseHelper.SafeSqlString(personalDataModel.FirstName));
 
                 //DataBaseHelper.RawSafeSqlString(villageId),

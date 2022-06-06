@@ -389,7 +389,7 @@ namespace web.Data.Adapter
             return result;
         }
 
-        public static int SaveVillage(VillageDto model)
+        public static void SaveVillage(VillageDto model)
         {
             var sql = string.Empty;
        
@@ -399,8 +399,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.Name),
                 DataBaseHelper.RawSafeSqlString(model.OtgId));
-                var sqlResult = DataBaseHelper.RunSql(sql);
-                return 0;
+                var sqlResult = DataBaseHelper.RunSql(sql);                
             }
             else
             {
@@ -408,8 +407,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.Name),
                 DataBaseHelper.RawSafeSqlString(model.OtgId));
-                var sqlResult = DataBaseHelper.RunSql(sql);
-                return 0;
+                var sqlResult = DataBaseHelper.RunSql(sql);               
             }
                        
         }
