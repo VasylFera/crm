@@ -15,12 +15,12 @@ namespace web.Data.Adapter
             {
             var sql = string.Empty;
             var Id = 0;
-            var email = "test@outlook.com";
+          
             var userId = "970c2976-c1ad-4ddb-9f40-0910c5eeb3f1";
             //, {12},{13}, {14}, {15}, {16},{17}, {18}, {19}, {20},{21},{22}
             if(personalDataModel.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19}",
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19},{20},{21},{22}",
                 DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
                 DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
                 DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
@@ -31,7 +31,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.DateOfBirth),
                 DataBaseHelper.SafeSqlString(personalDataModel.RefusalOfIndividualPersonalNumber),
                 DataBaseHelper.SafeSqlString(personalDataModel.IndividualPersonalNumber),
-                DataBaseHelper.SafeSqlString(email),
+                DataBaseHelper.SafeSqlString(personalDataModel.Email),
                 DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatus),
                 DataBaseHelper.SafeSqlString(personalDataModel.Note),
                 DataBaseHelper.SafeSqlString(userId),
@@ -40,15 +40,17 @@ namespace web.Data.Adapter
                 DataBaseHelper.RawSafeSqlString(districtId),
                 DataBaseHelper.RawSafeSqlString(otgId),
                 DataBaseHelper.RawSafeSqlString(villageId),
-                DataBaseHelper.SafeSqlString(personalDataModel.FirstName));
+                DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
+                DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
+                DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
+                DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote));
 
                 //DataBaseHelper.RawSafeSqlString(villageId),
                 //DataBaseHelper.SafeSqlString(personalDataModel.BloodType),
                 //DataBaseHelper.SafeSqlString(personalDataModel.RezusTypeBlood));
-                //   DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
-                //  DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
+              
                 //  DataBaseHelper.SafeSqlString(personalDataModel.FamilyStatus),
-                //  DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote));
+                //  );
                 //  var sqlResult = DataBaseHelper.RunSql(sql);
                 //  return 0;
                 var dataResult = DataBaseHelper.GetSqlResult(sql);
@@ -107,10 +109,12 @@ namespace web.Data.Adapter
                     DateOfBirth = DataBaseHelper.GetDateTimeValueFromRowByName(sqlResult.Rows[0], "DateOfBirth"),
                     IndividualPersonalNumber = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "IndividualPersonalNumber"),
                     Email = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Email"),
+                    VillageId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "VillageId"),
+                    VillageName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "VillageName")
                 };
             }
 
             return result;
-        }
+        }             
     }
 }

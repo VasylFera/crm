@@ -14,6 +14,7 @@
                            <th scope="col">Прізвище в родовому відмінку</th>
                             <th scope="col">ІПН</th>
                              <th scope="col">Стать</th>
+                             <th scope="col">Село</th>
                     </tr>
                   </thead>
                 
@@ -28,6 +29,7 @@
                              <td>@personalDataModel.FullNamePatronymicInTheGenitiveCase</td>
                              <td>@personalDataModel.IndividualPersonalNumber</td>
                              <td>@personalDataModel.Sex</td>
+                              <td>@personalDataModel.VillageName</td>
                            @* <td>
                                    <button class="btn btn-sm btn btn-outline-info">
                                             <img @onclick="(() => ShowPopupVillage(item.Id))" src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/21/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png" />
@@ -49,6 +51,6 @@
 
     protected override  void OnInitialized()
     {
-        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);       
     }
 }

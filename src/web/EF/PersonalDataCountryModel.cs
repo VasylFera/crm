@@ -11,5 +11,6 @@ namespace web.EF
         public virtual DistrictModel District { get; set; }
         public virtual OtgModel Otg { get; set; }
         public virtual VillageModel Village { get; set; }
+        public string IdPersonal { get; set; }
     }
 }

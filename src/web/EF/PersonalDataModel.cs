@@ -25,5 +25,8 @@ namespace web.EF
         public virtual PlaceOfBirthModel PlaceOfBirth { get; set; }
         public virtual BloodTypeModel BloodType { get; set; }
         public virtual StatusModel Status { get; set; }      
+        public string Phone1 { get; set; }
+        public string Phone2 { get; set; }
+        public string ServiceNote { get; set; }
     }
 }

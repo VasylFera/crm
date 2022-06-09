@@ -126,13 +126,15 @@
                    }
                 </InputSelect>
          
-       @*   <div class="input-group-pill mb-2">
+          <div class="input-group-pill mb-2">
            <input type="text" class="form-control"@bind-value="personalDataModel.Phone1" placeholder="Мобільний телефон">
         </div>
          <div class="input-group-pill mb-2">
            <input type="text" class="form-control" @bind-value="personalDataModel.Phone2" placeholder="Мобільний телефон">
         </div>
-        
+         <div class="input-group-pill mb-2">
+           <input type="text" class="form-control"@bind-value="personalDataModel.Email" placeholder="Електронна адресса">
+        </div>
            <label for="additional">@_localizer["Choose an option"]:</label>
                 <InputSelect @bind-Value="personalDataModel.Filter" class="form-control input-group-pill mb-2">
                    @foreach (var item in Enum.GetValues(typeof(Filter)))
@@ -142,7 +144,7 @@
                 </InputSelect>
            <div class="input-group-pill mb-2">
            <input type="text" class="form-control" @bind-value="personalDataModel.ServiceNote" placeholder="Службові відмітки">
-        </div>*@
+        </div>
         <div >
             <br />
              <div class="col-md-6 mb-3 mb-md-0">

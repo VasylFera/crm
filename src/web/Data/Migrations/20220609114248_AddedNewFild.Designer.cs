@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220609114248_AddedNewFild")]
+    partial class AddedNewFild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -485,12 +487,6 @@ namespace web.Data.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("PlaceOfBirthId")
                         .HasColumnType("int");
 
@@ -498,9 +494,6 @@ namespace web.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RefusalOfIndividualPersonalNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ServiceNote")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sex")
