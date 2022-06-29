@@ -66,21 +66,12 @@ namespace web.Data.Adapter
             }
             else
             {
-                //sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}",
-                //DataBaseHelper.RawSafeSqlString(model.Id),
-                // DataBaseHelper.SafeSqlString(model.FirstName),
-                //DataBaseHelper.SafeSqlString(model.FatherName),
-                //DataBaseHelper.SafeSqlString(model.LastName));
-                //var dataResult = DataBaseHelper.GetSqlResult(sql);
-
-                //if (dataResult != null && dataResult.Rows.Count > 0)
-                //{
-                //    foreach (DataRow row in dataResult.Rows)
-                //    {
-                //        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
-                //    }
-                //}
-             
+                //sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}",
+                //DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
+                // DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
+                //DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
+                //DataBaseHelper.SafeSqlString(personalDataModel.LastName));
+                //var dataResult = DataBaseHelper.GetSqlResult(sql);                              
             }
 
             return Id;

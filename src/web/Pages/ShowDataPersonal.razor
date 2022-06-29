@@ -1,5 +1,5 @@
 ﻿@page "/show-data-personal/{Id:int}"
-
+@inject NavigationManager _navigationManager
 
 <div class="col-sm-12 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
     <h2 class="text-center">@personalDataModel.LastName  @personalDataModel.FirstName @personalDataModel.FatherName</h2>
@@ -28,7 +28,7 @@
                              <td>@personalDataModel.FirstName</td>  
                              <td>@personalDataModel.FatherName</td>
                              <td>@personalDataModel.DateOfBirth.ToString("d")</td>
-                             <td>@personalDataModel.FamilyStatus</td>
+                             <td>@isMerriad</td>
                              <td>@personalDataModel.FullNamePatronymicInTheGenitiveCase</td>
                              <td>@personalDataModel.IndividualPersonalNumber</td>
                              <td>@personalDataModel.Sex</td>
@@ -42,12 +42,15 @@
                        </tr>                                           
                       </tbody>   
                             
-          </table>          
+          </table>   
+          <div>
+               <button type="submit" class="btn btn-primary" @onclick="(() => MoveTo(personalDataModel.Id))">Взяти на облік</button>
           </div>
+          
 @if(popupFixData)
 {
      <EditForm Model="@personalDataModel" OnValidSubmit="HandleValidSubmitPersonalDataFixed" class="body  p-3 mb-5 rounded ">
-        <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+        <div class="modal-dialog" tabindex="-1" role="dialog" style="display:block;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -75,8 +78,8 @@
                                 <td><input class="form-control" type="date" @bind-value="personalDataModel.DateOfBirth" /></td>
                             </tr>
                               <tr class="form-group">
-                                <td>Fmily Status</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.FamilyStatus" /></td>
+                                <td>Family Status</td>
+                                <td><input class="form-control" type="text" @bind-value="isMerriad" /></td>
                             </tr>
                               <tr class="form-group">
                                 <td>Full Name Patronymic In The Genitive Case</td>
@@ -102,9 +105,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </EditForm>
+    
 }
+          </div>
+
 
 
 @code {
@@ -113,12 +119,21 @@
 
     bool popupFixData = false;
     string message;
+    string isMerriad;
 
     PersonalDataDto personalDataModel = new PersonalDataDto();
 
     protected override  void OnInitialized()
     {
-        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);       
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);  
+        if(personalDataModel.FamilyStatus == true)
+        {
+            isMerriad = "заміжня";
+        }
+        else
+        {
+            isMerriad = "не заміжня";
+        }
     }
 
     public void ClosePopup()
@@ -136,8 +151,13 @@
         message = "";
     }
 
+    private void MoveTo(int id)
+    {
+        _navigationManager.NavigateTo("/take-into-account/" + id);
+    }
+
     private void HandleValidSubmitPersonalDataFixed()
     {
-        
+        PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId);
     }
 }
