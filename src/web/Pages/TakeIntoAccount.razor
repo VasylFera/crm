@@ -1,8 +1,39 @@
 ﻿@page "/take-into-account/{Id:int}"
 
-<h3>TakeIntoAccount</h3>
+<h3>Take-Into-Account</h3>
+
+<div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+          <EditForm Model="@model" OnValidSubmit="HandleValidSubmitTakeIntoAccount" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />      
+                 
+                <InputSelect @bind-Value="model.Name"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть  --</option>
+                   @foreach (var item in GetChooseAccount)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
+                
+        
+    
+     </EditForm>  
+    </div>   
+</div>
+</div>
+
 
 @code {
     [Parameter]
     public int Id { get; set; }
+
+    string[] GetChooseAccount = { "Призовник", "Офіцерський склад","Рядовий, сержанський і старшинський склад" };
+
+    TakeIntoAccountDto model = new TakeIntoAccountDto();
+
+    private void HandleValidSubmitTakeIntoAccount()
+    {
+        
+    }
 }

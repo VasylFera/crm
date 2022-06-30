@@ -28,5 +28,9 @@ namespace web.EF
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
         public string ServiceNote { get; set; }
+        public virtual AccountConscriptModel AccountConscript { get; set; }
+        public virtual AccountSoldierModel AccountSoldier { get; set; }
+        public virtual AccountSergeantModel AccountSergeant { get; set; }
+        public virtual AccountOfficerModel AccountOfficer { get; set; }
     }
 }

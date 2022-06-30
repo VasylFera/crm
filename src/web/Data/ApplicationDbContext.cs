@@ -31,5 +31,9 @@ namespace web.Data
         public DbSet<VillageModel> Villages { get; set; }
         public DbSet<OtgModel> Otgs { get; set; }
         public DbSet<PersonalDataCountryModel> PersonalDataCountries { get; set; }
+        public DbSet<AccountConscriptModel> AccountConscrip { get; set; }
+        public DbSet<AccountSoldierModel> AccountSoldier { get; set; }
+        public DbSet<AccountSergeantModel> AccountSergeant { get; set; }
+        public DbSet<AccountOfficerModel> AccountOfficer { get; set; }
     }
 }
