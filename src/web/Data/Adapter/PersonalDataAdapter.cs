@@ -20,7 +20,7 @@ namespace web.Data.Adapter
             //, {12},{13}, {14}, {15}, {16},{17}, {18}, {19}, {20},{21},{22}
             if(personalDataModel.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19},{20},{21},{22}",
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19},{20},{21},{22},{23}",
                 DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
                 DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
                 DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
@@ -43,7 +43,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
-                DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote));
+                DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote),
+                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId));
 
                 //DataBaseHelper.RawSafeSqlString(villageId),
                 //DataBaseHelper.SafeSqlString(personalDataModel.BloodType),
@@ -101,7 +102,8 @@ namespace web.Data.Adapter
                     IndividualPersonalNumber = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "IndividualPersonalNumber"),
                     Email = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Email"),
                     VillageId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "VillageId"),
-                    VillageName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "VillageName")
+                    VillageName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "VillageName"),
+                    MaritalStatusNameId = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MaritalStatusNameId")
                 };
             }
 

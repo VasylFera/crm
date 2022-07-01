@@ -26,11 +26,12 @@ namespace web.Data.ModelDtos
         public string MilitaryAccountingSpecialty { get; set; }
         public string PlaceOfResidence { get; set; }
         public string  Enterprise { get; set; }
-        public bool MaritalStatus { get; set; }
+        public string MaritalStatus { get; set; }
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
         public string ServiceNote { get; set; }
         public int VillageId { get; set; }
         public string VillageName { get; set; }
+        public string MaritalStatusNameId { get; set; }
     }
 }

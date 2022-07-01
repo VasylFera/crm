@@ -137,9 +137,9 @@
         </div>
            <label for="additional">@_localizer["Choose an option"]:</label>
                 <InputSelect @bind-Value="personalDataModel.Filter" class="form-control input-group-pill mb-2">
-                   @foreach (var item in Enum.GetValues(typeof(Filter)))
+                   @foreach (var item in getAllMaritasStatus)
                    {
-                      <option value="@item">@item</option>
+                      <option value="@item.Id">@item.Name</option>
                    }
                 </InputSelect>
            <div class="input-group-pill mb-2">
@@ -169,7 +169,7 @@
     List<DistrictDto> getAllDistrict = new List<DistrictDto>();
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
-
+    List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
 
     int countryId;
     int regionId;
@@ -179,11 +179,13 @@
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
     string[] GetChooseSex = { "чоловік", "жінка" };
+    bool isStatusM = false;
 
     protected override void OnInitialized()
     {
         getAllCountry= RegionAdapter.GetAllCountries();
         personalDataModel.DateOfBirth = DateTime.Now;
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
 
     }
 
@@ -194,6 +196,8 @@
             personalDataModel.IndividualPersonalNumber = "0000000000";
         }
 
+
+        personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
         var id = PersonalDataAdapter.SavePersonalData(personalDataModel,countryId,regionId,districtId,otgId,villageId);
         _navigationManager.NavigateTo("/show-data-personal/" + id);
     }
@@ -236,10 +240,10 @@
 
 
 
-    public enum Filter
+    public enum StausMerriad
     {
-        Married,
-        NotMarried           
+        Married=0,
+        NotMarried =1         
     }
 
     public enum BloodType

@@ -1,0 +1,99 @@
+﻿@page "/marital-status"
+@layout OfficerLayout
+@inject IStringLocalizer<App> _localizer
+@inject NavigationManager _navigationManager
+
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page"><h2>@_localizer["MaritalStatus"]</h2></li>
+        </ol>
+</nav>
+  <div class="card-body px-4">
+        <!-- Card Details -->
+        <div class="row">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+           <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />
+       
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="model.Name" placeholder="@_localizer["MaritalStatus"]" aria-label="Last Name"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>                                  
+                         
+            <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>                    
+                </div>
+            </div>
+        </EditForm>
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">#</th>
+                       <th scope="col" class="text-center">Name</th> 
+                        <th scope="col" class="text-center">Action</th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                   @{ var i = 0;}
+                     @foreach(var item in listMaritalStatus)
+                      {
+                        <tr>
+                            <th scope="row" class="text-center">@{i++;} @i</th>                             
+                                 <td class="text-center">@item.Name</td>  
+                                  <td class="text-center align-middle font-weight-normal">
+                                  <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
+                                  <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
+                        </td>
+                       </tr>     
+                      } 
+                                     
+            </tbody>
+          </table>          
+          </div>
+        </div>
+        <!-- End Card Details -->
+ </div>
+
+
+@code {
+    MaritalStatusDto model = new MaritalStatusDto();
+    List<MaritalStatusDto> listMaritalStatus = new List<MaritalStatusDto>();
+    int counter = 0;
+    string messageError = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        listMaritalStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+    }
+
+    private void HandleValidSubmit()
+    {
+        MaritalStatusAdapter.SaveMaritalStatus(model);
+        listMaritalStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+        model.Name = string.Empty;
+        
+    }
+
+    private void Cancel()
+    {
+        _navigationManager.NavigateTo("/personal-data");
+    }
+
+    private void Edit(int id)
+    {
+        var temp =  MaritalStatusAdapter.GetMaritalStatusId(id);
+        model.Name = temp.Name;
+        model.Id = temp.Id;
+    }
+    private void Delete(int id)
+    {
+        MaritalStatusAdapter.DeleteMaritalStatus(id);
+        listMaritalStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+    }
+}

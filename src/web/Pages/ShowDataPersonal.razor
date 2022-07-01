@@ -28,7 +28,7 @@
                              <td>@personalDataModel.FirstName</td>  
                              <td>@personalDataModel.FatherName</td>
                              <td>@personalDataModel.DateOfBirth.ToString("d")</td>
-                             <td>@isMerriad</td>
+                             <td>@personalDataModel.MaritalStatus</td>
                              <td>@personalDataModel.FullNamePatronymicInTheGenitiveCase</td>
                              <td>@personalDataModel.IndividualPersonalNumber</td>
                              <td>@personalDataModel.Sex</td>
@@ -43,9 +43,9 @@
                       </tbody>   
                             
           </table>   
-          <div>
+       @*   <div>
                <button type="submit" class="btn btn-primary" @onclick="(() => MoveTo(personalDataModel.Id))">Взяти на облік</button>
-          </div>
+          </div>*@
           
 @if(popupFixData)
 {
@@ -79,7 +79,7 @@
                             </tr>
                               <tr class="form-group">
                                 <td>Family Status</td>
-                                <td><input class="form-control" type="text" @bind-value="isMerriad" /></td>
+                                <td><input class="form-control" type="text" @bind-value="personalDataModel.MaritalStatus" /></td>
                             </tr>
                               <tr class="form-group">
                                 <td>Full Name Patronymic In The Genitive Case</td>
@@ -118,22 +118,17 @@
     public int Id { get; set; }
 
     bool popupFixData = false;
-    string message;
-    string isMerriad;
+    string message;  
 
     PersonalDataDto personalDataModel = new PersonalDataDto();
+    MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
 
     protected override  void OnInitialized()
-    {
-        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);  
-        if(personalDataModel.FamilyStatus == true)
-        {
-            isMerriad = "заміжня";
-        }
-        else
-        {
-            isMerriad = "не заміжня";
-        }
+    {       
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
+        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
+        personalDataModel.MaritalStatus = maritalStatusModel.Name;
     }
 
     public void ClosePopup()
@@ -151,13 +146,14 @@
         message = "";
     }
 
-    private void MoveTo(int id)
-    {
-        _navigationManager.NavigateTo("/take-into-account/" + id);
-    }
+    //private void MoveTo(int id)
+    //{
+    //    _navigationManager.NavigateTo("/take-into-account/" + id);
+    //}
 
     private void HandleValidSubmitPersonalDataFixed()
     {
-       // PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId);
+        // PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId);
     }
+        
 }

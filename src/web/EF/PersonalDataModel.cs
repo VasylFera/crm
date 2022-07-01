@@ -31,6 +31,7 @@ namespace web.EF
         public virtual AccountConscriptModel AccountConscript { get; set; }
         public virtual AccountSoldierModel AccountSoldier { get; set; }
         public virtual AccountSergeantModel AccountSergeant { get; set; }
-        public virtual AccountOfficerModel AccountOfficer { get; set; }
+        public virtual AccountOfficerModel AccountOfficer { get; set; }   
+        public virtual MaritalStatusModel MaritalStatusName { get; set; }
     }
 }
