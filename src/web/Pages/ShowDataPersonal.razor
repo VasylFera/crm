@@ -14,9 +14,8 @@
                           <th scope="col">Сімейний стан</th>
                            <th scope="col">Прізвище в родовому відмінку</th>
                             <th scope="col">ІПН</th>
-                             <th scope="col">Стать</th>
-                            @* ToDo: Add logic fgor select when born on person*@
-                             <th scope="col">Село</th>
+                             <th scope="col">Стать</th>                           
+                             <th scope="col">Населений пункт</th>
                              <th scope="col">Дія</th>
                     </tr>
                   </thead>
@@ -79,7 +78,15 @@
                             </tr>
                               <tr class="form-group">
                                 <td>Family Status</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.MaritalStatus" /></td>
+                               @* <td><input class="form-control" type="text" @bind-value="personalDataModel.MaritalStatus" /></td>*@
+                               <td> <label for="additional">"Choose an option":</label>                                  
+                                <InputSelect @bind-Value="personalDataModel.Filter" class="form-control">
+                                     <option value="">------</option>
+                                   @foreach (var item in getAllMaritasStatus)
+                                   {                                       
+                                      <option value="@item.Id">@item.Name</option>
+                                   }
+                                </InputSelect></td>
                             </tr>
                               <tr class="form-group">
                                 <td>Full Name Patronymic In The Genitive Case</td>
@@ -119,16 +126,18 @@
 
     bool popupFixData = false;
     string message;  
-
+    List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
     PersonalDataDto personalDataModel = new PersonalDataDto();
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
 
     protected override  void OnInitialized()
-    {       
+    {     
+      
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
         maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
         personalDataModel.MaritalStatus = maritalStatusModel.Name;
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
     }
 
     public void ClosePopup()
@@ -139,6 +148,7 @@
     public void ShowPopupPersonalDataFixed(int id)
     {
         popupFixData = true;
+
     }
 
     private void CleaningMessage()
@@ -153,7 +163,16 @@
 
     private void HandleValidSubmitPersonalDataFixed()
     {
-        // PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId);
+        personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
+        
+        PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId,1,1,1,1);
+        popupFixData = false;
+       
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
+        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
+        personalDataModel.MaritalStatus = maritalStatusModel.Name;
     }
         
 }

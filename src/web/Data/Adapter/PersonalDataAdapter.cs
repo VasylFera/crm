@@ -67,12 +67,33 @@ namespace web.Data.Adapter
             }
             else
             {
-                //sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}",
-                //DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
-                // DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
-                //DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
-                //DataBaseHelper.SafeSqlString(personalDataModel.LastName));
-                //var dataResult = DataBaseHelper.GetSqlResult(sql);                              
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19},{20},{21},{22},{23}",
+                DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
+                DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
+                DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
+                DataBaseHelper.SafeSqlString(personalDataModel.LastName),
+                DataBaseHelper.SafeSqlString(personalDataModel.PreviousLastName),
+                DataBaseHelper.SafeSqlString(personalDataModel.FullNamePatronymicInTheGenitiveCase),
+                DataBaseHelper.SafeSqlString(personalDataModel.Sex),
+                DataBaseHelper.SafeSqlString(personalDataModel.DateOfBirth),
+                DataBaseHelper.SafeSqlString(personalDataModel.RefusalOfIndividualPersonalNumber),
+                DataBaseHelper.SafeSqlString(personalDataModel.IndividualPersonalNumber),
+                DataBaseHelper.SafeSqlString(personalDataModel.Email),
+                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatus),
+                DataBaseHelper.SafeSqlString(personalDataModel.Note),
+                DataBaseHelper.SafeSqlString(userId),
+                DataBaseHelper.RawSafeSqlString(countryId),
+                DataBaseHelper.RawSafeSqlString(regionId),
+                DataBaseHelper.RawSafeSqlString(districtId),
+                DataBaseHelper.RawSafeSqlString(otgId),
+                DataBaseHelper.RawSafeSqlString(villageId),
+                DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
+                DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
+                DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
+                DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote),
+                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId));
+                DataBaseHelper.RunSql(sql);
+                
             }
 
             return Id;

@@ -45,7 +45,7 @@
                 </InputSelect>
                 
          <div class="input-group-pill mb-2">
-          <input type="date" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження" >
+          <input type="date" textmode="Date" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження" >
         </div>
 
       @*   <label for="additional">@_localizer["Виберіть наявність ІПН "]:</label>*@
@@ -184,6 +184,7 @@
     protected override void OnInitialized()
     {
         getAllCountry= RegionAdapter.GetAllCountries();
+        
         personalDataModel.DateOfBirth = DateTime.Now;
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
 
