@@ -33,90 +33,16 @@
                              <td>@personalDataModel.Sex</td>
                               <td>@personalDataModel.VillageName</td>
                             <td >
-                                 <img @onclick="(() => ShowPopupPersonalDataFixed(personalDataModel.Id))"  src="./images/edit.png" /> 
+                                 <img @onclick="(() => Edit(personalDataModel.Id))"  src="./images/edit.png" /> 
 
                                    @* <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteVillage(item.Id))" disabled="@DeleteDisabled">Delete</button>*@
-                             </td>  
+                           </td>  
                                                                                         
-                       </tr>                                           
-                      </tbody>   
+                     </tr>                                           
+            </tbody>   
                             
-          </table>   
-       @*   <div>
-               <button type="submit" class="btn btn-primary" @onclick="(() => MoveTo(personalDataModel.Id))">Взяти на облік</button>
-          </div>*@
-          
-@if(popupFixData)
-{
-     <EditForm Model="@personalDataModel" OnValidSubmit="HandleValidSubmitPersonalDataFixed" class="body  p-3 mb-5 rounded ">
-        <div class="modal-dialog" tabindex="-1" role="dialog" style="display:block;">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" style="color:red">Edit Data personal!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(() => ClosePopup())">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-striped table-bordered table-sm">  
-                              <tr class="form-group">
-                                <td>Last Name</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.LastName" /></td>
-                            </tr>
-                            <tr class="form-group">
-                                <td>First Name</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.FirstName" /></td>
-                            </tr>
-                             <tr class="form-group">
-                                <td>Father Name</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.FatherName" /></td>
-                            </tr>
-                              <tr class="form-group">
-                                <td>Date of Birthday</td>
-                                <td><input class="form-control" type="date" @bind-value="personalDataModel.DateOfBirth" /></td>
-                            </tr>
-                              <tr class="form-group">
-                                <td>Family Status</td>
-                               @* <td><input class="form-control" type="text" @bind-value="personalDataModel.MaritalStatus" /></td>*@
-                               <td> <label for="additional">"Choose an option":</label>                                  
-                                <InputSelect @bind-Value="personalDataModel.Filter" class="form-control">
-                                     <option value="">------</option>
-                                   @foreach (var item in getAllMaritasStatus)
-                                   {                                       
-                                      <option value="@item.Id">@item.Name</option>
-                                   }
-                                </InputSelect></td>
-                            </tr>
-                              <tr class="form-group">
-                                <td>Full Name Patronymic In The Genitive Case</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.FullNamePatronymicInTheGenitiveCase" /></td>
-                            </tr>
-                               <tr class="form-group">
-                                <td>Individual Persona lNumber</td>
-                                <td><input class="form-control" type="number" @bind-value="personalDataModel.IndividualPersonalNumber" /></td>
-                            </tr>
-                              <tr class="form-group">
-                                <td>Sex</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.Sex" /></td>
-                            </tr>
-                              <tr class="form-group">
-                                <td>Village Name</td>
-                                <td><input class="form-control" type="text" @bind-value="personalDataModel.VillageName" /></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer" @onclick="(() => CleaningMessage())">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" @onclick="(() => ClosePopup())" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>        
-    </EditForm>
-    
-}
-          </div>
+    </table>   
+</div>
 
 
 
@@ -132,7 +58,7 @@
 
     protected override  void OnInitialized()
     {     
-      
+
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
         maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
@@ -145,9 +71,9 @@
         popupFixData = false;
     }
 
-    public void ShowPopupPersonalDataFixed(int id)
+    public void Edit(int id)
     {
-        popupFixData = true;
+        _navigationManager.NavigateTo("/edit-personal-data/" + id);       
 
     }
 
@@ -164,15 +90,26 @@
     private void HandleValidSubmitPersonalDataFixed()
     {
         personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
-        
+
+        var checkMaritalStatusId = CheackMaritalStatusForEdit();
+        if(!string.IsNullOrEmpty(personalDataModel.MaritalStatusNameId))
+        {
+            personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
+        }
+
         PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId,1,1,1,1);
         popupFixData = false;
-       
+
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
         maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
         personalDataModel.MaritalStatus = maritalStatusModel.Name;
     }
-        
+
+    private string CheackMaritalStatusForEdit()
+    {
+        var temp = PersonalDataAdapter.GetPersonalDataId(Id);
+        return temp.MaritalStatusNameId;
+    }
 }

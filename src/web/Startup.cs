@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using web.Areas.Identity;
 using web.Data;
+using web.Services;
 
 namespace web
 {
@@ -44,7 +45,8 @@ namespace web
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<WeatherForecastService>();
-            
+            services.AddTransient<PdFEditingService>();
+
             var supportedCultures = new List<CultureInfo> { new CultureInfo("uk-UA")};
             services.Configure<RequestLocalizationOptions>(options =>
             {

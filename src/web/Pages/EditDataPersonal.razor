@@ -1,0 +1,241 @@
+﻿@page "/edit-personal-data"
+@page "/edit-personal-data/{Id:int}"
+@inject NavigationManager _navigationManager
+@inject IStringLocalizer<App> _localizer
+
+
+<div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+  <EditForm Model="@personalDataModel" OnValidSubmit="HandleValidSubmit" class="card-body shadow-primary-lg p-3 mb-5 rounded">
+        <DataAnnotationsValidator />
+             <h5 class="m-1">Прізвище</h5>
+             <div class="input-group-pill mb-2">
+              <input type="text" class="form-control" @bind-value="personalDataModel.LastName"  placeholder="Прізвище" aria-label="Прізвище">
+            </div>
+            <h5 class="m-1">Ім'я</h5>
+            <div class="input-group-pill mb-2">
+              <input type="text" class="form-control"  @bind-value="personalDataModel.FirstName" placeholder="Ім'я'" aria-label="Ім'я">
+            </div>
+            <h5 class="m-1">По батькові</h5>
+             <div class="input-group-pill mb-2">
+              <input type="text" class="form-control" @bind-value="personalDataModel.FatherName" placeholder="По батькові" aria-label="По батькові" >
+            </div>
+            <h5 class="m-1">Попереднє прізвище</h5>
+            <div class="input-group-pill mb-2">
+              <input type="text" class="form-control" @bind-value="personalDataModel.PreviousLastName" placeholder="Попереднє прізвище" aria-label="Попереднє прізвище" >
+            </div>
+            <h5 class="m-1">ПІБ у родовому відмінку</h5>
+             <div class="input-group-pill mb-2">
+              <input type="text" class="form-control" @bind-value="personalDataModel.FullNamePatronymicInTheGenitiveCase" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
+            </div>
+             <h5 class="m-1">Стать</h5>
+             <InputSelect @bind-Value="personalDataModel.Sex"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть стать --</option>
+                   @foreach (var item in GetChooseSex)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                <h5 class="m-1">ІПН</h5>
+                </InputSelect>
+                 <div class="input-group-pill mb-2">
+                     <input type="text" class="form-control" @bind-value="personalDataModel.IndividualPersonalNumber" placeholder="ІПН">
+                 </div>
+                  <div class="input-group-pill mb-2">
+                        <input type="text" class="form-control" @bind-value="personalDataModel.Note" placeholder="УНЗР">
+                  </div>
+                <hr />
+                 <h5>Місце народження</h5>
+                  <InputSelect  id="department" @bind-Value="countryId" @oninput="OnValueChangedCountry"    class="form-control input-group-pill mb-2">
+                      <option value="0">-- Виберіть країну --</option>
+                      @foreach (var item in getAllCountry)
+                      {                    
+                        <option class="input-group-pill mb-2" placeholder="Виберіть країну" value="@item.Id">@item.Name</option>
+                      }
+                  </InputSelect>
+                   <InputSelect id="department" @bind-Value="regionId" @oninput="OnValueChangedRegion"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть Область --</option>
+                     @foreach (var item in getAllRegion)
+                     {
+                          <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                      }
+                  </InputSelect>
+                   <InputSelect id="department" @bind-Value="districtId" @oninput="OnValueChangedDistrict"   class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть район --</option>
+                         @foreach (var item in getAllDistrict)
+                        {
+                            <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                        }
+                     </InputSelect>
+                      <InputSelect id="department" @bind-Value="otgId" @oninput="OnValueChangedOtg"   class="form-control input-group-pill mb-2">
+                        <option value="0">-- Виберіть територіальну громаду --</option>
+                          @foreach (var item in getAllOtg)
+                          {
+                              <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                          }
+                      </InputSelect>
+                       <InputSelect id="department" @bind-Value="villageId"  class="form-control input-group-pill mb-2">
+                          <option value="0">-- Виберіть село --</option>
+                            @foreach (var item in getAllVillages)
+                              {
+                                <option class="input-group-pill mb-2" value="@item.Id">@item.Name</option>
+                              }
+                       </InputSelect>
+                         <div class="input-group-pill mb-2">
+                            <input type="text" class="form-control" placeholder="Інше">
+                         </div>
+                       <hr />
+                        <label for="additional">@_localizer["Choose an option"]:</label>
+                            <InputSelect @bind-Value="personalDataModel.BloodType" class="form-control input-group-pill mb-2">
+                               @foreach (var item in GetTypeBlood)
+                               {
+                                  <option value="@item">@item</option>
+                               }
+                            </InputSelect>
+                             <label for="additional">@_localizer["Choose an option"]:</label>
+                                <InputSelect @bind-Value="personalDataModel.RezusTypeBlood"  class="form-control input-group-pill mb-2" >
+                                   @foreach (var item in GetAllTypeBlood)
+                                   {
+                                      <option value="@item">@item</option>
+                                   }
+                                </InputSelect>
+                                 <h5 class="m-1">Мобільний телефон</h5>
+                              <div class="input-group-pill mb-2">
+                                   <input type="text" class="form-control"@bind-value="personalDataModel.Phone1" placeholder="Мобільний телефон">
+                               </div>
+                         <h5 class="m-1">Мобільний телефон</h5>
+                      <div class="input-group-pill mb-2">
+                         <input type="text" class="form-control" @bind-value="personalDataModel.Phone2" placeholder="Мобільний телефон">
+                      </div>
+                        <h5 class="m-1">Електронна адресса</h5>
+                      <div class="input-group-pill mb-2">
+                           <input type="text" class="form-control"@bind-value="personalDataModel.Email" placeholder="Електронна адресса">
+                      </div>
+                      <h5 class="m-1">Сімейний стан</h5>
+                      @* <label for="additional">@_localizer["Choose an option"]:</label>*@
+                            <InputSelect @bind-Value="personalDataModel.Filter" class="form-control input-group-pill mb-2">
+                                <option value="">-- Виберіть сімейний стан --</option>
+                                 @foreach (var item in getAllMaritasStatus)
+                                {
+                                 <option value="@item.Id">@item.Name</option>
+                                }
+                                 <h5 class="m-1">Службові відмітки</h5>
+                             </InputSelect>
+                              <div class="input-group-pill mb-2">
+                                 <input type="text" class="form-control" @bind-value="personalDataModel.ServiceNote" placeholder="Службові відмітки">
+                              </div>
+            
+        <div class="row">
+        <div class="ml-sm-3 m-auto">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <NavLink class="btn btn-outline-secondary" @onclick="(() => Back(personalDataModel.Id))">Cancel</NavLink>
+        </div>      
+    </div>
+</EditForm>
+          </div>   
+    </div>   
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    int countryId;
+    int regionId;
+    int districtId;
+    int otgId;
+    int villageId;
+
+    PersonalDataDto personalDataModel = new PersonalDataDto();
+    List<CountryDto> getAllCountry = new List<CountryDto>();
+    List<RegionDto> getAllRegion = new List<RegionDto>();
+    List<DistrictDto> getAllDistrict = new List<DistrictDto>();
+    List<OtgDto> getAllOtg = new List<OtgDto>();
+    List<VillageDto> getAllVillages = new List<VillageDto>();
+    List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
+   
+    MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
+
+    string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
+    string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
+    string[] GetChooseSex = { "чоловік", "жінка" };
+
+    protected override void OnInitialized()
+    {
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        getAllCountry= RegionAdapter.GetAllCountries();
+        personalDataModel.DateOfBirth = DateTime.Now;
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+    }
+
+    private void HandleValidSubmit()
+    {
+        personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
+
+        var checkMaritalStatusId = CheackMaritalStatusForEdit();
+        if(string.IsNullOrEmpty(personalDataModel.MaritalStatusNameId))
+        {
+            personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
+        }
+
+        PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId,1,1,1,villageId);
+       
+
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
+        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
+        personalDataModel.MaritalStatus = maritalStatusModel.Name;
+        _navigationManager.NavigateTo("/show-data-personal/" + Id);
+    }
+
+    private void Back(int id)
+    {
+        _navigationManager.NavigateTo("/show-data-personal/" + id);
+    }
+
+   
+
+    private void OnValueChangedCountry(ChangeEventArgs  e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);      
+        getAllRegion = RegionAdapter.GetAllRegionsForCountry(tempId);
+
+        this.StateHasChanged();
+    }
+
+    private void OnValueChangedRegion(ChangeEventArgs  e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);     
+        getAllDistrict = RegionAdapter.GetAllDistrictsForRegion(tempId);  
+
+        this.StateHasChanged();
+    }
+
+    private void OnValueChangedDistrict(ChangeEventArgs  e)
+    {        
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);   
+        getAllOtg = RegionAdapter.GetAllDistrictsForOtg(tempId);
+
+        this.StateHasChanged();
+    }
+
+    private void OnValueChangedOtg(ChangeEventArgs e)
+    {
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);       
+        getAllVillages = RegionAdapter.GetAllDistrictsForVillages(tempId);
+
+        this.StateHasChanged();
+    } 
+      
+    private string CheackMaritalStatusForEdit()
+    {
+        var temp = PersonalDataAdapter.GetPersonalDataId(Id);
+        return temp.MaritalStatusNameId;
+    }
+}

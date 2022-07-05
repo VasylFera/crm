@@ -17,7 +17,7 @@ namespace web.Data.Adapter
             var Id = 0;
           
             var userId = "970c2976-c1ad-4ddb-9f40-0910c5eeb3f1";
-            //, {12},{13}, {14}, {15}, {16},{17}, {18}, {19}, {20},{21},{22}
+            
             if(personalDataModel.Id == 0)
             {
                 sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19},{20},{21},{22},{23}",
@@ -92,8 +92,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
                 DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote),
                 DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId));
-                DataBaseHelper.RunSql(sql);
-                
+                DataBaseHelper.RunSql(sql);                
             }
 
             return Id;
