@@ -55,15 +55,21 @@
     List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
     PersonalDataDto personalDataModel = new PersonalDataDto();
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
+    AllAddressDto allAddress = new AllAddressDto();
+    VillageDto villageDto = new VillageDto();
 
     protected override  void OnInitialized()
-    {     
-
+    {      
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
         int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
         maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
         personalDataModel.MaritalStatus = maritalStatusModel.Name;
-        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+
+        allAddress = RegionAdapter.GetVillageName(Id);
+        int id = allAddress.Id;
+        villageDto = RegionAdapter.GetVillageId(id);
+        personalDataModel.VillageName = villageDto.Name;
     }
 
     public void ClosePopup()
@@ -97,7 +103,7 @@
             personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
         }
 
-        PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId,1,1,1,1);
+        PersonalDataAdapter.SavePersonalData(personalDataModel);
         popupFixData = false;
 
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();

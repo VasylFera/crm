@@ -29,6 +29,10 @@
              <div class="input-group-pill mb-2">
               <input type="text" class="form-control" @bind-value="personalDataModel.FullNamePatronymicInTheGenitiveCase" placeholder="ПІБ у родовому відмінку" aria-label="ПІБ у родовому відмінку">
             </div>
+            <h5 class="m-1">Дата народження</h5>
+              <div class="input-group-pill mb-2">
+              <input type="date" class="form-control" @bind-value="personalDataModel.DateOfBirth" placeholder="Дата народження" aria-label="Дата народження">
+            </div>
              <h5 class="m-1">Стать</h5>
              <InputSelect @bind-Value="personalDataModel.Sex"  class="form-control input-group-pill mb-2">
                      <option value="0">-- Виберіть стать --</option>
@@ -36,6 +40,9 @@
                    {                     
                       <option value="@item">@item</option>
                    }
+                     <div class="input-group-pill mb-2">
+                     
+                     </div>                    
                 <h5 class="m-1">ІПН</h5>
                 </InputSelect>
                  <div class="input-group-pill mb-2">
@@ -147,6 +154,7 @@
     int otgId;
     int villageId;
 
+
     PersonalDataDto personalDataModel = new PersonalDataDto();
     List<CountryDto> getAllCountry = new List<CountryDto>();
     List<RegionDto> getAllRegion = new List<RegionDto>();
@@ -154,7 +162,7 @@
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
     List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
-   
+
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
 
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
@@ -165,7 +173,7 @@
     {
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         getAllCountry= RegionAdapter.GetAllCountries();
-        personalDataModel.DateOfBirth = DateTime.Now;
+        //personalDataModel.DateOfBirth = DateTime.Now;
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
     }
 
@@ -178,8 +186,10 @@
         {
             personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
         }
+       
+        
 
-        PersonalDataAdapter.SavePersonalData(personalDataModel,personalDataModel.VillageId,1,1,1,villageId);
+        PersonalDataAdapter.SavePersonalData(personalDataModel);
        
 
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();

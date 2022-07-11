@@ -27,10 +27,10 @@ namespace web.Services
             nameField.Value = new PdfString("1234567890");
             
             var nameField1 = (PdfTextField)(form.Fields["LastName"]);
-            nameField1.Value = new PdfString("Василь Столярчук");
+            nameField1.Value = new PdfString("Василь Столярчук", PdfStringEncoding.Unicode);
 
             var nameField2 = (PdfTextField)(form.Fields["FatherName"]);
-            nameField2.Value = new PdfString("Stepanovich");
+            nameField2.Value = new PdfString("Степанович", PdfStringEncoding.Unicode);
 
             var nameField3 = (PdfTextField)(form.Fields["DateofBirthday"]);
             nameField3.Value = new PdfString("16/09/1984");

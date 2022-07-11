@@ -41,6 +41,50 @@ namespace web.Data.Adapter
             return countryId;
         }
 
+        public static int SaveAllAddress(AllAddressDto model)
+        {
+            var sql = string.Empty;
+            var countryId = 0;
+            var userId = "970c2976-c1ad-4ddb-9f40-0910c5eeb3f1";
+
+            if (model.Id > 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveAllAddress] {0}, {1},{2}, {3},{4}, {5},{6},{7}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(userId),
+                DataBaseHelper.SafeSqlString(model.CountryId),
+                DataBaseHelper.SafeSqlString(model.RegionId),
+                DataBaseHelper.SafeSqlString(model.DistrictId),
+                DataBaseHelper.SafeSqlString(model.OtgId),
+                DataBaseHelper.SafeSqlString(model.VillageId),
+                DataBaseHelper.SafeSqlString(model.IdPersonal));
+                var sqlResult = DataBaseHelper.RunSql(sql);
+                return 0;
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveAllAddress] {0}, {1},{2}, {3},{4}, {5},{6},{7}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(userId),
+                DataBaseHelper.SafeSqlString(model.CountryId),
+                DataBaseHelper.SafeSqlString(model.RegionId),
+                DataBaseHelper.SafeSqlString(model.DistrictId),
+                DataBaseHelper.SafeSqlString(model.OtgId),
+                DataBaseHelper.SafeSqlString(model.VillageId),
+                DataBaseHelper.SafeSqlString(model.IdPersonal));
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        countryId = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "ID");
+                    }
+                }
+            }
+
+            return countryId;
+        }
         public static List<CountryDto> GetAllCountries()
         {
             var result = new List<CountryDto>();
@@ -85,13 +129,13 @@ namespace web.Data.Adapter
             return result;
         }
 
-        public static List<RegionDto> GetAllRegionsForCountry(int countryIdId)
+        public static List<RegionDto> GetAllRegionsForCountry(int countryId)
         {
             var result = new List<RegionDto>();
 
             string sql = null;
             sql = string.Format(@"exec [sp_GetAllRegionsForCountry] {0}",
-            DataBaseHelper.RawSafeSqlString(countryIdId));
+            DataBaseHelper.RawSafeSqlString(countryId));
             var sqlResult = DataBaseHelper.GetSqlResult(sql);
 
             if (sqlResult.Rows.Count > 0)
@@ -454,6 +498,25 @@ namespace web.Data.Adapter
 
             return result;
         }
+        public static AllAddressDto GetVillageName(int Id)
+        {
+            AllAddressDto result = new AllAddressDto();
+
+            var sql = string.Format(@"EXEC [sp_GetAddressId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new AllAddressDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "VillageId"),
+                   
+                };
+            }
+
+            return result;
+        }
 
         public static List<VillageDto> GetAllDistrictsForVillages(int id)
         {
@@ -479,6 +542,7 @@ namespace web.Data.Adapter
             return result;
         }
 
+     
         public static void DeleteVillage(int id)
         {
             if (id > 0)

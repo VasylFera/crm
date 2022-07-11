@@ -175,12 +175,14 @@
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
     List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
+    AllAddressDto modelAllAddress = new AllAddressDto();
 
     int countryId;
     int regionId;
     int districtId;
     int otgId;
     int villageId;
+    int personalDataCountryId;
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
     string[] GetChooseSex = { "чоловік", "жінка" };
@@ -204,7 +206,16 @@
 
 
         personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
-        var id = PersonalDataAdapter.SavePersonalData(personalDataModel,countryId,regionId,districtId,otgId,villageId);
+        var id = PersonalDataAdapter.SavePersonalData(personalDataModel);
+        modelAllAddress.CountryId = countryId;
+        modelAllAddress.RegionId = regionId;
+        modelAllAddress.DistrictId = districtId;
+        modelAllAddress.OtgId = districtId;
+        modelAllAddress.VillageId = villageId;
+        modelAllAddress.IdPersonal = Convert.ToString(id);
+        RegionAdapter.SaveAllAddress(modelAllAddress);
+
+        personalDataCountryId = id;
         _navigationManager.NavigateTo("/show-data-personal/" + id);
     }
 

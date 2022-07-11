@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/web/wwwroot/documents/Alfbet.pdf
+/src/web/wwwroot/tempDocument/AlfbetOutput.pdf

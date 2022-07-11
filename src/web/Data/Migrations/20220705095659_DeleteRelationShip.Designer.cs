@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220705095659_DeleteRelationShip")]
+    partial class DeleteRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -665,6 +667,9 @@ namespace web.Data.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PersonalDataCountryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Phone1")
                         .HasColumnType("nvarchar(max)");
 
@@ -705,6 +710,8 @@ namespace web.Data.Migrations
                     b.HasIndex("BloodTypeId");
 
                     b.HasIndex("MaritalStatusNameId");
+
+                    b.HasIndex("PersonalDataCountryId");
 
                     b.HasIndex("PlaceOfBirthId");
 
@@ -1071,6 +1078,10 @@ namespace web.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MaritalStatusNameId");
 
+                    b.HasOne("web.EF.PersonalDataCountryModel", "PersonalDataCountry")
+                        .WithMany()
+                        .HasForeignKey("PersonalDataCountryId");
+
                     b.HasOne("web.EF.PlaceOfBirthModel", "PlaceOfBirth")
                         .WithMany()
                         .HasForeignKey("PlaceOfBirthId");
@@ -1094,6 +1105,8 @@ namespace web.Data.Migrations
                     b.Navigation("BloodType");
 
                     b.Navigation("MaritalStatusName");
+
+                    b.Navigation("PersonalDataCountry");
 
                     b.Navigation("PlaceOfBirth");
 
