@@ -162,8 +162,9 @@
     List<OtgDto> getAllOtg = new List<OtgDto>();
     List<VillageDto> getAllVillages = new List<VillageDto>();
     List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
-
+    List<AllAddressDto> getAllAddress = new List<AllAddressDto>();
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
+    AllAddressDto modelAllAddress = new AllAddressDto();
 
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
@@ -173,8 +174,11 @@
     {
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         getAllCountry= RegionAdapter.GetAllCountries();
-        //personalDataModel.DateOfBirth = DateTime.Now;
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+
+
+        //personalDataModel.DateOfBirth = DateTime.Now;
+
     }
 
     private void HandleValidSubmit()
@@ -186,11 +190,19 @@
         {
             personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
         }
-       
-        
+
 
         PersonalDataAdapter.SavePersonalData(personalDataModel);
-       
+        getAllAddress = RegionAdapter.GetAllAddress(Id);
+
+        modelAllAddress.Id = getAllAddress.Where(q => q.Id == Id).FirstOrDefault().Id;
+        modelAllAddress.CountryId = countryId;
+        modelAllAddress.RegionId = regionId;
+        modelAllAddress.DistrictId = districtId;
+        modelAllAddress.OtgId = districtId;
+        modelAllAddress.VillageId = villageId;
+        modelAllAddress.IdPersonal = Convert.ToString(Id);
+        RegionAdapter.SaveAllAddress(modelAllAddress);
 
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);

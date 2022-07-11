@@ -110,7 +110,9 @@ namespace web.Data.Adapter
                     Email = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Email"),
                     VillageId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "VillageId"),
                     VillageName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "VillageName"),
-                    MaritalStatusNameId = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MaritalStatusNameId")
+                    MaritalStatusNameId = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MaritalStatusNameId"),
+                    Phone1 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Phone1"),
+                    Phone2 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Phone2")
                 };
             }
 

@@ -85,6 +85,31 @@ namespace web.Data.Adapter
 
             return countryId;
         }
+
+        public static List<AllAddressDto> GetAllAddress(int id)
+        {
+            var result = new List<AllAddressDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllCountries] {0}" ,
+                      DataBaseHelper.RawSafeSqlString(id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new AllAddressDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
+                       // Name = DataBaseHelper.GetValueFromRowByName(item, "Name")
+                    });
+                }
+            }
+
+            return result;
+        }
+
         public static List<CountryDto> GetAllCountries()
         {
             var result = new List<CountryDto>();
