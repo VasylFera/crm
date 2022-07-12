@@ -174,50 +174,23 @@
     {
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         getAllCountry= RegionAdapter.GetAllCountries();
-        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
-
-
-        //personalDataModel.DateOfBirth = DateTime.Now;
-
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();               
     }
 
     private void HandleValidSubmit()
     {
-        personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
-
-        var checkMaritalStatusId = CheackMaritalStatusForEdit();
-        if(string.IsNullOrEmpty(personalDataModel.MaritalStatusNameId))
-        {
-            personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
-        }
-
-
+        CheackMarriadStatus();
         PersonalDataAdapter.SavePersonalData(personalDataModel);
-        getAllAddress = RegionAdapter.GetAllAddress(Id);
+        SavePersonDataAddress();
+        ShowMarriadStatus();
 
-        modelAllAddress.Id = getAllAddress.Where(q => q.Id == Id).FirstOrDefault().Id;
-        modelAllAddress.CountryId = countryId;
-        modelAllAddress.RegionId = regionId;
-        modelAllAddress.DistrictId = districtId;
-        modelAllAddress.OtgId = districtId;
-        modelAllAddress.VillageId = villageId;
-        modelAllAddress.IdPersonal = Convert.ToString(Id);
-        RegionAdapter.SaveAllAddress(modelAllAddress);
-
-        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
-        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
-        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
-        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
-        personalDataModel.MaritalStatus = maritalStatusModel.Name;
         _navigationManager.NavigateTo("/show-data-personal/" + Id);
     }
 
     private void Back(int id)
     {
         _navigationManager.NavigateTo("/show-data-personal/" + id);
-    }
-
-   
+    }      
 
     private void OnValueChangedCountry(ChangeEventArgs  e)
     {
@@ -254,10 +227,44 @@
 
         this.StateHasChanged();
     } 
-      
+
     private string CheackMaritalStatusForEdit()
     {
         var temp = PersonalDataAdapter.GetPersonalDataId(Id);
         return temp.MaritalStatusNameId;
+    }
+
+    private void SavePersonDataAddress()
+    {
+        getAllAddress = RegionAdapter.GetAllAddress(Id);
+        modelAllAddress.Id = Id;
+        modelAllAddress.CountryId = countryId;
+        modelAllAddress.RegionId = regionId;
+        modelAllAddress.DistrictId = districtId;
+        modelAllAddress.OtgId = districtId;
+        modelAllAddress.VillageId = villageId;
+        modelAllAddress.IdPersonal = Convert.ToString(Id);
+        RegionAdapter.SaveAllAddress(modelAllAddress);
+    }
+
+    private void ShowMarriadStatus()
+    {
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
+        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
+        personalDataModel.MaritalStatus = maritalStatusModel.Name;
+    }
+
+    private void CheackMarriadStatus()
+    {
+         personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
+
+        var checkMaritalStatusId = CheackMaritalStatusForEdit();
+        if(string.IsNullOrEmpty(personalDataModel.MaritalStatusNameId))
+        {
+            personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
+        }
+
     }
 }

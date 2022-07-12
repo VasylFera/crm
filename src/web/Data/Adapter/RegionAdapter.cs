@@ -91,7 +91,7 @@ namespace web.Data.Adapter
             var result = new List<AllAddressDto>();
 
             string sql = null;
-            sql = string.Format(@"exec [sp_GetAllCountries] {0}" ,
+            sql = string.Format(@"exec [sp_GetAllAddressId] {0}",
                       DataBaseHelper.RawSafeSqlString(id));
             var sqlResult = DataBaseHelper.GetSqlResult(sql);
 
