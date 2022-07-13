@@ -16,24 +16,24 @@ namespace web.Services
 
         public void TestPdf()
         {                     
-            var inputPath = Path.Combine(_hostEnvironment.WebRootPath, "..//wwwroot//documents//Alfbet.pdf");
-            var outputPath = Path.Combine(_hostEnvironment.WebRootPath, "..//wwwroot//tempDocument//AlfbetOutput.pdf"); 
+            var inputPath = Path.Combine(_hostEnvironment.WebRootPath, "..//wwwroot//documents//Povistka2.pdf");
+            var outputPath = Path.Combine(_hostEnvironment.WebRootPath, "..//wwwroot//tempDocument//Povistka2Output.pdf"); 
 
              PdfDocument myTemplate = PdfReader.Open(inputPath, PdfDocumentOpenMode.Modify);
             PdfAcroForm form = myTemplate.AcroForm;
             ConfigureForm(form);
 
-            var nameField = (PdfTextField)(form.Fields["IdentityNumber"]);
-            nameField.Value = new PdfString("1234567890");
-            
-            var nameField1 = (PdfTextField)(form.Fields["LastName"]);
-            nameField1.Value = new PdfString("Василь Столярчук", PdfStringEncoding.Unicode);
+            var nameField = (PdfTextField)(form.Fields["DateTime"]);
+            nameField.Value = new PdfString("12/07/2022");
 
-            var nameField2 = (PdfTextField)(form.Fields["FatherName"]);
-            nameField2.Value = new PdfString("Степанович", PdfStringEncoding.Unicode);
+            var nameField1 = (PdfTextField)(form.Fields["FullName"]);
+            nameField1.Value = new PdfString(" Столярчуку  Василю Степановичу", PdfStringEncoding.Unicode);
 
-            var nameField3 = (PdfTextField)(form.Fields["DateofBirthday"]);
-            nameField3.Value = new PdfString("16/09/1984");
+            var nameField2 = (PdfTextField)(form.Fields["FullAddress"]);
+            nameField2.Value = new PdfString("Львівська обл, м.Радехів, вул. Стоянівська 39", PdfStringEncoding.Unicode);
+
+            //var nameField3 = (PdfTextField)(form.Fields["DateofBirthday"]);
+            //nameField3.Value = new PdfString("16/09/1984");
             
 
             myTemplate.Save(outputPath);

@@ -1,0 +1,82 @@
+﻿@page "/edit-vehicle"
+@layout VehicleLayout
+@inject IStringLocalizer<App> _localizer
+@inject NavigationManager _navigationManager
+@attribute [Authorize(Roles = "Vehicle")]
+
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page"><h2>@_localizer["Edit Vehicle"]</h2></li>
+        </ol>
+</nav>
+
+<div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+          <EditForm Model="@modelVechicle" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />       
+         <h6 class="m-2">Номер партії</h6>
+        <div class="input-group-pill mb-2">
+          <input type="number" class="form-control" @bind-value="modelVechicle.Consignment" >
+        </div>
+          <h6 class="m-2">Рік випуску</h6>
+        <div class="input-group-pill mb-2">
+          <input type="text" class="form-control"  @bind-value="modelVechicle.YearOfGraduation" >
+        </div>
+         <h6 class="m-2">Порядковий номер підприємства</h6>
+         <div class="input-group-pill mb-2">
+          <input type="number" class="form-control" @bind-value="modelVechicle.CurrentNumberFactory" >
+        </div>
+         <h6 class="m-2">Код міністерства</h6>
+        <div class="input-group-pill mb-2">
+          <input type="number" class="form-control" @bind-value="modelVechicle.MinistryCode" >
+        </div>
+        <h6 class="m-2">Тип</h6>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="modelVechicle.TypeCar" >
+        </div>
+              
+          <h6 class="m-2">Марка</h6>     
+         <div class="input-group-pill mb-2">
+          <input type="text" textmode="Date" class="form-control" @bind-value="modelVechicle.BrandOfMmachine" >
+        </div>
+              
+        <h6 class="m-2">Державний номер</h6>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="modelVechicle.StateCarNumber" >
+        </div>
+        <h6 class="m-2">Рік випуску</h6>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="modelVechicle.YearManufactureCar" >
+        </div>   
+         <h6 class="m-2">П.І.П водія</h6>
+          <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="modelVechicle.FullNameDriver" >
+        </div> 
+         <h6 class="m-2">Технічний стан</h6>
+         <div class="input-group-pill mb-2">
+          <input type="text" class="form-control" @bind-value="modelVechicle.TechnicalCondition" >
+        </div> 
+        
+        <div >
+            <br />
+             <div class="col-md-6 mb-3 mb-md-0">
+                  <button type="submit" class="btn btn-soft-primary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
+                   <NavLink class="btn btn-secondary" href="officer-home">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+             </div>
+        </div> 
+    
+     </EditForm>  
+    </div>   
+</div>
+</div>
+
+@code {
+    VehicleModelDto modelVechicle = new VehicleModelDto();
+
+
+    private void HandleValidSubmit()
+    {
+        
+    }
+}
