@@ -35,6 +35,6 @@ namespace web.Data
         public DbSet<AccountSoldierModel> AccountSoldier { get; set; }
         public DbSet<AccountSergeantModel> AccountSergeant { get; set; }
         public DbSet<AccountOfficerModel> AccountOfficer { get; set; }
-        public DbSet<MaritalStatusModel> MaritalStatuses { get; set; }
+        public DbSet<MaritalStatusModel> MaritalStatuses { get; set; }        
     }
 }

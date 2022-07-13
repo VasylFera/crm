@@ -2,7 +2,7 @@
 
 namespace web.Data.ModelDtos
 {
-    public class VehicleModelDto
+    public class VehicleDto
     {
         public int Id { get; set; }
         public int Consignment { get; set; }
@@ -14,7 +14,11 @@ namespace web.Data.ModelDtos
         public string BrandOfMmachine { get; set; }
         public string StateCarNumber { get; set; }
         public string YearManufactureCar { get; set; }
-        public string FullNameDriver { get; set; }
-        public bool TechnicalCondition { get; set; }
+        public string FullNameDriver1 { get; set; }
+        public string FullNameDriver2 { get; set; }
+        public string FullNameDriver3 { get; set; }
+        public string TechnicalCondition { get; set; }
+        public bool IsTechnicalCondition { get; set; }
+        public int PersonalDriverId { get; set; }
     }
 }
