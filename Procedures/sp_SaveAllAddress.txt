@@ -1,0 +1,88 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveAllAddress]    Script Date: 14/07/2022 12:47:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveAllAddress] 
+		@Id int,		
+		@UserId nvarchar(50),
+		@CountryId int,
+		@RegionId int,
+		@DistrictId int,
+		@OtgId int,
+		@VillageId int,
+		@IdPerson nvarchar(25)
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT PersonalDataCountries Off	
+
+	if(@Id > 0)
+
+	begin			
+		Update PersonalDataCountries
+			Set 
+		 	CountryId = @CountryId
+			,RegionId = @RegionId
+			,DistrictId = @DistrictId
+			,OtgId = @OtgId
+			,VillageId = @VillageId
+
+			,DateCreated = GETDATE()
+					,DateModified = GETDATE()
+					,IsImported = 0
+					,NeedToReimport = 0
+					,ImportDate = GETDATE()
+					,IsActive = 0
+		WHERE IdPersonal=@Id
+ 	   end	
+    else
+	  BEGIN 	
+		 Insert Into PersonalDataCountries
+			(
+		
+			 CountryId
+			 ,RegionId
+			 ,DistrictId
+			 ,OtgId
+			 ,VillageId
+
+		     ,DateCreated
+			 ,DateModified
+			 ,IsImported
+			 ,NeedToReimport
+			 ,ImportDate
+			 ,IsActive
+			 ,IdPersonal
+			)
+			 Values
+		    (	
+			 @CountryId
+			,@RegionId
+			,@DistrictId
+			,@OtgId
+			,@VillageId
+
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0	
+			,@IdPerson
+		    )
+		  Select SCOPE_IDENTITY() As ID 
+		  
+	END		
+END
+
+	
+		  
+	

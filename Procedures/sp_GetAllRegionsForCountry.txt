@@ -1,0 +1,37 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAllRegionsForCountry]    Script Date: 14/07/2022 12:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetAllRegionsForCountry] 
+		@CountryId int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,[Name]	
+			  ,CountryId
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 		  
+		  From  Regions dis
+		  WHERE dis.CountryId = @CountryId
+		 
+	END	
+	
+END
+
+
+ 

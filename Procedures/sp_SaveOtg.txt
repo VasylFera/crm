@@ -1,0 +1,61 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveOtg]    Script Date: 14/07/2022 12:49:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveOtg] 
+		@Id int,
+		@Name nvarchar(25),
+		@DistrictId int
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT Otgs Off	
+
+	if(@Id > 0)
+
+	begin
+		Update Otgs
+		SET 
+			 Name = @Name
+			,DistrictId = @DistrictId			
+		WHERE Id = @Id
+ 	end
+	else
+    BEGIN 	
+		  INSERT Into Otgs 
+		  (		    
+			  [Name]	
+			  ,DistrictId
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive			  
+		  )
+		  Values
+		  (	
+		   
+			  @Name	
+			 ,@DistrictId
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0			 
+		  )		 
+		  Select SCOPE_IDENTITY() As OtgtId	
+	END	
+	
+END
+
+ 

@@ -1,0 +1,44 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAddressId]    Script Date: 14/07/2022 12:36:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetAddressId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       pd.Id
+			  ,pd.CountryId
+			  ,pd.RegionId
+			  ,pd.DistrictId
+			  ,pd.OtgId
+			  ,pd.VillageId
+			  
+			  ,pd.DateCreated
+			  ,pd.DateModified
+			  ,pd.IsImported
+			  ,pd.NeedToReimport
+			  ,pd.ImportDate
+			  ,pd.IsActive				 
+			  
+		  From  PersonalDataCountries pd		 
+		  WHERE pd.IdPersonal = @Id
+	END	
+	
+END
+
+--  EXEC [sp_GetPersonalDataId] 1077
+
+	--select * from PersonalData
+	--select * from PersonalDataCountries
+ 

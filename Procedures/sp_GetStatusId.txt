@@ -1,0 +1,36 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetStatusId]    Script Date: 14/07/2022 12:46:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetStatusId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,Description			  
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 
+		  
+		  From  Status 
+		  WHERE Id = @Id
+	END	
+	
+END
+
+  
+ 

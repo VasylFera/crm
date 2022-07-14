@@ -1,0 +1,47 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAllVehicles]    Script Date: 14/07/2022 12:42:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetAllVehicles] 
+		
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,Consignment
+			  ,[DateTime] as YearOfGraduation
+			  ,CurrentNumberFactory
+			  ,FactoryName
+			  ,MinistryCode
+			  ,TypeCar
+			  ,BrandOfMmachine
+			  ,StateCarNumber
+			  ,YearManufactureCar
+			  ,FullNameDriver3
+			  ,TechnicalCondition
+			  ,FullNameDriver1
+			  ,FullNameDriver2
+
+
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 		  
+		  From  Vehicles
+		 
+	END	
+	
+END
+ 

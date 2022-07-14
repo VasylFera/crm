@@ -1,0 +1,56 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveMaritalStatus]    Script Date: 14/07/2022 12:48:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveMaritalStatus] 
+		@Id int,
+		@Description nvarchar(25)		
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT Status Off	
+	if(@Id > 0)
+
+	begin
+		Update MaritalStatuses
+		SET 
+			 Name = @Description				
+		WHERE Id = @Id
+ 	end
+	else
+    BEGIN 	
+		  INSERT Into MaritalStatuses 
+		  (	    
+			   Name
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive			  
+		  )
+		  Values
+		  (			   
+			  @Description			
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0			 
+		  )
+		 
+	END	
+	
+END
+
+  
+ 

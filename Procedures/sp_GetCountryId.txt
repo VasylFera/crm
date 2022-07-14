@@ -1,0 +1,36 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetCountryId]    Script Date: 14/07/2022 12:43:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetCountryId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,[Name]			  
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 
+		  
+		  From  Country 
+		  WHERE Id = @Id
+	END	
+	
+END
+
+
+ 

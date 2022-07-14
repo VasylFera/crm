@@ -1,0 +1,26 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_DeleteDistrict]    Script Date: 14/07/2022 12:33:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_DeleteDistrict] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Delete from Districts
+		 where Id = @Id 
+	END	
+	
+END
+
+  
+ 

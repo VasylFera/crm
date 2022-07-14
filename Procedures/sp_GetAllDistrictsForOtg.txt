@@ -1,0 +1,38 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAllDistrictsForOtg]    Script Date: 14/07/2022 12:38:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetAllDistrictsForOtg] 
+		@DistringId int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,[Name]	
+			  ,DistrictId
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 		  
+		  From  Otgs dis
+		  WHERE dis.DistrictId = @DistringId
+		 
+	END	
+	
+END
+
+
+
+ 

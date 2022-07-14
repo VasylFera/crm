@@ -1,0 +1,58 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveCountry]    Script Date: 14/07/2022 12:47:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveCountry] 
+		@Id int,
+		@Name nvarchar(25)		
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT Country Off	
+
+	if(@Id > 0)
+
+	begin
+		Update Country
+		SET 
+			Name = @Name		
+		WHERE Id =@Id
+ 	end
+	else
+    BEGIN 	
+		  INSERT Into Country 
+		  (		    
+			  [Name]			  
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive			  
+		  )
+		  Values
+		  (	
+		   
+			 @Name		
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0			 
+		  )		 
+		  Select SCOPE_IDENTITY() As CountryId	
+	END	
+	
+END
+
+ 
+

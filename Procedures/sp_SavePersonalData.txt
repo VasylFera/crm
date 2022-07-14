@@ -1,0 +1,151 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SavePersonalData]    Script Date: 14/07/2022 12:49:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SavePersonalData] 
+		@Id int,		
+		@FatherName nvarchar(25),
+		@NoneFatherName nvarchar(25),
+		@LastName nvarchar(25),
+		@PreviousLastName nvarchar(25),
+	    @FullNamePatronymicInTheGenitiveCase nvarchar(25),
+		@Sex nvarchar(25),
+		@DateOfBirth nvarchar(25),
+		@RefusalOfIndividualPersonalNumber nvarchar(25),
+		@IndividualPersonalNumber int,
+		@Email nvarchar(25),
+		@MaritalStatus nvarchar(25),
+		@Note nvarchar(25),
+		@UserId nvarchar(50),
+		--@CountryId nvarchar(25),
+		--@RegionId nvarchar(25),
+		--@DistrictId nvarchar(25),
+		--@OtgId nvarchar(25),
+		--@VillageId nvarchar(25),
+		@FirstName nvarchar(25),
+		@Phone1 nvarchar(25),
+		@Phone2 nvarchar(25),
+		@ServiceNote nvarchar(max),
+		@MaritalStatusNameId int		 
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT PersonalData Off	
+
+	if(@Id > 0)
+
+	begin			
+		Update PersonalData
+		SET 
+			 FatherName = @FatherName
+			,NoneFatherName = @NoneFatherName
+			,LastName = @LastName
+			,PreviousLastName = @PreviousLastName
+			,FullNamePatronymicInTheGenitiveCase = @FullNamePatronymicInTheGenitiveCase
+			,Sex =@Sex
+			,DateOfBirth=@DateOfBirth
+			,RefusalOfIndividualPersonalNumber = @RefusalOfIndividualPersonalNumber			
+			,IndividualPersonalNumber =@IndividualPersonalNumber
+			,Email =@Email
+			,MaritalStatus = 0
+			,Note = @Note			
+			,UserId = @UserId
+			,PlaceOfBirthId = null
+			,BloodTypeId = null
+			,StatusId = null
+			,DateCreated = GETDATE()
+			,DateModified = GETDATE()
+			,IsImported = 0
+			,NeedToReimport = 0
+			,ImportDate = GETDATE()
+			,IsActive = 0
+			,[FirstName] = @FirstName
+			,Phone1 =@Phone1
+			,Phone2 = @Phone2
+			,ServiceNote =@ServiceNote
+			,MaritalStatusNameId =@MaritalStatusNameId			
+		WHERE Id = @Id					
+ 	   end	
+    else
+	  BEGIN 	
+		  INSERT Into PersonalData 
+		  (		  
+			   FatherName
+			  ,NoneFatherName
+			  ,LastName
+			  ,PreviousLastName
+			  ,FullNamePatronymicInTheGenitiveCase
+			  ,Sex
+			  ,DateOfBirth
+			  ,RefusalOfIndividualPersonalNumber
+			  ,IndividualPersonalNumber
+			  ,Email
+
+			  ,MaritalStatus
+			  ,Note
+			  ,UserId
+			  ,PlaceOfBirthId
+			  ,BloodTypeId
+			  ,StatusId
+
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	
+			  ,[FirstName]
+			  ,Phone1
+			  ,Phone2
+			  ,ServiceNote
+			  ,MaritalStatusNameId			  
+		  )
+		  Values
+		  (			   
+			 	
+			  @FatherName
+			 ,@NoneFatherName
+			 ,@LastName
+			 ,@PreviousLastName
+			 ,@FullNamePatronymicInTheGenitiveCase
+			 ,@Sex
+			 ,@DateOfBirth
+			 ,@RefusalOfIndividualPersonalNumber
+			 ,@IndividualPersonalNumber
+			 ,@Email
+
+			 ,0
+			 ,@Note
+			 ,@UserId
+			 ,null
+			 ,null
+			 ,null
+
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0	
+			 ,@FirstName
+			 ,@Phone1
+			 ,@Phone2
+			 ,@ServiceNote
+			 ,@MaritalStatusNameId			
+		  )		 
+		  Select SCOPE_IDENTITY() As ID 
+		  Declare @IdPerson nvarchar(25) =  SCOPE_IDENTITY()  
+	END		
+END
+
+		
+		  
+	

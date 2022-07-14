@@ -1,0 +1,62 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveVillage]    Script Date: 14/07/2022 12:52:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveVillage] 
+		@Id int,
+		@Name nvarchar(25),
+		@OtgId int
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT Villages Off	
+
+	if(@Id > 0)
+
+	begin
+		Update Villages
+		SET 
+			 Name = @Name
+			,@OtgId = @OtgId			
+		WHERE Id = @Id
+ 	end
+	else
+    BEGIN 	
+		  INSERT Into Villages 
+		  (		    
+			  [Name]	
+			  ,OtgId
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive			  
+		  )
+		  Values
+		  (	
+		   
+			  @Name	
+			 ,@OtgId
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0			 
+		  )	 
+		
+	END	
+	
+END
+
+ 
+ 

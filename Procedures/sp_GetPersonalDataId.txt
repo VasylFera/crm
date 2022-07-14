@@ -1,0 +1,47 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetPersonalDataId]    Script Date: 14/07/2022 12:45:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetPersonalDataId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       pd.Id
+			  ,LastName
+			  ,FirstName
+			  ,FatherName
+			  ,PreviousLastName
+			  ,FullNamePatronymicInTheGenitiveCase
+			  ,NoneFatherName
+			  ,Sex
+			  ,DateOfBirth
+			  ,IndividualPersonalNumber
+			  ,Email
+			  ,pd.DateCreated
+			  ,pd.DateModified
+			  ,pd.IsImported
+			  ,pd.NeedToReimport
+			  ,pd.ImportDate
+			  ,pd.IsActive	
+			  ,pd.MaritalStatusNameId
+			  ,pd.Phone1
+			  ,pd.Phone2
+		  From  PersonalData pd		 
+		  WHERE pd.Id = @Id
+	END	
+	
+END
+
+
+ 

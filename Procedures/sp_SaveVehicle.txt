@@ -1,0 +1,111 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_SaveVehicle]    Script Date: 14/07/2022 12:50:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_SaveVehicle] 
+		@Id int,
+		@Consignment int,
+		@YearOfGraduation nvarchar(25),
+		@CurrentNumberFactory int,
+		@FactoryName nvarchar(25),
+		@MinistryCode int,
+		@TypeCar nvarchar(25),
+		@BrandOfMmachine nvarchar(25),
+		@StateCarNumber nvarchar(25),
+		@YearManufactureCar dateTime2,
+		@FullNameDriver1 nvarchar(25),
+		@FullNameDriver2 nvarchar(25),
+		@FullNameDriver3 nvarchar(25),
+		@TechnicalCondition bit
+		
+AS
+BEGIN	
+	--SET NOCOUNT ON;
+	SET IDENTITY_INSERT Vehicles Off	
+	if(@Id > 0)
+
+	begin
+		Update Vehicles
+		SET 
+			 Consignment = @Consignment	
+			 ,[DateTime] = GETDATE ( )			
+			 ,CurrentNumberFactory = @CurrentNumberFactory
+			 ,FactoryName = @FactoryName
+			 ,MinistryCode = @MinistryCode
+			 ,TypeCar = @TypeCar
+			 ,BrandOfMmachine = @BrandOfMmachine
+			 ,StateCarNumber = @StateCarNumber
+			 ,YearManufactureCar = @YearManufactureCar
+			 ,FullNameDriver1 = @FullNameDriver1
+			 ,FullNameDriver2 = @FullNameDriver2
+			 ,FullNameDriver3 = @FullNameDriver3
+			 ,TechnicalCondition = @TechnicalCondition
+			
+		WHERE Id = @Id
+ 	end
+	else
+    BEGIN 	
+		  INSERT Into Vehicles 
+		  (	    
+			   Consignment
+			   ,[DateTime]
+			   ,CurrentNumberFactory
+			   ,FactoryName
+			   ,MinistryCode
+			   ,TypeCar
+			   ,BrandOfMmachine
+			   ,StateCarNumber
+			   ,YearManufactureCar			  
+			   ,FullNameDriver3
+			   ,TechnicalCondition
+			  
+
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	
+			  ,FullNameDriver1
+			  ,FullNameDriver2
+		  )
+		  Values
+		  (			   
+			  @Consignment	
+			 ,@YearOfGraduation
+			 ,@CurrentNumberFactory
+			 ,@FactoryName
+			 ,@MinistryCode
+			 ,@TypeCar
+			 ,@BrandOfMmachine
+			 ,@StateCarNumber
+			 ,GETDATE ( )
+			
+			 ,@FullNameDriver3
+			 ,@TechnicalCondition
+			 
+
+			 ,GETDATE ( )
+			 ,GETDATE ( )
+			 ,0
+			 ,0
+			 ,GETDATE ( )
+			 ,0		
+			 ,@FullNameDriver1
+			 ,@FullNameDriver2
+		  )
+		 
+	END	
+	
+END
+
+  
+ 

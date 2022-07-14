@@ -1,0 +1,38 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAllDistrictsForVillages]    Script Date: 14/07/2022 12:39:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetAllDistrictsForVillages] 
+		@OtgId int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,[Name]	
+			  ,OtgId
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 		  
+		  From  Villages vill
+		  WHERE vill.OtgId = @OtgId
+		 
+	END	
+	
+END
+
+
+
+ 

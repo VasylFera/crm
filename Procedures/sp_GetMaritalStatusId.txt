@@ -1,0 +1,36 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetMaritalStatusId]    Script Date: 14/07/2022 12:44:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetMaritalStatusId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,[Name]			  
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 
+		  
+		  From  MaritalStatuses 
+		  WHERE Id = @Id
+	END	
+	
+END
+
+
+ 
