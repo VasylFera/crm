@@ -21,7 +21,7 @@
         </div>
           <h6 class="m-2">Рік випуску</h6>
         <div class="input-group-pill mb-2">
-          <input type="text" class="form-control"  @bind-value="modelVechicle.YearOfGraduation" >
+          <input type="date" class="form-control"  @bind-value="modelVechicle.YearOfGraduation" >
         </div>
          <h6 class="m-2">Порядковий номер підприємства</h6>
          <div class="input-group-pill mb-2">
@@ -85,14 +85,15 @@
 
 @code {
     VehicleDto modelVechicle = new VehicleDto();
-     
+
+    protected override void OnInitialized()
+    {
+         modelVechicle.YearOfGraduation = DateTime.Now;
+    }
 
     private void HandleValidSubmit()
-    {
-      
-
-
-        VehicleAdapter.SaveVehicle(modelVechicle);
+    {      
+         VehicleAdapter.SaveVehicle(modelVechicle);
         _navigationManager.NavigateTo("/vehicle-home");
     }
 }

@@ -9,7 +9,7 @@ namespace web.Data.Adapter
     {
         public static void SaveVehicle(VehicleDto model)
         {
-           if(model.TechnicalCondition == "справна")
+           if(model.TechnicalCondition == "справний")
             {
                 model.IsTechnicalCondition = true;
             }
@@ -46,7 +46,7 @@ namespace web.Data.Adapter
             
         }
 
-        public static List<VehicleDto> GetAllCountries()
+        public static List<VehicleDto> GetAllVehicles()
         {
             var result = new List<VehicleDto>();
 
@@ -62,7 +62,7 @@ namespace web.Data.Adapter
                     {
                         Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
                         Consignment = DataBaseHelper.GetIntegerValueFromRowByName(item, "Consignment"),
-                        YearOfGraduation = DataBaseHelper.GetValueFromRowByName(item, "YearOfGraduation"),
+                        YearOfGraduation = DataBaseHelper.GetDateTimeValueFromRowByName(item, "YearOfGraduation"),
                         CurrentNumberFactory = DataBaseHelper.GetIntegerValueFromRowByName(item, "CurrentNumberFactory"),
                         FactoryName = DataBaseHelper.GetValueFromRowByName(item, "FactoryName"),
                         MinistryCode = DataBaseHelper.GetIntegerValueFromRowByName(item, "MinistryCode"),
@@ -72,6 +72,8 @@ namespace web.Data.Adapter
                         YearManufactureCar = DataBaseHelper.GetValueFromRowByName(item, "YearManufactureCar"),
                         FullNameDriver1 = DataBaseHelper.GetValueFromRowByName(item, "FullNameDriver1"),
                         TechnicalCondition = DataBaseHelper.GetValueFromRowByName(item, "TechnicalCondition"),
+                        FullNameDriver2 = DataBaseHelper.GetValueFromRowByName(item, "FullNameDriver2"),
+                        FullNameDriver3 = DataBaseHelper.GetValueFromRowByName(item, "FullNameDriver3")
                     });
                 }
             }

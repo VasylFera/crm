@@ -51,7 +51,8 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelVechicle.YearOfGraduation" placeholder="@_localizer["Year of graduation"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Personal Number." aria-invalid="true">
+                       <input type="date"  class="form-control" @bind-value="modelVechicle.YearOfGraduation" placeholder="@_localizer["Year of graduation"]" >
+
                   </div>
                 </div>             
                </div>
@@ -85,17 +86,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                      @foreach(var item in getAllVehicles)
+                       {
+                            int index = @getAllVehicles.IndexOf(item)+1;
+                      <tr>
                           <NavLink  href="counter"> 
-                          <th scope="row">1</th> 
+                          <th scope="row">@index</th> 
                       </NavLink>                                           
-                      <td>Бус</td>
-                      <td>Mercedess</td>
-                      <td>321-234DC</td>
-                      <td>2010</td>
-                      <td>Галичина</td>  
-                      <td>Справний</td>                     
-                   </tr>                   
+                      <td>@item.TypeCar</td>
+                      <td>@item.BrandOfMmachine</td>
+                      <td>@item.StateCarNumber</td>
+                      <td>@item.YearOfGraduation.ToString("d")</td>
+                      <td>@item.FactoryName</td>  
+                      <td>@item.TechnicalCondition</td>                     
+                   </tr>       
+                      }
+                                      
             </tbody>
           </table>          
           </div>
@@ -117,14 +123,18 @@
     private bool Collapsed = true;
 
     VehicleDto modelVechicle = new VehicleDto();
+    List<VehicleDto> getAllVehicles = new List<VehicleDto>();
 
-    public void ResetSearch()
-    {
-
-    }
 
     protected override void OnInitialized()
     {
+        modelVechicle.YearOfGraduation = DateTime.Now;
+        getAllVehicles = VehicleAdapter.GetAllVehicles();
+    }
+
+      public void ResetSearch()
+    {
+
     }
 
     private void Collaps()
