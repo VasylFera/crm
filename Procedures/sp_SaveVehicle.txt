@@ -1,6 +1,6 @@
 USE [CRM]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_SaveVehicle]    Script Date: 14/07/2022 12:50:49 ******/
+/****** Object:  StoredProcedure [dbo].[sp_SaveVehicle]    Script Date: 15/07/2022 13:04:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10,17 +10,17 @@ GO
 -- Create date: 
 -- Description:
 -- =============================================
-Create procedure [dbo].[sp_SaveVehicle] 
+ALTER procedure [dbo].[sp_SaveVehicle] 
 		@Id int,
 		@Consignment int,
-		@YearOfGraduation nvarchar(25),
+		@YearOfGraduation datetime2(7),
 		@CurrentNumberFactory int,
 		@FactoryName nvarchar(25),
 		@MinistryCode int,
 		@TypeCar nvarchar(25),
 		@BrandOfMmachine nvarchar(25),
 		@StateCarNumber nvarchar(25),
-		@YearManufactureCar dateTime2,
+		@YearManufactureCar nvarchar(25),
 		@FullNameDriver1 nvarchar(25),
 		@FullNameDriver2 nvarchar(25),
 		@FullNameDriver3 nvarchar(25),
@@ -36,7 +36,7 @@ BEGIN
 		Update Vehicles
 		SET 
 			 Consignment = @Consignment	
-			 ,[DateTime] = GETDATE ( )			
+			 ,[DateTime] = CONVERT(datetime2,@YearOfGraduation,103) 		
 			 ,CurrentNumberFactory = @CurrentNumberFactory
 			 ,FactoryName = @FactoryName
 			 ,MinistryCode = @MinistryCode
@@ -87,7 +87,7 @@ BEGIN
 			 ,@TypeCar
 			 ,@BrandOfMmachine
 			 ,@StateCarNumber
-			 ,GETDATE ( )
+			 ,@YearManufactureCar
 			
 			 ,@FullNameDriver3
 			 ,@TechnicalCondition

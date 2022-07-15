@@ -67,9 +67,16 @@
           <input type="text" class="form-control" @bind-value="modelVechicle.FullNameDriver3" >
         </div> 
          <h6 class="m-2">Технічний стан</h6>
-         <div class="input-group-pill mb-2">
+        @* <div class="input-group-pill mb-2">
           <input type="text" class="form-control" @bind-value="modelVechicle.TechnicalCondition" >
-        </div> 
+        </div> *@
+         <InputSelect @bind-Value="modelVechicle.TechnicalCondition"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть стан авто  --</option>
+                   @foreach (var item in GetChooseSex)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
         
         <div >
             <br />
@@ -89,10 +96,18 @@
     public int Id { get; set; }
 
     VehicleDto modelVechicle = new VehicleDto();
+    string[] GetChooseSex = { "справний", "не справний" };
 
     protected override void OnInitialized()
     {
-         modelVechicle.YearOfGraduation = DateTime.Now;
+     
+        modelVechicle.YearOfGraduation = DateTime.Now;
+
+        if(Id>0)
+        {
+            modelVechicle = VehicleAdapter.GetVehicleId(Id);
+        }
+        
     }
 
     private void HandleValidSubmit()

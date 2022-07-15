@@ -8,20 +8,13 @@ namespace web.Data.Adapter
     public static class VehicleAdapter
     {
         public static void SaveVehicle(VehicleDto model)
-        {
-           if(model.TechnicalCondition == "справний")
-            {
-                model.IsTechnicalCondition = true;
-            }
-            else
-            {
-                model.IsTechnicalCondition = false;
-            }
+        {         
+         
             var sql = string.Empty;
             sql = string.Format(@"EXEC [sp_SaveVehicle] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11}, {12},{13}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.RawSafeSqlString(model.Consignment),
-                DataBaseHelper.SafeSqlString(model.YearOfGraduation),
+                DataBaseHelper.SafeSqlString(model.YearOfGraduation.ToString("s")),
                 DataBaseHelper.RawSafeSqlString(model.CurrentNumberFactory),
                 DataBaseHelper.SafeSqlString(model.FactoryName),
                 DataBaseHelper.RawSafeSqlString(model.MinistryCode),
@@ -32,18 +25,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(model.FullNameDriver1),
                 DataBaseHelper.SafeSqlString(model.FullNameDriver2),
                 DataBaseHelper.SafeSqlString(model.FullNameDriver3),
-                DataBaseHelper.SafeSqlString(model.IsTechnicalCondition));
-            DataBaseHelper.RunSql(sql);
-            //if (model.Id > 0)
-            //{
-               
-            //}
-            //else
-            //{
-
-            //}
-              
-            
+                DataBaseHelper.SafeSqlString(model.TechnicalCondition));
+            DataBaseHelper.RunSql(sql);               
         }
 
         public static List<VehicleDto> GetAllVehicles()
@@ -76,6 +59,38 @@ namespace web.Data.Adapter
                         FullNameDriver3 = DataBaseHelper.GetValueFromRowByName(item, "FullNameDriver3")
                     });
                 }
+            }
+
+            return result;
+        }
+
+        public static VehicleDto GetVehicleId(int Id)
+        {
+            VehicleDto result = new VehicleDto();
+
+            var sql = string.Format(@"EXEC [sp_GetVehicleId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new VehicleDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                        Consignment = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Consignment"),
+                        YearOfGraduation = DataBaseHelper.GetDateTimeValueFromRowByName(sqlResult.Rows[0], "YearOfGraduation"),
+                        CurrentNumberFactory = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "CurrentNumberFactory"),
+                        FactoryName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "FactoryName"),
+                        MinistryCode = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "MinistryCode"),
+                        TypeCar = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "TypeCar"),
+                        BrandOfMmachine = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "BrandOfMmachine"),
+                        StateCarNumber = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "StateCarNumber"),
+                        YearManufactureCar = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "YearManufactureCar"),
+                        FullNameDriver1 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "FullNameDriver1"),
+                        TechnicalCondition = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "TechnicalCondition"),
+                        FullNameDriver2 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "FullNameDriver2"),
+                        FullNameDriver3 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "FullNameDriver3")
+                };
             }
 
             return result;

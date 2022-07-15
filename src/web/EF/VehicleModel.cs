@@ -15,11 +15,11 @@ namespace web.EF
         public string TypeCar { get; set; }
         public string BrandOfMmachine { get; set; }
         public string StateCarNumber { get; set; }
-        public DateTime YearManufactureCar { get; set; }
+        public string YearManufactureCar { get; set; }
         public string FullNameDriver1 { get; set; }
         public string FullNameDriver2 { get; set; }
         public string FullNameDriver3 { get; set; }
-        public bool TechnicalCondition { get; set; }
+        public string TechnicalCondition { get; set; }
         public virtual PersonalDataModel PersonalDriver { get; set; }      
     }
 }

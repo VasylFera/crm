@@ -1,0 +1,48 @@
+USE [CRM]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetCountryId]    Script Date: 15/07/2022 12:57:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		
+-- Create date: 
+-- Description:
+-- =============================================
+Create procedure [dbo].[sp_GetVehicleId] 
+		@Id int
+AS
+BEGIN	
+		
+    BEGIN 	
+		  Select
+		       Id
+			  ,Consignment
+			  ,DateTime as YearOfGraduation
+			  ,CurrentNumberFactory
+			  ,FactoryName
+			  ,MinistryCode
+			  ,TypeCar
+			  ,BrandOfMmachine
+			  ,StateCarNumber
+			  ,YearManufactureCar
+			  ,FullNameDriver3
+			  ,TechnicalCondition
+			  
+			  ,DateCreated
+			  ,DateModified
+			  ,IsImported
+			  ,NeedToReimport
+			  ,ImportDate
+			  ,IsActive	 
+			,FullNameDriver1
+			,FullNameDriver2
+		  From  Vehicles 
+		  WHERE Id = @Id
+	END	
+	
+END
+
+
+ 
