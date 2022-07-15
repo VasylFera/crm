@@ -1,4 +1,5 @@
 ﻿@page "/edit-vehicle"
+@page "/edit-vehicle/{Id:int}"
 @layout VehicleLayout
 @inject IStringLocalizer<App> _localizer
 @inject NavigationManager _navigationManager
@@ -84,6 +85,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
     VehicleDto modelVechicle = new VehicleDto();
 
     protected override void OnInitialized()

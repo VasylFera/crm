@@ -26,6 +26,9 @@
                 <div class="ml-lg-3 m-3">
                     <button type="button" class="btn btn-xs btn-soft-secondary mr-1" @onclick="MoveTo">&nbsp;@_localizer["Add"]&nbsp;</button>                   
                 </div>
+                 <div class="ml-lg-3 m-3">
+                    <button type="button" class="btn btn-xs btn-soft-secondary mr-1" @onclick="MoveToPage">&nbsp;@_localizer["Move page"]&nbsp;</button>                   
+                </div>
             </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
@@ -91,15 +94,15 @@
                             int index = @getAllVehicles.IndexOf(item)+1;
                       <tr>
                           <NavLink  href="counter"> 
-                          <th scope="row">@index</th> 
-                      </NavLink>                                           
-                      <td>@item.TypeCar</td>
-                      <td>@item.BrandOfMmachine</td>
-                      <td>@item.StateCarNumber</td>
-                      <td>@item.YearOfGraduation.ToString("d")</td>
-                      <td>@item.FactoryName</td>  
-                      <td>@item.TechnicalCondition</td>                     
-                   </tr>       
+                             <th scope="row">@index</th> 
+                         </NavLink>                                           
+                          <td>@item.TypeCar</td>
+                          <td>@item.BrandOfMmachine</td>
+                          <td>@item.StateCarNumber</td>
+                          <td>@item.YearOfGraduation.ToString("d")</td>
+                          <td>@item.FactoryName</td>  
+                          <td>@item.TechnicalCondition</td>                     
+                       </tr>       
                       }
                                       
             </tbody>
@@ -107,9 +110,7 @@
           </div>
         </div>
         <!-- End Card Details -->
-      </div>
-       
-      
+      </div>            
   
   </div>
   <!-- End Card -->
@@ -129,7 +130,7 @@
     protected override void OnInitialized()
     {
         modelVechicle.YearOfGraduation = DateTime.Now;
-        getAllVehicles = VehicleAdapter.GetAllVehicles();
+       // getAllVehicles = VehicleAdapter.GetAllVehicles();
     }
 
       public void ResetSearch()
@@ -150,5 +151,10 @@
     private void MoveTo()
     {
         _navigationManager.NavigateTo("/edit-vehicle");
+    }
+
+     private void MoveToPage()
+    {
+        _navigationManager.NavigateTo("/show-all-vehicles");
     }
 }

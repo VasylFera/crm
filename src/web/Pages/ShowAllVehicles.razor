@@ -1,0 +1,58 @@
+﻿@page "/show-all-vehicles"
+@inject NavigationManager _navigationManager
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+        <li class="breadcrumb-item active" aria-current="page">Show all vehicles</li>
+    </ol>
+</nav>
+
+<div class="table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
+    <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
+        <thead>
+            <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Тип</th>
+                        <th scope="col">Марка</th>
+                       <th scope="col">Реєстраційний №</th>
+                       <th scope="col">Рік випуску</th>
+                       <th scope="col">Найменування підприємства</th>
+                       <th scope="col">Технічний стан</th>                      
+                    </tr>
+        </thead>
+        @foreach (var item in getAllVehicles)
+        {
+
+            int index = @getAllVehicles.IndexOf(item)+1;
+            <tbody class="font-size-1">
+                <tr @onclick="(() => Edit(item.Id))">
+                    
+                      <td scope="row"><a href="#">@index</a></td> 
+                                                              
+                      <td>@item.TypeCar</td>
+                      <td>@item.BrandOfMmachine</td>
+                      <td>@item.StateCarNumber</td>
+                      <td>@item.YearOfGraduation.ToString("d")</td>
+                      <td>@item.FactoryName</td>  
+                      <td>@item.TechnicalCondition</td>  
+
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+
+@code {
+     List<VehicleDto> getAllVehicles = new List<VehicleDto>();
+
+    
+
+    protected override void OnInitialized()
+    {       
+        getAllVehicles = VehicleAdapter.GetAllVehicles();
+    }
+
+    protected void Edit(int id)
+    {
+        _navigationManager.NavigateTo("/edit-vehicle/" + id);
+    }
+}
