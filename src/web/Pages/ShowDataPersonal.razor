@@ -35,13 +35,14 @@
                             <td >
                                  <img @onclick="(() => Edit(personalDataModel.Id))"  src="./images/edit.png" /> 
 
-                                   @* <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteVillage(item.Id))" disabled="@DeleteDisabled">Delete</button>*@
+                                 
                            </td>  
                                                                                         
                      </tr>                                           
             </tbody>   
                             
     </table>   
+       <button class=" btn btn-sm btn btn-outline-info" @onclick="(() => NextToDo(Id))" >Наступна дія</button>
 </div>
 
 
@@ -88,10 +89,10 @@
         message = "";
     }
 
-    //private void MoveTo(int id)
-    //{
-    //    _navigationManager.NavigateTo("/take-into-account/" + id);
-    //}
+    private void NextToDo(int id)
+    {
+        _navigationManager.NavigateTo("/take-into-account/" + id);
+    }
 
     private void HandleValidSubmitPersonalDataFixed()
     {

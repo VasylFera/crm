@@ -24,7 +24,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img3.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="font-size-1">Статус</span>
+                  <span class="font-size-1">Військові звання</span>
                 </span>
               </span>
             </span>        
@@ -62,7 +62,7 @@
              <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
          </EditForm>
@@ -184,9 +184,9 @@
         showPopupStatus = false;
     }
 
-    public void ResetSearch()
+    public void Cancel()
     {       
-        NavigationManager.NavigateTo("/home");
+        NavigationManager.NavigateTo("/officer-home");
     }
 
     public void ShowPopupStatus(int id)

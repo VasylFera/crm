@@ -1,6 +1,12 @@
 ﻿@page "/take-into-account/{Id:int}"
+@inject IStringLocalizer<App> _localizer
+@inject NavigationManager _navigationManager
 
-<h3>Take-Into-Account</h3>
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page"><h2>@_localizer["Виберіть статус"]</h2></li>
+        </ol>
+</nav>
 
 <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
@@ -19,6 +25,7 @@
         
     
      </EditForm>  
+        <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
     </div>   
 </div>
 </div>
@@ -28,7 +35,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    string[] GetChooseAccount = { "Призовник", "Офіцерський склад","Рядовий, сержанський і старшинський склад" };
+    string[] GetChooseAccount = { "Призовник", "Офіцерський склад"," Сержанський і старшинський склад","Рядовий склад" };
 
     TakeIntoAccountDto model = new TakeIntoAccountDto();
 
