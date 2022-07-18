@@ -24,7 +24,7 @@ ALTER procedure [dbo].[sp_SaveVehicle]
 		@FullNameDriver1 nvarchar(25),
 		@FullNameDriver2 nvarchar(25),
 		@FullNameDriver3 nvarchar(25),
-		@TechnicalCondition bit
+		@TechnicalCondition nvarchar(25)
 		
 AS
 BEGIN	
@@ -107,5 +107,5 @@ BEGIN
 	
 END
 
-  
+
  

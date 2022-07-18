@@ -27,6 +27,7 @@ namespace web.Areas.Identity.Pages.Account
         private readonly string conscription;
         private readonly string vehicle;
         private readonly string superAdmin;
+        private readonly string operatorAdmin;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
@@ -42,6 +43,7 @@ namespace web.Areas.Identity.Pages.Account
             conscription = "conscription@outlook.com";
             vehicle = "vehicle@outlook.com";
             superAdmin = "superAdmin@outlook.com";
+            operatorAdmin = "operator@outlook.com";
         }
 
         [BindProperty]
@@ -173,6 +175,20 @@ namespace web.Areas.Identity.Pages.Account
                     }
 
                 }
+
+                if (Input.Email == operatorAdmin)
+                {
+                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+
+                    var findUser = await _userManager.FindByEmailAsync(user.Email);
+                    if (findUser != null)
+                    {
+                        await _signInManager.SignInAsync(findUser, isPersistent: false);
+                        return LocalRedirect("~/operator-home");
+                    }
+
+                }
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

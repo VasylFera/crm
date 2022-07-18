@@ -31,6 +31,7 @@ namespace web.Areas.Identity.Pages.Account
         private readonly string conscription;
         private readonly string vehicle;
         private readonly string mainAdmin;
+        private readonly string operatorAdmin;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -51,6 +52,7 @@ namespace web.Areas.Identity.Pages.Account
             conscription = "conscription@outlook.com";
             vehicle = "vehicle@outlook.com";
             mainAdmin = "superAdmin@outlook.com";
+            operatorAdmin = "operator@outlook.com";
         }
 
         [BindProperty]
@@ -131,6 +133,12 @@ namespace web.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole("Vehicle"));
                     }
 
+                    var roleOperator = await _roleManager.FindByNameAsync("Operator");
+                    if (roleOperator == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Operator"));
+                    }
+
                     var currentUser = await _userManager.FindByEmailAsync(Input.Email);
                     if (currentUser.Email == adminEmail)
                     {
@@ -188,6 +196,16 @@ namespace web.Areas.Identity.Pages.Account
                         if (!isInRole)
                         {
                             await _userManager.AddToRoleAsync(currentUser, "Vehicle");
+                            await _signInManager.RefreshSignInAsync(currentUser);
+                        }
+                    }
+                                      
+                    if (currentUser.Email == operatorAdmin)
+                    {
+                        var isInRole = await _userManager.IsInRoleAsync(currentUser, "Operator");
+                        if (!isInRole)
+                        {
+                            await _userManager.AddToRoleAsync(currentUser, "Operator");
                             await _signInManager.RefreshSignInAsync(currentUser);
                         }
                     }
