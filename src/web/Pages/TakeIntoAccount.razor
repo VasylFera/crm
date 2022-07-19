@@ -14,7 +14,7 @@
           <EditForm Model="@model" OnValidSubmit="HandleValidSubmitTakeIntoAccount" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />      
                  
-                <InputSelect @bind-Value="model.Name"  class="form-control input-group-pill mb-2">
+                <InputSelect @bind-Value="model.Name" @oninput="OnValueChangedStatus"  class="form-control input-group-pill mb-2">
                      <option value="0">-- Виберіть  --</option>
                    @foreach (var item in GetChooseAccount)
                    {                     
@@ -22,7 +22,13 @@
                    }
                 </InputSelect>
                 
-        
+                  <InputSelect @bind-Value="model.Id"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть  --</option>
+                   @foreach (var item in getAllRang)
+                   {                     
+                      <option value="@item.Id">@item.Name</option>
+                   }
+                </InputSelect>        
     
      </EditForm>  
         <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
@@ -35,12 +41,47 @@
     [Parameter]
     public int Id { get; set; }
 
-    string[] GetChooseAccount = { "Призовник", "Офіцерський склад"," Сержанський і старшинський склад","Рядовий склад" };
+    string[] GetChooseAccount = { "Призовник", "Рядовий склад","Сержанський і старшинський склад","Офіцерський склад" };
 
     TakeIntoAccountDto model = new TakeIntoAccountDto();
+    List<StatusDto> getAllRang = new List<StatusDto>();
+
+    protected override void OnInitialized()
+    {     
+        getAllRang = GetStatus(model.Name);
+    }
 
     private void HandleValidSubmitTakeIntoAccount()
     {
-        
+
+    }
+
+    private List<StatusDto> GetStatus( string status)
+    {
+        switch (status) 
+        {
+            case "Призовник":               
+                break;
+            case "Рядовий склад":
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id <3).ToList();
+                break;      
+            case "Сержанський і старшинський склад":
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id >3 && q.Id <8).ToList();
+                break;  
+            case "Офіцерський склад":
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id >8).ToList();
+                break;
+        }
+
+        return getAllRang;
+    }
+
+    private void OnValueChangedStatus(ChangeEventArgs  e)
+    {
+        var name = e.Value.ToString();
+        List<StatusDto> getChooseStatus =  GetStatus(name);     
+        getAllRang = getChooseStatus;
+    
+        this.StateHasChanged();
     }
 }
