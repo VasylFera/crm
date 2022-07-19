@@ -117,6 +117,18 @@ namespace web.Data.Adapter
             }
 
             return result;
-        }             
+        }
+
+        public static void SaveStatusForPersonalData(int id,int statusId)
+        {
+            var sql = string.Empty;
+            if (id > 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveStatusIdForPersonalData] {0}, {1}",
+                DataBaseHelper.RawSafeSqlString(id),
+                DataBaseHelper.RawSafeSqlString(statusId));
+                DataBaseHelper.RunSql(sql);
+            }           
+        }
     }
 }

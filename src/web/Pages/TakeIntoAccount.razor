@@ -29,9 +29,9 @@
                       <option value="@item.Id">@item.Name</option>
                    }
                 </InputSelect>        
-    
+             <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
      </EditForm>  
-        <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
+       
     </div>   
 </div>
 </div>
@@ -53,7 +53,7 @@
 
     private void HandleValidSubmitTakeIntoAccount()
     {
-
+        PersonalDataAdapter.SaveStatusForPersonalData(Id, model.Id);
     }
 
     private List<StatusDto> GetStatus( string status)
