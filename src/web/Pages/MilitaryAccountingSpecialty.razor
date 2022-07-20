@@ -9,7 +9,107 @@
 </nav>
 
 <div id="paymentDetails" class="accordion">
-  <!-- Card -->
+
+      <!-- Card -->
+  <div class="card">
+    <div class="card-header card-collapse" id="cardHeadingZero">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
+                data-toggle="collapse"
+                data-target="#cardZero"
+                aria-expanded="false"
+                aria-controls="cardZero">
+          <span class="row align-items-center">
+            <span class="col-md-6 mb-2 mb-md-0">
+              <span class="media align-items-center">
+                <img class="max-width-9 mr-3" src="./assets/img/160x160/img3.jpg" alt="Image Description">
+                <span class="media-body">
+                  <span class="font-size-1">Додати військово-облікову спеціальність</span>
+                </span>
+              </span>
+            </span>        
+            <span class="col-4 col-md-2 text-md-right">
+            </span>
+            <span class="col-6 col-md-3">
+              <span class="font-size-1"></span>
+            </span>
+            <span class="col-2 col-md-1 text-right">
+              <span class="card-btn-arrow">
+                <span class="fas fa-arrow-down small"></span>
+              </span>
+            </span>
+          </span>
+        </button>    
+
+      </h5>         
+
+    </div>
+    <div id="cardZero" class="collapse" aria-labelledby="cardHeadingZero" data-parent="#paymentDetails">
+           <div class="card-body px-4">
+        <!-- Card Details -->
+        <div class="row">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+           <EditForm Model="@model" OnValidSubmit="HandleValidSubmit"  class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />
+       
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                      <input type="text" class="form-control" @bind-value="model.MilitaryAccountingSpecialtyCode" placeholder="@_localizer["ВОС"]" >
+                 </div>
+                </div>            
+               </div>
+                     <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                      <input type="text" class="form-control" @bind-value="model.NameMilitaryAccountingSpecialty" placeholder="@_localizer["Назва ВОС"]" >
+                 </div>
+                </div>            
+               </div>
+             <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Save"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                </div>
+            </div>
+         </EditForm>
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+              <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">#</th>
+                       <th scope="col" class="text-center">ВОС</th>
+                        <th scope="col" class="text-center">Назва професії</th> 
+                         <th scope="col" class="text-center">Action</th> 
+                    </tr>
+                  </thead>
+                   @{ var i = 0;}
+                  @foreach(var item in getAllMilitaryAccountingSpecialty)
+                    {        
+                           
+                      <tbody>                                           
+                        <tr>          
+                              <td class="text-center">@i</td> 
+                              <td class="text-center">@item.MilitaryAccountingSpecialtyCode</td>
+                              <td class="text-center">@item.NameMilitaryAccountingSpecialty</td>    
+                              <td class="text-center">
+                                   <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
+                                  <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
+                              </td>
+                       </tr>                                           
+                      </tbody>      
+                    }    
+          </table>
+          </div>
+        </div>
+        <!-- End Card Details -->
+      </div>     
+    </div>
+  </div>
+  <!-- End Card -->
+
+   <!-- Card -->
   <div class="card">
     <div class="card-header card-collapse" id="cardHeadingOne">
       <h5 class="mb-0">
@@ -23,7 +123,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img3.jpg" alt="Image Description">
                 <span class="media-body">
-                  <span class="font-size-1">Військово облікова спеціальність для солдат і сержантів та старшин</span>
+                  <span class="font-size-1">Додати код восу</span>
                 </span>
               </span>
             </span>        
@@ -48,67 +148,73 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />
-       
+           <EditForm Model="@modelCode" OnValidSubmit="HandleValidSubmitCode"  class="body  p-3 mb-5 rounded ">
+             <DataAnnotationsValidator />
+                 <InputSelect  id="department" @bind-Value="specialtyId" @oninput="OnValueChanged"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть професію --</option>
+                    @foreach (var item in getAllMilitaryAccountingSpecialty)
+                    {                    
+                        <option class="input-group-pill mb-2" placeholder="Виберіть професію" value="@item.Id">@item.NameMilitaryAccountingSpecialty</option>
+                    }
+                </InputSelect>
+
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.MilitaryAccountingSpecialty" placeholder="@_localizer["ВОС"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="number" class="form-control" @bind-value="modelCode.Code" placeholder="@_localizer["Код"]" >
                  </div>
                 </div>            
                </div>
-               <div class="row d-flex">
+                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Code" placeholder="@_localizer["Код ВОС"]" aria-label="First Name" aria-invalid="true">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelCode.NameCode" placeholder="@_localizer["Назва коду"]" >
                  </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
+                </div>            
+               </div>
+                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Letter" placeholder="@_localizer["Буква"]" aria-label="First Name" aria-invalid="true">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelCode.Letter" placeholder="@_localizer["Додати букву"]" >
                  </div>
-                </div>             
-              </div>              
-                        
-            <div class="row">
+                </div>            
+               </div>
+             <div class="row">
                 <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <button type="submit" class="btn btn-xs btn-primary ">&nbsp;@_localizer["Save"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-soft-secondary mr-1" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
-        </EditForm>
+         </EditForm>
           </div>
           <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-              <table class="table">
-                 <thead>
+              <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
+                  <thead>
                     <tr>
-                      <th scope="col" class="text-center">#</th>
-                       <th scope="col" class="text-center">ВОС</th>
+                        <th scope="col">#</th>
                         <th scope="col" class="text-center">Код ВОС</th>
+                        <th scope="col" class="text-center">Назва коду</th>
                         <th scope="col" class="text-center">Буква</th>
-                        <th scope="col" class="text-center">Action</th> 
+                        <th scope="col" class="text-center">Action</th>   
                     </tr>
                   </thead>
-                  <tbody>
-                   @{ var i = 0;}                  
-                     @foreach(var item in getAllMilitaryAccountingSpecialty)
-                      {
-                        <tr>
-                            <th scope="row" class="text-center">@{i++;} @i</th>                             
-                                 <td class="text-center">@item.MilitaryAccountingSpecialty</td> 
-                                  <td class="text-center">@item.Code</td>
-                                   <td class="text-center">@item.Letter</td> 
-                                  <td class="text-center align-middle font-weight-normal">
-                                  <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
-                                  <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
-                        </td>
-                       </tr>     
-                      } 
-                                     
-            </tbody>
+                   
+                  @foreach(var item in getAllCodeMilitaryAccountingSpecialty)
+                    {        
+                      int index = @getAllCodeMilitaryAccountingSpecialty.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>          
+                               <td class="text-center">@index</td> 
+                               <td class="text-center">@item.Code</td>
+                               <td class="text-center">@item.NameCode</td>
+                               <td class="text-center">@item.Letter</td>  
+                               <td>
+                                   <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
+                                   <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
+                              </td>
+                       </tr>                                           
+                      </tbody>      
+                    }    
           </table>
           </div>
         </div>
@@ -118,188 +224,43 @@
   </div>
   <!-- End Card -->
 
-  <!-- Card -->
-  <div class="card">
-    <div class="card-header card-collapse" id="cardHeadingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
-                data-toggle="collapse"
-                data-target="#cardTwo"
-                aria-expanded="false"
-                aria-controls="cardTwo">
-          <span class="row align-items-center">
-            <span class="col-md-6 mb-2 mb-md-0">
-              <span class="media align-items-center">
-                <img class="max-width-9 mr-3" src="./assets/img/160x160/img6.jpg" alt="Image Description">
-                <span class="media-body">
-                  <span class="d-block font-size-1">Військово облікова спеціальність для офіцерського складу</span>
-                </span>
-              </span>
-            </span>
-            <span class="col-4 col-md-2 text-md-right">
-            </span>
-            <span class="col-6 col-md-3">
-              <span class="font-size-1"></span>
-            </span>
-            <span class="col-2 col-md-1 text-right">
-              <span class="card-btn-arrow">
-                <span class="fas fa-arrow-down small"></span>
-              </span>
-            </span>
-          </span>
-        </button>
-      </h5>
-    </div>
-    <div id="cardTwo" class="collapse" aria-labelledby="cardHeadingTwo" data-parent="#paymentDetails">
-          <div class="card-body px-4">
-        <!-- Card Details -->
-        <div class="row">
-          <div class="col-sm-4 mb-2 mb-sm-0">           
-          <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />       
-            
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.MilitaryAccountingSpecialty" placeholder="@_localizer["Brand Of Mmachine"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Code" placeholder="@_localizer["State Car of the Number"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Letter" placeholder="@_localizer["Year of graduation"]" aria-label="Individual Personal Number" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Individual Personal Number." aria-invalid="true">
-                  </div>
-                </div>             
-               </div>
-                                     
-            <div class="row">
-                <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
-                </div>
-            </div>
-        </EditForm>
-          </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
-                 <thead>
-                    <tr>
-                      <th scope="col" class="text-center">#</th>
-                       <th scope="col" class="text-center">ВОС</th>
-                        <th scope="col" class="text-center">Код ВОС</th>
-                        <th scope="col" class="text-center">Action</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                   @{ var o = 0;}                  
-                     @foreach(var item in getAllMilitaryAccountingSpecialty)
-                      {
-                        <tr>
-                            <th scope="row" class="text-center">@{o++;} @i</th>                             
-                                 <td class="text-center">@item.MilitaryAccountingSpecialty</td> 
-                                  <td class="text-center">@item.Code</td> 
-                                    <td class="text-center">@item.Letter</td> 
-                                  <td class="text-center align-middle font-weight-normal">
-                                  <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
-                                  <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
-                        </td>
-                       </tr>     
-                      } 
-                                     
-            </tbody>
-          </table>          
-          </div>
-        </div>
-        <!-- End Card Details -->
-      </div>
-    </div>
-  </div>
-  <!-- End Card -->
-     
 </div>
 
-@*<div class="card-body px-4">
-        <!-- Card Details -->
-        <div class="row">
-          <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
-        <DataAnnotationsValidator />
-       
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                   <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Description" placeholder="@_localizer["ВОС"]" aria-label="Last Name"  aria-invalid="true">
-                 </div>
-                  <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.Description" placeholder="@_localizer["Код ВОС"]" aria-label="Last Name"  aria-invalid="true">
-                 </div>
-                </div>  
-                
-                                              
-             </div>  
-            <div class="row">
-                <div class="ml-lg-3 m-3">
-                    <button type="submit" class="btn btn-xs btn-soft-info mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>                    
-                </div>
-            </div>
-        </EditForm>
-          </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-center">#</th>
-                       <th scope="col" class="text-center">ВОС</th>
-                        <th scope="col" class="text-center">Код ВОС</th>
-                        <th scope="col" class="text-center">Action</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                   @{ var i = 0;}                  
-                     @foreach(var item in getAllMilitaryAccountingSpecialty)
-                      {
-                        <tr>
-                            <th scope="row" class="text-center">@{i++;} @i</th>                             
-                                 <td class="text-center">@item.Description</td>                                 
-                                  <td class="text-center align-middle font-weight-normal">
-                                  <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => Edit(item.Id))">Edit</button>
-                                  <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => Delete(item.Id))">Delete</button>
-                        </td>
-                       </tr>     
-                      } 
-                                     
-            </tbody>
-          </table>          
-          </div>
-        </div>
-        <!-- End Card Details -->
- </div>
-*@
 
 @code {
     int counter = 0;
     string messageError = string.Empty;
-
+    int specialtyId;
     MilitaryAccountingSpecialtyDto model = new MilitaryAccountingSpecialtyDto();
+    MilitaryAccountingSpecialtyCodeDto modelCode = new MilitaryAccountingSpecialtyCodeDto();
     List<MilitaryAccountingSpecialtyDto> getAllMilitaryAccountingSpecialty = new List<MilitaryAccountingSpecialtyDto>();
+    List<MilitaryAccountingSpecialtyCodeDto> getAllCodeMilitaryAccountingSpecialty = new List<MilitaryAccountingSpecialtyCodeDto>();
 
     protected override void OnInitialized()
     {
-        // getAllMilitaryAccountingSpecialty = ;
+        getAllMilitaryAccountingSpecialty =  MilitaryAccountingSpecialtyAdapter.GetAllMilitaryAccountingSpecialty();
 
     }
 
     private void HandleValidSubmit()
     {
+        var specialtyId = MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialty(model);
 
+        getAllMilitaryAccountingSpecialty =  MilitaryAccountingSpecialtyAdapter.GetAllMilitaryAccountingSpecialty();
+        model = new MilitaryAccountingSpecialtyDto();
+    }
+
+    private void HandleValidSubmitCode()
+    {
+        modelCode.SoldierAndSergeantMilitaryAccountingSpecialtiesId = specialtyId;
+        MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialtyCode(modelCode);
+        getAllCodeMilitaryAccountingSpecialty = MilitaryAccountingSpecialtyAdapter.GetAllCodeMilitaryAccountingSpecialtyId(specialtyId);
+        modelCode = new MilitaryAccountingSpecialtyCodeDto();
+    }
+
+    private void OfficerHandleValidSubmit()
+    {
+        
     }
 
     private void Edit(int id)
@@ -315,5 +276,13 @@
     private void Cancel()
     {
         
+    }
+      
+    private void OnValueChanged(ChangeEventArgs  e)
+    {        
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);
+        getAllCodeMilitaryAccountingSpecialty = MilitaryAccountingSpecialtyAdapter.GetAllCodeMilitaryAccountingSpecialtyId(tempId);
+        this.StateHasChanged();
     }
 }

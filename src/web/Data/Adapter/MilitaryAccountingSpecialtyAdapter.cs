@@ -1,22 +1,130 @@
-﻿using web.Data.ModelDtos;
+﻿using System.Collections.Generic;
+using System.Data;
+using web.Data.ModelDtos;
 using web.Helpers;
 
 namespace web.Data.Adapter
 {
     public static class MilitaryAccountingSpecialtyAdapter
     {
-        public static void SaveMilitaryAccountingSpecialty(MilitaryAccountingSpecialtyDto model)
+        public static int SaveMilitaryAccountingSpecialtyCode(MilitaryAccountingSpecialtyCodeDto model)
         {
             var sql = string.Empty;
-            if (model.Id > 0)
+            var Id = 0;
+
+            if (model.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialty] {0},{1},{2},{3}",
+                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3},{4}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
-                DataBaseHelper.SafeSqlString(model.MilitaryAccountingSpecialty),
-                DataBaseHelper.SafeSqlString(model.Code),
-                DataBaseHelper.SafeSqlString(model.Letter));
+                DataBaseHelper.SafeSqlString(model.NameCode),
+                DataBaseHelper.RawSafeSqlString(model.Code),               
+                DataBaseHelper.SafeSqlString(model.Letter),
+                 DataBaseHelper.RawSafeSqlString(model.SoldierAndSergeantMilitaryAccountingSpecialtiesId));              
+
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
+                    }
+                }
+            }
+            else
+            {
+               sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3},{4}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.NameCode),
+                DataBaseHelper.RawSafeSqlString(model.Code),               
+                DataBaseHelper.SafeSqlString(model.Letter),
+                DataBaseHelper.RawSafeSqlString(model.SoldierAndSergeantMilitaryAccountingSpecialtiesId));
                 DataBaseHelper.RunSql(sql);
-            }           
+            }
+
+            return Id;
+        }
+
+        public static int SaveMilitaryAccountingSpecialty(MilitaryAccountingSpecialtyDto model)
+        {
+            var sql = string.Empty;
+            var Id = 0;
+
+            if (model.Id == 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialty] {0},{1},{2}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.RawSafeSqlString(model.MilitaryAccountingSpecialtyCode),                              
+                DataBaseHelper.SafeSqlString(model.NameMilitaryAccountingSpecialty));               
+
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
+                    }
+                }
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialty] {0},{1},{2}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.RawSafeSqlString(model.MilitaryAccountingSpecialtyCode),                
+                DataBaseHelper.SafeSqlString(model.NameMilitaryAccountingSpecialty));
+                DataBaseHelper.RunSql(sql);
+            }
+
+            return Id;
+        }
+
+        public static List<MilitaryAccountingSpecialtyDto> GetAllMilitaryAccountingSpecialty()
+        {
+            var result = new List<MilitaryAccountingSpecialtyDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllMilitaryAccountingSpecialties] ");
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new MilitaryAccountingSpecialtyDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
+                        MilitaryAccountingSpecialtyCode = DataBaseHelper.GetIntegerValueFromRowByName(item, "MilitaryAccountingSpecialtyCode"),
+                        NameMilitaryAccountingSpecialty = DataBaseHelper.GetValueFromRowByName(item, "NameMilitaryAccountingSpecialty")                       
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        public static List<MilitaryAccountingSpecialtyCodeDto> GetAllCodeMilitaryAccountingSpecialtyId(int id)
+        {
+            var result = new List<MilitaryAccountingSpecialtyCodeDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllCodeMilitaryAccountingSpecialties] {0}",
+                 DataBaseHelper.RawSafeSqlString(id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new MilitaryAccountingSpecialtyCodeDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
+                        Code = DataBaseHelper.GetIntegerValueFromRowByName(item, "Code"),
+                        NameCode = DataBaseHelper.GetValueFromRowByName(item, "NameMilitaryAccountingSpecialty"),
+                        Letter = DataBaseHelper.GetValueFromRowByName(item, "Letter")
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }

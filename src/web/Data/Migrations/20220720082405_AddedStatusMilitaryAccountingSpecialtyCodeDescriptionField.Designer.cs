@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220720082405_AddedStatusMilitaryAccountingSpecialtyCodeDescriptionField")]
+    partial class AddedStatusMilitaryAccountingSpecialtyCodeDescriptionField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -421,12 +423,7 @@ namespace web.Data.Migrations
                     b.Property<bool>("NeedToReimport")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("SoldierAndSergeantMilitaryAccountingSpecialtiesId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SoldierAndSergeantMilitaryAccountingSpecialtiesId");
 
                     b.ToTable("CodeMilitaryAccountingSpecialties");
                 });
@@ -879,6 +876,9 @@ namespace web.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CodeMilitaryAccountingSpecialtyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -904,6 +904,8 @@ namespace web.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CodeMilitaryAccountingSpecialtyId");
 
                     b.ToTable("SoldierAndSergeantMilitaryAccountingSpecialties");
                 });
@@ -1114,15 +1116,6 @@ namespace web.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("web.EF.CodeMilitaryAccountingSpecialtyModel", b =>
-                {
-                    b.HasOne("web.EF.SoldierAndSergeantMilitaryAccountingSpecialtyModel", "SoldierAndSergeantMilitaryAccountingSpecialties")
-                        .WithMany()
-                        .HasForeignKey("SoldierAndSergeantMilitaryAccountingSpecialtiesId");
-
-                    b.Navigation("SoldierAndSergeantMilitaryAccountingSpecialties");
-                });
-
             modelBuilder.Entity("web.EF.CountryModel", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -1247,6 +1240,15 @@ namespace web.Data.Migrations
                         .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("web.EF.SoldierAndSergeantMilitaryAccountingSpecialtyModel", b =>
+                {
+                    b.HasOne("web.EF.CodeMilitaryAccountingSpecialtyModel", "CodeMilitaryAccountingSpecialty")
+                        .WithMany()
+                        .HasForeignKey("CodeMilitaryAccountingSpecialtyId");
+
+                    b.Navigation("CodeMilitaryAccountingSpecialty");
                 });
 
             modelBuilder.Entity("web.EF.StatusModel", b =>
