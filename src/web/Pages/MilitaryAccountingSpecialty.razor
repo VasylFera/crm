@@ -274,7 +274,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Save"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="CancelLetter">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -298,8 +298,8 @@
                                <td class="text-center">@item.Letter</td>
                                <td class="text-center">@item.DescriptionLetter</td>                             
                                <td>
-                                   <button class="btn btn-xs btn-soft-info m-1" @onclick="(() => EditCode(item.Id))">Edit</button>
-                                   <button class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => DeleteCode(item.Id))">Delete</button>
+                                   <button type="button" class="btn btn-xs btn-soft-info m-1" @onclick="(() => EditLetter(item.Id))">Edit</button>
+                                   <button type="button" class="btn btn-xs btn-soft-danger  m-1" @onclick="(() => DeleteCode(item.Id))">Delete</button>
                               </td>
                        </tr>                                           
                       </tbody>      
@@ -361,17 +361,23 @@
 
     private void OfficerHandleValidSubmit()
     {
-        
+
     }
 
     private void Edit(int id)
     {
+
 
     }
 
     private void EditCode(int id)
     {
 
+    }
+
+    private void EditLetter(int id)
+    {
+        modelLetter = MilitaryAccountingSpecialtyAdapter.GetMilitaryAccountingSpecialtyLetterId(id);
     }
 
     private void Delete(int id)
@@ -386,9 +392,13 @@
 
     private void Cancel()
     {
-        
+
     }
-      
+    private void CancelLetter()
+    {
+        modelLetter = new MilitaryAccountingSpecialtyLetterDto();
+    }
+
     private void OnValueChanged(ChangeEventArgs  e)
     {        
         var getId = e.Value.ToString();

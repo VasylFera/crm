@@ -129,7 +129,7 @@ namespace web.Data.Adapter
             var sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyLetter] {0},{1},{2}",
             DataBaseHelper.RawSafeSqlString(model.Id),
             DataBaseHelper.SafeSqlString(model.Letter),
-            DataBaseHelper.RawSafeSqlString(model.DescriptionLetter));
+            DataBaseHelper.SafeSqlString(model.DescriptionLetter));
             DataBaseHelper.RunSql(sql);
         }
 
@@ -152,6 +152,27 @@ namespace web.Data.Adapter
                         DescriptionLetter = DataBaseHelper.GetValueFromRowByName(item, "DescriptionLetter")
                     });
                 }
+            }
+
+            return result;
+        }
+
+        public static MilitaryAccountingSpecialtyLetterDto GetMilitaryAccountingSpecialtyLetterId(int Id)
+        {
+            MilitaryAccountingSpecialtyLetterDto result = new MilitaryAccountingSpecialtyLetterDto();
+
+            var sql = string.Format(@"EXEC [sp_GetMilitaryAccountingSpecialtyLetterId] {0}",
+               DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new MilitaryAccountingSpecialtyLetterDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Letter = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Letter"),
+                    DescriptionLetter = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "DescriptionLetter")
+                };
             }
 
             return result;
