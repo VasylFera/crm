@@ -14,12 +14,11 @@ namespace web.Data.Adapter
 
             if (model.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3},{4}",
+                sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.NameCode),
-                DataBaseHelper.RawSafeSqlString(model.Code),               
-                DataBaseHelper.SafeSqlString(model.Letter),
-                 DataBaseHelper.RawSafeSqlString(model.SoldierAndSergeantMilitaryAccountingSpecialtiesId));              
+                DataBaseHelper.RawSafeSqlString(model.Code),            
+                DataBaseHelper.RawSafeSqlString(model.SoldierAndSergeantMilitaryAccountingSpecialtiesId));              
 
                 var dataResult = DataBaseHelper.GetSqlResult(sql);
                 if (dataResult != null && dataResult.Rows.Count > 0)
@@ -32,11 +31,10 @@ namespace web.Data.Adapter
             }
             else
             {
-               sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3},{4}",
+               sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyCode] {0},{1},{2},{3}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.NameCode),
-                DataBaseHelper.RawSafeSqlString(model.Code),               
-                DataBaseHelper.SafeSqlString(model.Letter),
+                DataBaseHelper.RawSafeSqlString(model.Code),              
                 DataBaseHelper.RawSafeSqlString(model.SoldierAndSergeantMilitaryAccountingSpecialtiesId));
                 DataBaseHelper.RunSql(sql);
             }
@@ -118,8 +116,40 @@ namespace web.Data.Adapter
                     {
                         Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),
                         Code = DataBaseHelper.GetIntegerValueFromRowByName(item, "Code"),
-                        NameCode = DataBaseHelper.GetValueFromRowByName(item, "NameMilitaryAccountingSpecialty"),
-                        Letter = DataBaseHelper.GetValueFromRowByName(item, "Letter")
+                        NameCode = DataBaseHelper.GetValueFromRowByName(item, "NameMilitaryAccountingSpecialty")                       
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        public static void SaveMilitaryAccountingSpecialtyLetter(MilitaryAccountingSpecialtyLetterDto model)
+        {           
+            var sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyLetter] {0},{1},{2}",
+            DataBaseHelper.RawSafeSqlString(model.Id),
+            DataBaseHelper.SafeSqlString(model.Letter),
+            DataBaseHelper.RawSafeSqlString(model.DescriptionLetter));
+            DataBaseHelper.RunSql(sql);
+        }
+
+        public static List<MilitaryAccountingSpecialtyLetterDto> GetAllMilitaryAccountingSpecialtyLetter()
+        {
+            var result = new List<MilitaryAccountingSpecialtyLetterDto>();
+
+            string sql = null;
+            sql = string.Format(@"exec [sp_GetAllMilitaryAccountingSpecialtiyLetters] ");
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                foreach (DataRow item in sqlResult.Rows)
+                {
+                    result.Add(new MilitaryAccountingSpecialtyLetterDto
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(item, "Id"),                       
+                        Letter = DataBaseHelper.GetValueFromRowByName(item, "Letter"),
+                        DescriptionLetter = DataBaseHelper.GetValueFromRowByName(item, "DescriptionLetter")
                     });
                 }
             }

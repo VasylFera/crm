@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
 namespace web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220721072305_DeleteFieldLetterForCodeMAS")]
+    partial class DeleteFieldLetterForCodeMAS
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -535,47 +537,6 @@ namespace web.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MaritalStatuses");
-                });
-
-            modelBuilder.Entity("web.EF.MilitaryAccountingSpecialtyLetterModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CodeMilitaryAccountingSpecialtiesId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DescriptionLetter")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ImportDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsImported")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Letter")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("NeedToReimport")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CodeMilitaryAccountingSpecialtiesId");
-
-                    b.ToTable("MilitaryAccountingSpecialtyLetteries");
                 });
 
             modelBuilder.Entity("web.EF.OfficerMilitaryAccountingSpecialtyModel", b =>
@@ -1177,15 +1138,6 @@ namespace web.Data.Migrations
                         .HasForeignKey("RegionId");
 
                     b.Navigation("Region");
-                });
-
-            modelBuilder.Entity("web.EF.MilitaryAccountingSpecialtyLetterModel", b =>
-                {
-                    b.HasOne("web.EF.CodeMilitaryAccountingSpecialtyModel", "CodeMilitaryAccountingSpecialties")
-                        .WithMany()
-                        .HasForeignKey("CodeMilitaryAccountingSpecialtiesId");
-
-                    b.Navigation("CodeMilitaryAccountingSpecialties");
                 });
 
             modelBuilder.Entity("web.EF.OtgModel", b =>

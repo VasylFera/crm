@@ -7,8 +7,7 @@ namespace web.EF
         [Key]
         public int Id { get; set; }
         public string Description { get; set; }
-        public int Code { get; set; }
-        public string Letter { get; set; }
+        public int Code { get; set; }       
         public virtual SoldierAndSergeantMilitaryAccountingSpecialtyModel SoldierAndSergeantMilitaryAccountingSpecialties { get; set; }
     }
 }

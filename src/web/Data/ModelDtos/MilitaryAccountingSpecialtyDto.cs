@@ -11,8 +11,15 @@
     {
         public int Id { get; set; }          
         public int Code { get; set; }
-        public string NameCode { get; set; }
-        public string Letter { get; set; }
+        public string NameCode { get; set; }     
+      
         public int SoldierAndSergeantMilitaryAccountingSpecialtiesId { get; set; }
+    }
+
+    public class MilitaryAccountingSpecialtyLetterDto
+    {
+        public int Id { get; set; }
+        public string Letter { get; set; }
+        public string DescriptionLetter { get; set; }
     }
 }

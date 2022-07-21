@@ -39,5 +39,6 @@ namespace web.Data
         public DbSet<OfficerMilitaryAccountingSpecialtyModel> OfficerMilitaryAccountingSpecialties { get; set; }
         public DbSet<SoldierAndSergeantMilitaryAccountingSpecialtyModel> SoldierAndSergeantMilitaryAccountingSpecialties { get; set; }
         public DbSet<CodeMilitaryAccountingSpecialtyModel> CodeMilitaryAccountingSpecialties { get; set; }
+        public DbSet<MilitaryAccountingSpecialtyLetterModel> MilitaryAccountingSpecialtyLetteries { get; set; }
     }
 }
