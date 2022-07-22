@@ -345,7 +345,8 @@
 
     private void HandleValidSubmitCode()
     {
-        modelCode.SoldierAndSergeantMilitaryAccountingSpecialtiesId = specialtyId;       
+        modelCode.SoldierAndSergeantMilitaryAccountingSpecialtiesId = specialtyId;
+        modelCode.NameCode = $"[{modelCode.Code}]   {modelCode.NameCode}";
         MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialtyCode(modelCode);
         getAllCodeMilitaryAccountingSpecialty = MilitaryAccountingSpecialtyAdapter.GetAllCodeMilitaryAccountingSpecialtyId(specialtyId);
         modelCode = new MilitaryAccountingSpecialtyCodeDto();
@@ -353,6 +354,7 @@
 
     private void HandleValidSubmitLetter()
     {
+        modelLetter.DescriptionLetter = $"[{modelLetter.Letter}]   {modelLetter.DescriptionLetter}";
         MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialtyLetter(modelLetter);
         getAllLetter = MilitaryAccountingSpecialtyAdapter.GetAllMilitaryAccountingSpecialtyLetter();
 

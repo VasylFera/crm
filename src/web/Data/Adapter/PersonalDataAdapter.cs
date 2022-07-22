@@ -119,14 +119,16 @@ namespace web.Data.Adapter
             return result;
         }
 
-        public static void SaveStatusForPersonalData(int id,int statusId)
+        public static void SaveStatusForPersonalData(int id, TakeIntoAccountDto model)
         {
             var sql = string.Empty;
             if (id > 0)
             {
-                sql = string.Format(@"EXEC [sp_SaveStatusIdForPersonalData] {0}, {1}",
+                // personalData table
+                sql = string.Format(@"EXEC [sp_SaveStatusIdForPersonalData] {0}, {1},{2}",
                 DataBaseHelper.RawSafeSqlString(id),
-                DataBaseHelper.RawSafeSqlString(statusId));
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.ServedDescription));
                 DataBaseHelper.RunSql(sql);
             }           
         }

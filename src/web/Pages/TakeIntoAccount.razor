@@ -11,6 +11,11 @@
 <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
           <div class="col-md-6 mb-3 mb-md-0">
+            @if(isSave)
+            {
+                 <h4 style="color:green" class="text-center">@messageTakeIntoAccount</h4>
+            }
+          
           <EditForm Model="@model" OnValidSubmit="HandleValidSubmitTakeIntoAccount" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />      
                  
@@ -28,7 +33,15 @@
                    {                     
                       <option value="@item.Id">@item.Name</option>
                    }
-                </InputSelect>        
+                </InputSelect>
+                                
+                 <InputSelect @bind-Value="model.ServedDescription"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Відомість про присягу --</option>
+                   @foreach (var item in served)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect> 
              <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
      </EditForm>  
        
@@ -36,24 +49,83 @@
 </div>
 </div>
 
+@if(isShow)
+{
+    <div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+          <EditForm Model="@modelGeneral" OnValidSubmit="HandleValidSubmitTakeIntoAccount" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />      
+                 <h4>Додати ВОС</h4>
+                 <InputSelect   @bind-Value="modelGeneral.MilitaryAccountingSpecialtyCodeId" @oninput="OnValueChanged"  class="form-control input-group-pill mb-2">
+                   <option value="0">-- Виберіть військово-облікову спеціальність  --</option>
+                    @foreach (var item in getAllMilitaryAccountingSpecialty)
+                    {                    
+                        <option class="input-group-pill mb-2" placeholder="Виберіть професію" value="@item.Id">@item.NameMilitaryAccountingSpecialty</option>
+                    }
+                </InputSelect>
+                
+                  <InputSelect @bind-Value="modelGeneral.CodeId"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть вос код --</option>
+                   @foreach (var item in getAllCodeMilitaryAccountingSpecialty)
+                   {                     
+                      <option value="@item.Id">@item.NameCode</option>
+                   }
+                </InputSelect>   
+                
+                 <InputSelect @bind-Value="modelGeneral.LetterId"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть групу обліку --</option>
+                   @foreach (var item in getAllLetter)
+                   {                     
+                      <option value="@item.Id">@item.DescriptionLetter</option>
+                   }
+                </InputSelect>  
+ 
+             <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
+             <button type="button" class="btn btn-soft-primary mr-1 m-3" @onclick="CancelLetter">&nbsp;@_localizer["Cancel"]&nbsp;</button>
+     </EditForm>  
+       
+    </div>   
+</div>
+</div>
+}
 
 @code {
     [Parameter]
     public int Id { get; set; }
+    bool isShow = false;
+    int specialtyId;
+    int letterId;
+    string messageTakeIntoAccount = "Дані збережено!";
+    bool isSave = false;
 
-    string[] GetChooseAccount = { "Призовник", "Рядовий склад","Сержанський і старшинський склад","Офіцерський склад" };
+    string[] GetChooseAccount = { "Призовник","Рекрутер", "Солдатський склад","Сержанський і старшинський склад","Офіцерський склад" };
+
+    string[] served  = { "Приймав присягу", "Не приймав присягу" };
 
     TakeIntoAccountDto model = new TakeIntoAccountDto();
     List<StatusDto> getAllRang = new List<StatusDto>();
+    MilitaryAccountingSpecialtyDto modelMilAccountSpecialty = new MilitaryAccountingSpecialtyDto();
+    MilitaryAccountingSpecialtyCodeDto modelCode = new MilitaryAccountingSpecialtyCodeDto();
+    MilitaryAccountingSpecialtyLetterDto modelLetter = new MilitaryAccountingSpecialtyLetterDto();
+
+    MilitaryAccountingSpecialtyGeneralDto modelGeneral = new MilitaryAccountingSpecialtyGeneralDto();
+
+    List<MilitaryAccountingSpecialtyDto> getAllMilitaryAccountingSpecialty = new List<MilitaryAccountingSpecialtyDto>();
+    List<MilitaryAccountingSpecialtyCodeDto> getAllCodeMilitaryAccountingSpecialty = new List<MilitaryAccountingSpecialtyCodeDto>();
+    List<MilitaryAccountingSpecialtyLetterDto> getAllLetter = new List<MilitaryAccountingSpecialtyLetterDto>();
 
     protected override void OnInitialized()
     {     
         getAllRang = GetStatus(model.Name);
+        getAllMilitaryAccountingSpecialty =  MilitaryAccountingSpecialtyAdapter.GetAllMilitaryAccountingSpecialty();
+        getAllLetter = MilitaryAccountingSpecialtyAdapter.GetAllMilitaryAccountingSpecialtyLetter();
     }
 
     private void HandleValidSubmitTakeIntoAccount()
     {
-        PersonalDataAdapter.SaveStatusForPersonalData(Id, model.Id);
+        PersonalDataAdapter.SaveStatusForPersonalData(Id, model);
+        isSave = true;
     }
 
     private List<StatusDto> GetStatus( string status)
@@ -62,14 +134,16 @@
         {
             case "Призовник":               
                 break;
-            case "Рядовий склад":
-                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id <3).ToList();
+             case "Рекрутер":               
+                break;
+            case "Солдатський склад":
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id < 3).ToList();
                 break;      
             case "Сержанський і старшинський склад":
-                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id >3 && q.Id <8).ToList();
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id > 2 && q.Id < 8).ToList();
                 break;  
             case "Офіцерський склад":
-                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id >8).ToList();
+                getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id > 8).ToList();
                 break;
         }
 
@@ -81,7 +155,31 @@
         var name = e.Value.ToString();
         List<StatusDto> getChooseStatus =  GetStatus(name);     
         getAllRang = getChooseStatus;
-    
+        if(name =="Призовник" || name == "Рекрутер")
+        {
+            isShow = false;
+        }
+        else
+        {
+            isShow = true;
+        }
+
+
         this.StateHasChanged();
+    }
+
+    private void OnValueChanged(ChangeEventArgs  e)
+    {        
+        var getId = e.Value.ToString();
+        int tempId = Int32.Parse(getId);
+        getAllCodeMilitaryAccountingSpecialty = MilitaryAccountingSpecialtyAdapter.GetAllCodeMilitaryAccountingSpecialtyId(tempId);
+        this.StateHasChanged();
+    }
+
+    private void CancelLetter()
+    {
+        modelGeneral.MilitaryAccountingSpecialtyCodeId = 0;
+        modelGeneral.CodeId = 0;
+        modelGeneral.LetterId = 0;
     }
 }
