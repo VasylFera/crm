@@ -11,7 +11,7 @@
 <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
           <div class="col-md-6 mb-3 mb-md-0">
-            @if(isSave)
+            @if(isSaveTakeIntoAccoun)
             {
                  <h4 style="color:green" class="text-center">@messageTakeIntoAccount</h4>
             }
@@ -54,7 +54,8 @@
     <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
           <div class="col-md-6 mb-3 mb-md-0">
-          <EditForm Model="@modelGeneral" OnValidSubmit="HandleValidSubmitTakeIntoAccount" class="body  p-3 mb-5 rounded ">
+           
+     <EditForm Model="@modelGeneral" OnValidSubmit="HandleValidSubmitGeneralAccount" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />      
                  <h4>Додати ВОС</h4>
                  <InputSelect   @bind-Value="modelGeneral.MilitaryAccountingSpecialtyCodeId" @oninput="OnValueChanged"  class="form-control input-group-pill mb-2">
@@ -97,8 +98,8 @@
     int specialtyId;
     int letterId;
     string messageTakeIntoAccount = "Дані збережено!";
-    bool isSave = false;
-
+    bool isSaveTakeIntoAccoun = false;
+   
     string[] GetChooseAccount = { "Призовник","Рекрутер", "Солдатський склад","Сержанський і старшинський склад","Офіцерський склад" };
 
     string[] served  = { "Приймав присягу", "Не приймав присягу" };
@@ -125,7 +126,7 @@
     private void HandleValidSubmitTakeIntoAccount()
     {
         PersonalDataAdapter.SaveStatusForPersonalData(Id, model);
-        isSave = true;
+        isSaveTakeIntoAccoun = true;
     }
 
     private List<StatusDto> GetStatus( string status)
@@ -134,7 +135,7 @@
         {
             case "Призовник":               
                 break;
-             case "Рекрутер":               
+            case "Рекрутер":               
                 break;
             case "Солдатський склад":
                 getAllRang = StatusAdapter.GetAllStatus().Where(q=>q.Id < 3).ToList();
@@ -168,6 +169,13 @@
         this.StateHasChanged();
     }
 
+    private void HandleValidSubmitGeneralAccount()
+    {       
+
+        //ToDo: add logic for save
+        _navigationManager.NavigateTo("/search-operator");
+    }
+
     private void OnValueChanged(ChangeEventArgs  e)
     {        
         var getId = e.Value.ToString();
@@ -180,6 +188,6 @@
     {
         modelGeneral.MilitaryAccountingSpecialtyCodeId = 0;
         modelGeneral.CodeId = 0;
-        modelGeneral.LetterId = 0;
+        modelGeneral.LetterId = 0;        
     }
 }

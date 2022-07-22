@@ -9,7 +9,7 @@
             <li class="breadcrumb-item active" aria-current="page">@_localizer["SearchOperator"]</li>
         </ol>
   </nav>
-   <NavLink class="btn btn-secondary" href="/operator-home">&nbsp;@_localizer["Add new person"]&nbsp;</NavLink>
+   <NavLink class="btn btn-secondary m-3" href="/operator-home">&nbsp;@_localizer["Add"]&nbsp;</NavLink>
 
     <div class="card-body px-4">
         <!-- Card Details -->
@@ -112,9 +112,9 @@
 @code {
     PersonalDataDto model = new PersonalDataDto();
 
-      protected override void OnInitialized()
+    protected override void OnInitialized()
     {
-       
+        model.DateOfBirth = DateTime.Now;
     }
 
       public void ResetSearch()
