@@ -155,6 +155,7 @@
         var name = e.Value.ToString();
         List<StatusDto> getChooseStatus =  GetStatus(name);     
         getAllRang = getChooseStatus;
+
         if(name =="Призовник" || name == "Рекрутер")
         {
             isShow = false;
@@ -163,7 +164,6 @@
         {
             isShow = true;
         }
-
 
         this.StateHasChanged();
     }

@@ -184,7 +184,7 @@ namespace web.Areas.Identity.Pages.Account
                     if (findUser != null)
                     {
                         await _signInManager.SignInAsync(findUser, isPersistent: false);
-                        return LocalRedirect("~/operator-home");
+                        return LocalRedirect("~/search-operator");
                     }
 
                 }

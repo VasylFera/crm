@@ -6,11 +6,14 @@
 
 @attribute [Authorize(Roles = "Operator")]
 
-<nav aria-label="breadcrumb">
+
+    <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
-            <li class="breadcrumb-item active" aria-current="page">@_localizer["Operator"]</li>
+            <li class="breadcrumb-item"><a href="/search-operator">Search Operator</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Operator</li>
         </ol>
-  </nav>
+    </nav>
+
 <div class="shadow-primary-lg p-3 mb-5 rounded">
     <div class="row">
           <div class="col-md-6 mb-3 mb-md-0">

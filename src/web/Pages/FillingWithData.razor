@@ -4,11 +4,12 @@
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> _localizer
 
-<div class="alert alert-primary" role="alert" @onclick="Collaps">
-    <p class="text-right" style="color:blue;">@_localizer["Super Admin Home"]
-        <i class="fa fa-bar-chart text-left p-2" style="font-size:36px; text-align:left;"></i>      
-    </p>
-</div>
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+              <li class="breadcrumb-item"><a href="/officer-home">Officer home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">FillingData</li>
+        </ol>
+</nav>
 
 
 <div id="paymentDetails" class="accordion">
