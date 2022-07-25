@@ -1,0 +1,372 @@
+﻿@page "/education"
+@inject IStringLocalizer<App> _localizer
+
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+            <li class="breadcrumb-item active" aria-current="page"><h2>@_localizer["Виберіть статус"]</h2></li>
+        </ol>
+</nav>
+
+@*<div class="shadow-primary-lg p-3 mb-5 rounded">
+    <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+                    
+       <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />      
+                 
+                <InputSelect @bind-Value="model.NameEducation" @oninput="OnValueChanged"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть рівень освіти --</option>
+                   @foreach (var item in getChooseEducation)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
+                
+                   <div class="input-group-pill mb-2">
+                      <input type="date" class="form-control" @bind-value="model.Start" placeholder="Рік початку">
+                  </div>
+                 <div class="input-group-pill mb-2">
+                   <input type="text" class="form-control"@bind-value="model.End" placeholder="Рік  закінчення">
+                 </div>
+                  <InputSelect @bind-Value="model.Id"  class="form-control input-group-pill mb-2">
+                     <option value="0">-- Виберіть рівень освіти  --</option>
+                   @foreach (var item in getStatusEducation)
+                   {                     
+                      <option value="@item">@item</option>
+                   }
+                </InputSelect>
+                                
+                 <div class="input-group-pill mb-2">
+                   <input type="text" class="form-control"@bind-value="model.NameEducation" placeholder="Назва школи">
+                 </div>
+             <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
+     </EditForm>  
+       
+    </div>   
+</div>
+</div>*@
+
+<!-- Accordion -->
+<div id="paymentDetails" class="accordion">
+  <!-- Card -->
+  <div class="card">
+    <div class="card-header card-collapse" id="cardHeadingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
+                data-toggle="collapse"
+                data-target="#cardOne"
+                aria-expanded="false"
+                aria-controls="cardOne">
+          <span class="row align-items-center">
+            <span class="col-md-6 mb-2 mb-md-0">
+              <span class="media align-items-center">
+                <img class="max-width-9 mr-3" src="./assets/img/160x160/img3.jpg" alt="Image Description">
+                <span class="media-body">
+                  <span class="font-size-1">Додати шкільну освіту</span>
+                </span>
+              </span>
+            </span>        
+            <span class="col-4 col-md-2 text-md-right">
+            </span>
+            <span class="col-6 col-md-3">
+              <span class="font-size-1"></span>
+            </span>
+            <span class="col-2 col-md-1 text-right">
+              <span class="card-btn-arrow">
+                <span class="fas fa-arrow-down small"></span>
+              </span>
+            </span>
+          </span>
+        </button>    
+
+      </h5>         
+
+    </div>
+    <div id="cardOne" class="collapse" aria-labelledby="cardHeadingOne" data-parent="#paymentDetails">
+           <div class="card-body px-4">
+        <!-- Card Details -->
+        <div class="row">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+           <EditForm Model="@modelSchool" OnValidSubmit="HandleValidSubmitSchool" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />
+       
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.StatusSchoolCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.NumberOfClasses" placeholder="@_localizer["Кількість класів"]" aria-label="Individual Personal Number"  aria-invalid="true">
+                  </div>
+                </div>             
+               </div>        
+                <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.NameSchool" placeholder="@_localizer["Назва школи"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.SeriaSchoolCertificate" placeholder="@_localizer["Серія атестату"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelSchool.NumberSchoolCertificate" placeholder="@_localizer["Номер атестату"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+            <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                </div>
+            </div>
+        </EditForm>
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Рік початку</th>
+                        <th scope="col">Рік закінчення</th>
+                       <th scope="col">Рівень</th>                     
+                       <th scope="col">Найменування навчального закладу</th>
+                       <th scope="col">Серія диплому</th> 
+                       <th scope="col">Номер диплому</th>  
+                         <th scope="col">Спеціальність</th>
+                        <th scope="col">Дія</th>  
+                    </tr>
+                  </thead>
+                  <tbody>
+                 @*    @foreach(var item in getSchool)
+                    {        
+                      int index = @getSchool.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>          
+                              <td scope="row">@index</td> 
+                              <td >@item</td>    
+                              <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                              </td>
+                       </tr>                                           
+                      </tbody>      
+                    } *@                 
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <!-- End Card Details -->
+      </div>     
+    </div>
+  </div>
+  <!-- End Card -->
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-header card-collapse" id="cardHeadingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
+                data-toggle="collapse"
+                data-target="#cardTwo"
+                aria-expanded="false"
+                aria-controls="cardTwo">
+          <span class="row align-items-center">
+            <span class="col-md-6 mb-2 mb-md-0">
+              <span class="media align-items-center">
+                <img class="max-width-9 mr-3" src="./assets/img/160x160/img6.jpg" alt="Image Description">
+                <span class="media-body">
+                  <span class="d-block font-size-1">Додати професійно-технічну/середню спеціальну освіту</span>
+                </span>
+              </span>
+            </span>
+            <span class="col-4 col-md-2 text-md-right">
+            </span>
+            <span class="col-6 col-md-3">
+              <span class="font-size-1"></span>
+            </span>
+            <span class="col-2 col-md-1 text-right">
+              <span class="card-btn-arrow">
+                <span class="fas fa-arrow-down small"></span>
+              </span>
+            </span>
+          </span>
+        </button>
+      </h5>
+    </div>
+    <div id="cardTwo" class="collapse" aria-labelledby="cardHeadingTwo" data-parent="#paymentDetails">
+          <div class="card-body px-4">
+        <!-- Card Details -->
+        <div class="row">
+          <div class="col-sm-4 mb-2 mb-sm-0">           
+          <EditForm Model="@modelProfessionalTechnicalSchool" OnValidSubmit="HandleValidSubmitProfessionalTechnicalSchool" class="body  p-3 mb-5 rounded ">
+        <DataAnnotationsValidator />       
+                <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.StatusProfessionalTechnicalSchoolCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+                   
+                <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.NameProfessionalTechnicalSchool" placeholder="@_localizer["Назва школи"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.SeriaProfessionalTechnicalSchoolCertificate" placeholder="@_localizer["Серія диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.NumberProfessionalTechnicalSchoolCertificate" placeholder="@_localizer["Номер диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalSchool.SpecialtyProfessionalTechnicalSchool" placeholder="@_localizer["Спеціальність"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                  </div>
+                </div>             
+             </div> 
+            <div class="row">
+                <div class="ml-lg-3 m-3">
+                    <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                </div>
+            </div>
+        </EditForm>
+          </div>
+          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
+             <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                       <th scope="col">Рік початку</th>
+                        <th scope="col">Рік закінчення</th>
+                       <th scope="col">Рівень</th>                      
+                       <th scope="col">Назва навчального закладу</th>
+                       <th scope="col">Серія диплома</th> 
+                       <th scope="col">Номер диплома</th> 
+                        <th scope="col">Спеціальність</th>  
+                        <th scope="col">Дія</th>                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @*    @foreach(var item in getSchool)
+                    {        
+                      int index = @getSchool.IndexOf(item)+1;
+                      <tbody>                                           
+                        <tr>          
+                              <td scope="row">@index</td> 
+                              <td >@item</td>    
+                              <td>
+                                   <button class="btn btn-sm btn btn-outline-info">
+                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   </button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                              </td>
+                       </tr>                                           
+                      </tbody>      
+                    } *@                
+            </tbody>
+          </table>          
+          </div>
+        </div>
+        <!-- End Card Details -->
+      </div>
+    </div>
+  </div>
+ </div>
+  <!-- End Card -->
+
+@code {
+    EducationSchoolDto modelSchool = new EducationSchoolDto();
+    EducationProfessionalTechnicalSchoolDto modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
+
+    string[] getChooseEducation = { "Школа","ПТУ","Вища","Військово-технічна спеціальність","Військова" };
+    string[] getSchool = {"Початкова","Базова","Повна загальна"};
+    string[] getStatusEducation = { "1Початкова","Базова","Повна загальна","2Професійно-технічна","Середньо-спеціальна","3Молодший спеціаліст","Бакалавр","Спеціаліст","Магістр","4ТР","CР","ОТР" };
+    protected override void OnInitialized()
+    {
+        modelSchool.Start = DateTime.Now;
+        modelSchool.End = DateTime.Now;
+    }
+
+    public void ResetSearch()
+    {
+
+    }
+
+    private void Collaps()
+    {       
+
+    }
+
+    private void HandleValidSubmitSchool()
+    {
+
+    }
+
+    private void HandleValidSubmitProfessionalTechnicalSchool()
+    {
+        
+    }
+
+     private void OnValueChanged(ChangeEventArgs e)
+    {
+       
+
+        this.StateHasChanged();
+    }
+}
