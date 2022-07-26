@@ -126,6 +126,9 @@
   <data name="Conscription Home" xml:space="preserve">
     <value>Conscription Home</value>
   </data>
+  <data name="Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>

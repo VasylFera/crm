@@ -147,6 +147,9 @@
   <data name="District" xml:space="preserve">
     <value>Район</value>
   </data>
+  <data name="Education" xml:space="preserve">
+    <value>Освіта</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Пошта</value>
   </data>
