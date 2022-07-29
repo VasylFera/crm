@@ -9,5 +9,6 @@
         public int OtgId { get; set; }
         public int VillageId { get; set; }
         public string IdPersonal { get; set; }
+        public string UserId { get; set; }
     }
 }

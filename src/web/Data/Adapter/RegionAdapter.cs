@@ -44,14 +44,13 @@ namespace web.Data.Adapter
         public static int SaveAllAddress(AllAddressDto model)
         {
             var sql = string.Empty;
-            var countryId = 0;
-            var userId = "970c2976-c1ad-4ddb-9f40-0910c5eeb3f1";
+            var countryId = 0;           
 
             if (model.Id > 0)
             {
                 sql = string.Format(@"EXEC [sp_SaveAllAddress] {0}, {1},{2}, {3},{4}, {5},{6},{7}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
-                DataBaseHelper.SafeSqlString(userId),
+                DataBaseHelper.SafeSqlString(model.UserId),
                 DataBaseHelper.SafeSqlString(model.CountryId),
                 DataBaseHelper.SafeSqlString(model.RegionId),
                 DataBaseHelper.SafeSqlString(model.DistrictId),
@@ -65,7 +64,7 @@ namespace web.Data.Adapter
             {
                 sql = string.Format(@"EXEC [sp_SaveAllAddress] {0}, {1},{2}, {3},{4}, {5},{6},{7}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
-                DataBaseHelper.SafeSqlString(userId),
+                DataBaseHelper.SafeSqlString(model.UserId),
                 DataBaseHelper.SafeSqlString(model.CountryId),
                 DataBaseHelper.SafeSqlString(model.RegionId),
                 DataBaseHelper.SafeSqlString(model.DistrictId),

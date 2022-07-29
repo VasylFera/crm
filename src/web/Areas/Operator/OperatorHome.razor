@@ -172,6 +172,9 @@
 
 @code {
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
     PersonalDataDto personalDataModel = new PersonalDataDto();
     // RegionDto regionModel = new RegionDto();
 
@@ -194,9 +197,11 @@
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
     string[] GetChooseSex = { "чоловік", "жінка" };
     bool isStatusM = false;
-
-    protected override void OnInitialized()
+    string userId;
+    protected  override async Task OnInitializedAsync()
     {
+        var authState = await authenticationStateTask;       
+        userId = authState.User.Claims.FirstOrDefault().Value;
         getAllCountry= RegionAdapter.GetAllCountries();
 
         personalDataModel.DateOfBirth = DateTime.Now;
@@ -211,6 +216,7 @@
             personalDataModel.IndividualPersonalNumber = "0000000000";
         }
 
+        personalDataModel.UserId = userId;
 
         personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
         var id = PersonalDataAdapter.SavePersonalData(personalDataModel);
@@ -220,6 +226,7 @@
         modelAllAddress.OtgId = districtId;
         modelAllAddress.VillageId = villageId;
         modelAllAddress.IdPersonal = Convert.ToString(id);
+        modelAllAddress.UserId = userId;
         RegionAdapter.SaveAllAddress(modelAllAddress);
 
         personalDataCountryId = id;

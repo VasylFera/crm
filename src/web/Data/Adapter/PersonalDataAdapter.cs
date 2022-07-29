@@ -10,9 +10,8 @@ namespace web.Data.Adapter
             public static int SavePersonalData(PersonalDataDto personalDataModel)
             {
               var sql = string.Empty;
-              var Id = 0;          
-              var userId = "970c2976-c1ad-4ddb-9f40-0910c5eeb3f1";
-            
+              var Id = 0;         
+                         
             if(personalDataModel.Id == 0)
             {
                 sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18}",
@@ -29,12 +28,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.Email),
                 DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatus),
                 DataBaseHelper.SafeSqlString(personalDataModel.Note),
-                DataBaseHelper.SafeSqlString(userId),
-                //DataBaseHelper.RawSafeSqlString(countryId),
-                //DataBaseHelper.RawSafeSqlString(regionId),
-                //DataBaseHelper.RawSafeSqlString(districtId),
-                //DataBaseHelper.RawSafeSqlString(otgId),
-                //DataBaseHelper.RawSafeSqlString(villageId),
+                DataBaseHelper.SafeSqlString(personalDataModel.UserId),
+              
                 DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
@@ -68,12 +63,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.Email),
                 DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatus),
                 DataBaseHelper.SafeSqlString(personalDataModel.Note),
-                DataBaseHelper.SafeSqlString(userId),
-                //DataBaseHelper.RawSafeSqlString(countryId),
-                //DataBaseHelper.RawSafeSqlString(regionId),
-                //DataBaseHelper.RawSafeSqlString(districtId),
-                //DataBaseHelper.RawSafeSqlString(otgId),
-                //DataBaseHelper.RawSafeSqlString(villageId),
+                DataBaseHelper.SafeSqlString(personalDataModel.UserId),
+              
                 DataBaseHelper.SafeSqlString(personalDataModel.FirstName),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
@@ -127,7 +118,7 @@ namespace web.Data.Adapter
                 // personalData table
                 sql = string.Format(@"EXEC [sp_SaveStatusIdForPersonalData] {0}, {1},{2}",
                 DataBaseHelper.RawSafeSqlString(id),
-                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.RawSafeSqlString(model.MilitaryRankId),
                 DataBaseHelper.SafeSqlString(model.ServedDescription));
                 DataBaseHelper.RunSql(sql);
             }           

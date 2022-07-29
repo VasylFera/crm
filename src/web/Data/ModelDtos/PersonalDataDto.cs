@@ -32,6 +32,7 @@ namespace web.Data.ModelDtos
         public string ServiceNote { get; set; }
         public int VillageId { get; set; }
         public string VillageName { get; set; }
-        public string MaritalStatusNameId { get; set; }        
+        public string MaritalStatusNameId { get; set; }   
+        public string UserId { get; set; }
     }
 }

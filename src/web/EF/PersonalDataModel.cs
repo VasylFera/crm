@@ -34,5 +34,6 @@ namespace web.EF
         public virtual AccountOfficerModel AccountOfficer { get; set; }   
         public virtual MaritalStatusModel MaritalStatusName { get; set; }    
         public string ServedDescription { get; set; }
+        public int MilitaryRankId { get; set; }
     }
 }
