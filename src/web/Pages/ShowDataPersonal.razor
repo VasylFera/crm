@@ -43,6 +43,7 @@
                             
     </table>   
        <button class=" btn btn-sm btn btn-outline-info" @onclick="(() => NextToDo(Id))" >Наступна дія</button>
+       <button class=" btn btn-sm btn btn-outline-info" @onclick="(() => AddEducation(Id))" >Додати освіту</button>
 </div>
 
 
@@ -92,6 +93,11 @@
     private void NextToDo(int id)
     {
         _navigationManager.NavigateTo("/take-into-account/" + id);
+    }
+
+    private void AddEducation(int id)
+    {
+        _navigationManager.NavigateTo("/education/" + id);
     }
 
     private void HandleValidSubmitPersonalDataFixed()

@@ -1,4 +1,5 @@
 ﻿@page "/education"
+@page "/education/{Id:int}"
 @inject IStringLocalizer<App> _localizer
 
   <nav aria-label="breadcrumb">
@@ -733,17 +734,22 @@
   <!-- End Card -->  
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
     EducationSchoolDto modelSchool = new EducationSchoolDto();
     EducationProfessionalTechnicalSchoolDto modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     HigherEducationDto modelHigherEducation = new HigherEducationDto();
+    EducationProfessionalTechnicalMilitarySchoolDto modelProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();
+    HigherEducationMilitaryDto modelHigherMilitaryEducation = new HigherEducationMilitaryDto();
+    EducationDataGeneralDto modelGeneral = new EducationDataGeneralDto();
 
     string[] getChooseEducation = { "Школа","ПТУ","Вища","Військово-технічна спеціальність","Військова" };
     string[] getSchool = {"Початкова","Базова","Повна загальна"};
     string[] getStatusEducation = { "1Початкова","Базова","Повна загальна","2Професійно-технічна","Середньо-спеціальна","3Молодший спеціаліст","Бакалавр","Спеціаліст","Магістр","4ТР","CР","ОТР" };
     protected override void OnInitialized()
     {
-        modelSchool.Start = DateTime.Now;
-        modelSchool.End = DateTime.Now;
+
     }
 
     public void ResetSearch()
@@ -758,7 +764,10 @@
 
     private void HandleValidSubmitSchool()
     {
-
+        var schoolId = EducationAdapter.SaveEducationSchool(modelSchool);
+        modelGeneral.PersonId = Id;
+        modelGeneral.SchoolId = schoolId;
+        EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
     private void HandleValidSubmitProfessionalTechnicalSchool()

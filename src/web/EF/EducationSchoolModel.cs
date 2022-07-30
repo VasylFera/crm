@@ -7,8 +7,8 @@ namespace web.EF
     {
         [Key]
         public int Id { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
         public string StatusSchoolCertificate { get; set; }
         public string NumberOfClasses { get; set; }
         public string NameSchool { get; set; }

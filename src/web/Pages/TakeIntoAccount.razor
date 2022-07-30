@@ -43,6 +43,7 @@
                    }
                 </InputSelect> 
              <button type="submit" class="btn btn-soft-primary mr-1 m-3">&nbsp;@_localizer["Save"]&nbsp;</button>
+             <button type="button" class="btn btn-soft-primary mr-1 m-3" @onclick="Cancel">&nbsp;@_localizer["Cancel"]&nbsp;</button>
      </EditForm>  
        
     </div>   
@@ -126,7 +127,12 @@
     private void HandleValidSubmitTakeIntoAccount()
     {
         PersonalDataAdapter.SaveStatusForPersonalData(Id, model);
-        isSaveTakeIntoAccoun = true;
+        isSaveTakeIntoAccoun = true;       
+    }
+
+    private void Cancel()
+    {
+         _navigationManager.NavigateTo("/show-data-personal/" + Id);
     }
 
     private List<StatusDto> GetStatus( string status)
@@ -173,7 +179,7 @@
     {
         modelGeneral.PersonId = Id;      
         MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialtyGeneral(modelGeneral);
-        _navigationManager.NavigateTo("/search-operator");
+        _navigationManager.NavigateTo("/show-data-persona/" + Id);
     }
 
     private void OnValueChanged(ChangeEventArgs  e)

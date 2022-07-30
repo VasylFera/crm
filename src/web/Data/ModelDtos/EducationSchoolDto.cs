@@ -5,8 +5,8 @@ namespace web.Data.ModelDtos
     public class EducationSchoolDto
     {
         public int Id { get; set; }       
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }        
+        public string Start { get; set; }
+        public string End { get; set; }        
         public string StatusSchoolCertificate { get; set; }
         public string NumberOfClasses { get; set; }
         public string NameSchool { get; set; }
@@ -63,4 +63,16 @@ namespace web.Data.ModelDtos
         public int NumberHigherEducationMilitaryCertificate { get; set; }       
         public string MilitarySpecialty { get; set; }
     }
+
+    public class EducationDataGeneralDto
+    {
+        public int Id { get; set; }
+        public int PersonId { get; set; }
+        public int SchoolId { get; set; }
+        public int ProfessionalTechnicalSchoolId { get; set; }
+        public int HigherEducationId { get; set; }
+        public int ProfessionalTechnicalMilitaryId { get; set; }
+        public int HigherEducationlMilitaryId { get; set; }
+    }
+
 }
