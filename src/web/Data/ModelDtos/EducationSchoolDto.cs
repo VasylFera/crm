@@ -40,4 +40,27 @@ namespace web.Data.ModelDtos
         public string ТameOfTheMilitaryDepartment { get; set; }
         public string MilitarySpecialty { get; set; }
     }
+
+    public class EducationProfessionalTechnicalMilitarySchoolDto
+    {
+        public int Id { get; set; }
+        public string RVCReferralNumber { get; set; }
+        public DateTime RVCReferralDate { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }       
+        public string NameProfessionalTechnicalMilitarySchool { get; set; }       
+        public string SpecialtyProfessionalTechnicalMilitarySchool { get; set; }
+    }
+
+    public class HigherEducationMilitaryDto
+    {
+        public int Id { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string StatusHigherEducationlMilitaryCertificate { get; set; }
+        public string NameHigherEducationMilitary { get; set; }
+        public string SeriaHigherEducationMilitaryCertificate { get; set; }
+        public int NumberHigherEducationMilitaryCertificate { get; set; }       
+        public string MilitarySpecialty { get; set; }
+    }
 }

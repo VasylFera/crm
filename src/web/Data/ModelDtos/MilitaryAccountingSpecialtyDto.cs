@@ -37,6 +37,7 @@
         public int LetterId { get; set; }
         public string Letter { get; set; }
         public string DescriptionLetter { get; set; }
-                       
+               
+        public int PersonId { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using web.Data.ModelDtos;
+using web.EF;
 using web.Helpers;
 
 namespace web.Data.Adapter
@@ -176,6 +177,17 @@ namespace web.Data.Adapter
             }
 
             return result;
+        }
+
+        public static void SaveMilitaryAccountingSpecialtyGeneral(MilitaryAccountingSpecialtyGeneralDto model)
+        {
+            var sql = string.Format(@"EXEC [sp_SaveMilitaryAccountingSpecialtyGeneral] {0},{1},{2},{3},{4}",
+            DataBaseHelper.RawSafeSqlString(model.Id),
+            DataBaseHelper.RawSafeSqlString(model.MilitaryAccountingSpecialtyCodeId),
+            DataBaseHelper.RawSafeSqlString(model.CodeId),
+            DataBaseHelper.RawSafeSqlString(model.LetterId),
+            DataBaseHelper.RawSafeSqlString(model.PersonId));
+            DataBaseHelper.RunSql(sql);
         }
     }
 }

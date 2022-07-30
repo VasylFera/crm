@@ -99,7 +99,7 @@
     int letterId;
     string messageTakeIntoAccount = "Дані збережено!";
     bool isSaveTakeIntoAccoun = false;
-   
+
     string[] GetChooseAccount = { "Призовник","Рекрутер", "Солдатський склад","Сержанський і старшинський склад","Офіцерський склад" };
 
     string[] served  = { "Приймав присягу", "Не приймав присягу" };
@@ -157,7 +157,7 @@
         List<StatusDto> getChooseStatus =  GetStatus(name);     
         getAllRang = getChooseStatus;
 
-        if(name =="Призовник" || name == "Рекрутер")
+        if(name =="Призовник" || name == "Рекрутер" || name =="Офіцерський склад")
         {
             isShow = false;
         }
@@ -170,9 +170,9 @@
     }
 
     private void HandleValidSubmitGeneralAccount()
-    {       
-
-        //ToDo: add logic for save
+    {
+        modelGeneral.PersonId = Id;      
+        MilitaryAccountingSpecialtyAdapter.SaveMilitaryAccountingSpecialtyGeneral(modelGeneral);
         _navigationManager.NavigateTo("/search-operator");
     }
 

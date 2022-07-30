@@ -40,5 +40,12 @@ namespace web.Data
         public DbSet<SoldierAndSergeantMilitaryAccountingSpecialtyModel> SoldierAndSergeantMilitaryAccountingSpecialties { get; set; }
         public DbSet<CodeMilitaryAccountingSpecialtyModel> CodeMilitaryAccountingSpecialties { get; set; }
         public DbSet<MilitaryAccountingSpecialtyLetterModel> MilitaryAccountingSpecialtyLetteries { get; set; }
+        public DbSet<MilitaryAccountingSpecialtyGeneralModel> MilitaryAccountingSpecialtyGenerals { get; set; }
+        public DbSet<EducationDataGeneralModel> EducationDataGenerals { get; set; }
+        public DbSet<EducationSchoolModel> EducationSchool { get; set; }
+        public DbSet<EducationProfessionalTechnicalSchoolModel> EducationProfessionalTechnicalSchool { get; set; }
+        public DbSet<HigherEducationModel> HigherEducation { get; set; }
+        public DbSet<EducationProfessionalTechnicalMilitarySchoolModel> EducationProfessionalTechnicalMilitarySchool { get; set; }
+        public DbSet<HigherEducationMilitaryModel> HigherEducationMilitary { get; set; }
     }
 }
