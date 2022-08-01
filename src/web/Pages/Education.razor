@@ -49,54 +49,54 @@
            <div class="card-body px-4">
         <!-- Card Details -->
         <div class="row">
-          <div class="col-sm-4 mb-2 mb-sm-0">           
+          <div class="col-sm-8 mb-2 mb-sm-0">           
            <EditForm Model="@modelSchool" OnValidSubmit="HandleValidSubmitSchool" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />
        
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                    <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.StatusSchoolCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.NumberOfClasses" placeholder="@_localizer["Кількість класів"]" aria-label="Individual Personal Number"  aria-invalid="true">
                   </div>
                 </div>             
                </div>        
                 <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.NameSchool" placeholder="@_localizer["Назва школи"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.SeriaSchoolCertificate" placeholder="@_localizer["Серія атестату"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
+                   <div class="col-lg-10 form-group">
                     <div class="input-group input-group-pill">
                        <input type="text" class="form-control" @bind-value="modelSchool.NumberSchoolCertificate" placeholder="@_localizer["Номер атестату"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
@@ -110,39 +110,49 @@
             </div>
         </EditForm>
           </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-              <table class="table">
+          <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
+              <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                       <th scope="col">Рік початку</th>
-                        <th scope="col">Рік закінчення</th>
-                       <th scope="col">Рівень</th>                     
-                       <th scope="col">Найменування навчального закладу</th>
-                       <th scope="col">Серія диплому</th> 
-                       <th scope="col">Номер диплому</th>  
-                         <th scope="col">Спеціальність</th>
-                        <th scope="col">Дія</th>  
+                      <th calss="text-center">#</th>
+                       <th calss="text-center">Рік початку</th>
+                        <th calss="text-center">Рік закінчення</th>
+                       <th calss="text-center">Рівень</th>   
+                        <th calss="text-center">К-сть класів</th> 
+                       <th calss="text-center">Найменування навчального закладу</th>
+                       <th calss="text-center">Серія атестату</th> 
+                       <th calss="text-center">Номер атестату</th> 
+                        
+                        <th calss="text-center">Дія</th>  
                     </tr>
                   </thead>
-                  <tbody>
-                 @*    @foreach(var item in getSchool)
-                    {        
-                      int index = @getSchool.IndexOf(item)+1;
-                      <tbody>                                           
-                        <tr>          
-                              <td scope="row">@index</td> 
-                              <td >@item</td>    
-                              <td>
-                                   <button class="btn btn-sm btn btn-outline-info">
-                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                 
+              
+                          
+                     
+                      <tbody> 
+                               
+                                         <tr>          
+                                  <td scope="row">1</td> 
+                                  <td calss="text-center">@showSchool.Start</td> 
+                                  <td calss="text-center">@showSchool.End</td> 
+                                  <td calss="text-center">@showSchool.StatusSchoolCertificate</td> 
+                                  <td calss="text-center">@showSchool.NumberOfClasses</td> 
+                                  <td calss="text-center">@showSchool.NameSchool</td> 
+                                  <td calss="text-center">@showSchool.SeriaSchoolCertificate</td> 
+                                  <td calss="text-center">@showSchool.NumberSchoolCertificate</td> 
+                                  <td>
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showSchool.Id))">
+                                           Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showSchool.Id))" >Delete</button>
                               </td>
-                       </tr>                                           
+                       </tr>                 
+                              
+                                                         
                       </tbody>      
-                    } *@                 
-            </tbody>
+                                   
+            
           </table>
           </div>
         </div>
@@ -250,40 +260,48 @@
             </div>
         </EditForm>
           </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+          <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
+              <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                       <th scope="col">Рік початку</th>
-                        <th scope="col">Рік закінчення</th>
-                       <th scope="col">Рівень</th>                      
-                       <th scope="col">Назва навчального закладу</th>
-                       <th scope="col">Серія диплома</th> 
-                       <th scope="col">Номер диплома</th> 
-                        <th scope="col">Спеціальність</th>  
-                        <th scope="col">Дія</th>                     
+                      <th calss="text-center">#</th>
+                       <th calss="text-center">Рік початку</th>
+                        <th calss="text-center">Рік закінчення</th>
+                       <th calss="text-center">Рівень</th> 
+                        <th calss="text-center">Найменування навчального закладу</th>
+                       <th calss="text-center">Серія атестату</th> 
+                       <th calss="text-center">Номер атестату</th> 
+                        
+                        <th calss="text-center">Дія</th>  
                     </tr>
-                  </thead>
-                  <tbody>
-                    @*    @foreach(var item in getSchool)
-                    {        
-                      int index = @getSchool.IndexOf(item)+1;
+                  </thead>                          
+                         
+                    
                       <tbody>                                           
-                        <tr>          
-                              <td scope="row">@index</td> 
-                              <td >@item</td>    
+                        <tr>  
+                            @if(!string.IsNullOrEmpty(showEducationProfessionalTechnicalSchool.NameProfessionalTechnicalSchool))
+                              {
+                                          <td scope="row">1</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.Start</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.End</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.StatusProfessionalTechnicalSchoolCertificate</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.NameProfessionalTechnicalSchool</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.SeriaProfessionalTechnicalSchoolCertificate</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.NumberProfessionalTechnicalSchoolCertificate</td> 
+                              <td calss="text-center">@showEducationProfessionalTechnicalSchool.SpecialtyProfessionalTechnicalSchool</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info">
-                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showEducationProfessionalTechnicalSchool.Id))">
+                                           Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
                               </td>
+                               }
+                                  
                        </tr>                                           
                       </tbody>      
-                    } *@                
-            </tbody>
-          </table>          
+                                   
+            
+          </table>
           </div>
         </div>
         <!-- End Card Details -->
@@ -738,19 +756,28 @@
     public int Id { get; set; }
 
     EducationSchoolDto modelSchool = new EducationSchoolDto();
+    EducationSchoolDto showSchool = new  EducationSchoolDto();
     EducationProfessionalTechnicalSchoolDto modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
+    EducationProfessionalTechnicalSchoolDto showEducationProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     HigherEducationDto modelHigherEducation = new HigherEducationDto();
     EducationProfessionalTechnicalMilitarySchoolDto modelProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();
     HigherEducationMilitaryDto modelHigherMilitaryEducation = new HigherEducationMilitaryDto();
     EducationDataGeneralDto modelGeneral = new EducationDataGeneralDto();
+    List<EducationDataGeneralDto> getGeneral = new List<EducationDataGeneralDto>();
 
     string[] getChooseEducation = { "Школа","ПТУ","Вища","Військово-технічна спеціальність","Військова" };
     string[] getSchool = {"Початкова","Базова","Повна загальна"};
     string[] getStatusEducation = { "1Початкова","Базова","Повна загальна","2Професійно-технічна","Середньо-спеціальна","3Молодший спеціаліст","Бакалавр","Спеціаліст","Магістр","4ТР","CР","ОТР" };
     protected override void OnInitialized()
     {
+        getGeneral = EducationAdapter.GetGeneralEducation(Id).ToList();
+        var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).FirstOrDefault();
+        var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).FirstOrDefault();
+        showSchool = EducationAdapter.GetEducationSchoolId(schoolId);
+        showEducationProfessionalTechnicalSchool = EducationAdapter.GetEducationProfessionalTechnicalSchoolId(professionalTechnicalSchoolId);
 
-    }
+        
+    } 
 
     public void ResetSearch()
     {
@@ -772,13 +799,27 @@
 
     private void HandleValidSubmitProfessionalTechnicalSchool()
     {
-
+        var professionalTechnicalSchoolId = EducationAdapter.SaveEducationProfessionalTechnicalSchool(modelProfessionalTechnicalSchool);
+        modelGeneral.PersonId = Id;
+        modelGeneral.ProfessionalTechnicalSchoolId = professionalTechnicalSchoolId;
+        EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
     private void HandleValidSubmitHigherEducation()
     {
+
+    }
+
+    private void ShowPopup(int id)
+    {
+
+    }
+
+    private void DeleteSchool(int id)
+    {
         
     }
+
 
      private void OnValueChanged(ChangeEventArgs e)
     {
