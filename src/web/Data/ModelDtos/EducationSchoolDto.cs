@@ -30,8 +30,8 @@ namespace web.Data.ModelDtos
     public class HigherEducationDto
     {
         public int Id { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
         public string StatusHigherEducationlCertificate { get; set; }
         public string NameHigherEducation { get; set; }
         public string SeriaHigherEducationCertificate { get; set; }
@@ -45,9 +45,9 @@ namespace web.Data.ModelDtos
     {
         public int Id { get; set; }
         public string RVCReferralNumber { get; set; }
-        public DateTime RVCReferralDate { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }       
+        public string RVCReferralDate { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }       
         public string NameProfessionalTechnicalMilitarySchool { get; set; }       
         public string SpecialtyProfessionalTechnicalMilitarySchool { get; set; }
     }
@@ -55,8 +55,8 @@ namespace web.Data.ModelDtos
     public class HigherEducationMilitaryDto
     {
         public int Id { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
         public string StatusHigherEducationlMilitaryCertificate { get; set; }
         public string NameHigherEducationMilitary { get; set; }
         public string SeriaHigherEducationMilitaryCertificate { get; set; }

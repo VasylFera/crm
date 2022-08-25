@@ -269,8 +269,8 @@
                         <th calss="text-center">Рік закінчення</th>
                        <th calss="text-center">Рівень</th> 
                         <th calss="text-center">Найменування навчального закладу</th>
-                       <th calss="text-center">Серія атестату</th> 
-                       <th calss="text-center">Номер атестату</th> 
+                       <th calss="text-center">Серія диплому</th> 
+                       <th calss="text-center">Номер диплому</th> 
                         
                         <th calss="text-center">Дія</th>  
                     </tr>
@@ -293,7 +293,7 @@
                                    <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showEducationProfessionalTechnicalSchool.Id))">
                                            Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
                               </td>
                                }
                                   
@@ -354,21 +354,21 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.Start" placeholder="@_localizer["Рік початку"]" >
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.End" placeholder="@_localizer["Рік закінчення"]">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.StatusHigherEducationlCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.StatusHigherEducationlCertificate" placeholder="@_localizer["Рівень"]">
                  </div>
                 </div>             
               </div>
@@ -376,21 +376,35 @@
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NameHigherEducation" placeholder="@_localizer["Назва навчального закладу"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NameHigherEducation" placeholder="@_localizer["Назва навчального закладу"]" >
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Серія диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SeriaHigherEducationCertificate" placeholder="@_localizer["Серія диплому"]" >
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NumberHigherEducationCertificate" placeholder="@_localizer["Номер диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NumberHigherEducationCertificate" placeholder="@_localizer["Номер диплому"]" >
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Cпеціальність"]" >
+                  </div>
+                </div>             
+             </div> 
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.ТameOfTheMilitaryDepartment" placeholder="@_localizer["Військова кафедра"]" >
                   </div>
                 </div>             
              </div> 
@@ -398,7 +412,7 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Військова спеціальність"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducation.MilitarySpecialty" placeholder="@_localizer["Військова спеціальність"]"  >
                   </div>
                 </div>             
              </div> 
@@ -411,8 +425,8 @@
             </div>
         </EditForm>
           </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+          <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
+             <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -430,22 +444,25 @@
                   </thead>
                   <tbody>
                     <tr>
-                        @*    @foreach(var item in getSchool)
-                    {        
-                      int index = @getSchool.IndexOf(item)+1;
-                      <tbody>                                           
-                        <tr>          
-                              <td scope="row">@index</td> 
-                              <td >@item</td>    
+                      @if(!string.IsNullOrEmpty(showHigherEducation.NameHigherEducation))
+                              {
+                                          <td scope="row">1</td> 
+                              <td calss="text-center">@showHigherEducation.Start</td> 
+                              <td calss="text-center">@showHigherEducation.End</td> 
+                              <td calss="text-center">@showHigherEducation.StatusHigherEducationlCertificate</td> 
+                              <td calss="text-center">@showHigherEducation.NameHigherEducation</td> 
+                              <td calss="text-center">@showHigherEducation.SeriaHigherEducationCertificate</td> 
+                              <td calss="text-center">@showHigherEducation.NumberHigherEducationCertificate</td> 
+                              <td calss="text-center">@showHigherEducation.SpecialtyHigherEducation</td> 
+                              <td calss="text-center">@showHigherEducation.ТameOfTheMilitaryDepartment</td> 
+                              <td calss="text-center">@showHigherEducation.MilitarySpecialty</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info">
-                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showHigherEducation.Id))">
+                                           Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducation.Id))" >Delete</button>
                               </td>
-                       </tr>                                           
-                      </tbody>      
-                    } *@         
+                               }
                    </tr>                   
             </tbody>
           </table>          
@@ -472,7 +489,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img28.png" alt="Image Description">
                 <span class="media-body">
-                  <span class="d-block font-size-1">Військово-технічна спеціальність</span>
+                  <span class="d-block font-size-1">Додати військово-технічну спеціальність</span>
                 </span>
               </span>
             </span>
@@ -495,57 +512,52 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@modelHigherEducation" OnValidSubmit="HandleValidSubmitHigherEducation" class="body  p-3 mb-5 rounded ">
+           <EditForm Model="@modelProfessionalTechnicalMilitarySchool" OnValidSubmit="HandleValidSubmitEducationProfessionalTechnicalMilitarySchool" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />
        
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                   <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
-                 </div>
-                </div>            
-               </div>
-               <div class="row d-flex">
+            <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.RVCReferralNumber" placeholder="@_localizer["Номер направлення РВК"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
-               <div class="row d-flex">
+
+                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.StatusHigherEducationlCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.RVCReferralDate" placeholder="@_localizer["Дата направлення РВК"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
-                   
-                <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NameHigherEducation" placeholder="@_localizer["Назва навчального закладу"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
-                  </div>
-                </div>             
-             </div> 
+
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Серія диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
-                  </div>
-                </div>             
-             </div> 
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NumberHigherEducationCertificate" placeholder="@_localizer["Номер диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.NameProfessionalTechnicalMilitarySchool" placeholder="@_localizer["Назва навчального закладу"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div> 
 
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
+                   <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
+                 </div>
+                </div>            
+               </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Військова спеціальність"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                 </div>
+                </div>             
+              </div>
+
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill">
+                       <input type="text" class="form-control" @bind-value="modelProfessionalTechnicalMilitarySchool.SpecialtyProfessionalTechnicalMilitarySchool" placeholder="@_localizer["Спеціальність"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div> 
@@ -558,41 +570,38 @@
             </div>
         </EditForm>
           </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+          <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
+             <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                       <th scope="col">Рік початку</th>
-                        <th scope="col">Рік закінчення</th>
-                       <th scope="col">Рівень</th>                      
-                       <th scope="col">Назва навчального закладу</th>
-                       <th scope="col">Серія диплома</th> 
-                       <th scope="col">Номер диплома</th> 
-                        <th scope="col">Спеціальність</th>  
-                        <th scope="col">Військова кафедра</th> 
-                        <th scope="col">Вйськова спеціальність</th> 
-                        <th scope="col">Дія</th>  
+                          <th scope="col">#</th>
+                          <th scope="col">№ Направлення РВК</th>  
+                          <th scope="col">Дата Направлення РВК</th>  
+                          <th scope="col">Назва навчального закладу</th>
+                          <th scope="col">Рік початку</th>
+                          <th scope="col">Рік закінчення</th>                                          
+                          <th scope="col">Спеціальність</th>                        
+                          <th scope="col">Дія</th>  
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                        @*    @foreach(var item in getSchool)
-                    {        
-                      int index = @getSchool.IndexOf(item)+1;
-                      <tbody>                                           
-                        <tr>          
-                              <td scope="row">@index</td> 
-                              <td >@item</td>    
+                      @if(!string.IsNullOrEmpty(showProfessionalTechnicalMilitarySchool.NameProfessionalTechnicalMilitarySchool))
+                      {
+                              <td scope="row">1</td> 
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.RVCReferralNumber</td> 
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.RVCReferralDate</td> 
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.NameProfessionalTechnicalMilitarySchool</td> 
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.Start</td> 
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.End</td>                                                                                  
+                              <td calss="text-center">@showProfessionalTechnicalMilitarySchool.SpecialtyProfessionalTechnicalMilitarySchool</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info">
-                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showProfessionalTechnicalMilitarySchool.Id))">
+                                           Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showProfessionalTechnicalMilitarySchool.Id))" >Delete</button>
                               </td>
-                       </tr>                                           
-                      </tbody>      
-                    } *@         
+                    }
                    </tr>                   
             </tbody>
           </table>          
@@ -619,7 +628,7 @@
               <span class="media align-items-center">
                 <img class="max-width-9 mr-3" src="./assets/img/160x160/img31.png" alt="Image Description">
                 <span class="media-body">
-                  <span class="d-block font-size-1">Військова</span>
+                  <span class="d-block font-size-1">Додати Військову освіту</span>
                 </span>
               </span>
             </span>
@@ -642,27 +651,27 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@modelHigherEducation" OnValidSubmit="HandleValidSubmitHigherEducation" class="body  p-3 mb-5 rounded ">
+           <EditForm Model="@modelHigherEducationMilitary" OnValidSubmit="HandleValidSubmitHigherMilitaryEducation" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />
        
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.Start" placeholder="@_localizer["Рік початку"]" aria-label="Last Name"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.End" placeholder="@_localizer["Рік закінчення"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.End" placeholder="@_localizer["Рік закінчення"]">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.StatusHigherEducationlCertificate" placeholder="@_localizer["Рівень"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.StatusHigherEducationlMilitaryCertificate" placeholder="@_localizer["Рівень"]">
                  </div>
                 </div>             
               </div>
@@ -670,21 +679,21 @@
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NameHigherEducation" placeholder="@_localizer["Назва навчального закладу"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.NameHigherEducationMilitary" placeholder="@_localizer["Назва навчального закладу"]">
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Серія диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.SeriaHigherEducationMilitaryCertificate" placeholder="@_localizer["Серія диплому"]">
                   </div>
                 </div>             
              </div> 
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.NumberHigherEducationCertificate" placeholder="@_localizer["Номер диплому"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.NumberHigherEducationMilitaryCertificate" placeholder="@_localizer["Номер диплому"]">
                   </div>
                 </div>             
              </div> 
@@ -692,7 +701,7 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelHigherEducation.SpecialtyHigherEducation" placeholder="@_localizer["Військова спеціальність"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="modelHigherEducationMilitary.MilitarySpecialty" placeholder="@_localizer["Військова спеціальність"]">
                   </div>
                 </div>             
              </div> 
@@ -705,8 +714,8 @@
             </div>
         </EditForm>
           </div>
-          <div class="col-sm-8 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
-             <table class="table">
+          <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
+             <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -716,30 +725,29 @@
                        <th scope="col">Назва навчального закладу</th>
                        <th scope="col">Серія диплома</th> 
                        <th scope="col">Номер диплома</th> 
-                        <th scope="col">Спеціальність</th>  
-                        <th scope="col">Військова кафедра</th> 
-                        <th scope="col">Вйськова спеціальність</th> 
+                        <th scope="col">Військова спеціальність</th>                          
                         <th scope="col">Дія</th>  
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                        @*    @foreach(var item in getSchool)
-                    {        
-                      int index = @getSchool.IndexOf(item)+1;
-                      <tbody>                                           
-                        <tr>          
-                              <td scope="row">@index</td> 
-                              <td >@item</td>    
+                    @if(!string.IsNullOrEmpty(showHigherEducationMilitary.NameHigherEducationMilitary))
+                      {
+                              <td scope="row">1</td> 
+                              <td calss="text-center">@showHigherEducationMilitary.Start</td> 
+                              <td calss="text-center">@showHigherEducationMilitary.End</td>  
+                              <td calss="text-center">@showHigherEducationMilitary.StatusHigherEducationlMilitaryCertificate</td> 
+                              <td calss="text-center">@showHigherEducationMilitary.NameHigherEducationMilitary</td> 
+                              <td calss="text-center">@showHigherEducationMilitary.SeriaHigherEducationMilitaryCertificate</td>                                                                                                            
+                              <td calss="text-center">@showHigherEducationMilitary.NumberHigherEducationMilitaryCertificate</td> 
+                              <td calss="text-center">@showHigherEducationMilitary.MilitarySpecialty</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info">
-                                            <img @onclick="(() => ShowPopupStatus(item.Id))" src="./assets/svg/icons/edit.png" />
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showHigherEducationMilitary.Id))">
+                                           Edit
                                    </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteStatus(item.Id))" disabled="@DeleteDisabled">Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducationMilitary.Id))" >Delete</button>
                               </td>
-                       </tr>                                           
-                      </tbody>      
-                    } *@         
+                    }
                    </tr>                   
             </tbody>
           </table>          
@@ -760,8 +768,11 @@
     EducationProfessionalTechnicalSchoolDto modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     EducationProfessionalTechnicalSchoolDto showEducationProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     HigherEducationDto modelHigherEducation = new HigherEducationDto();
+    HigherEducationDto showHigherEducation = new HigherEducationDto();
     EducationProfessionalTechnicalMilitarySchoolDto modelProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();
-    HigherEducationMilitaryDto modelHigherMilitaryEducation = new HigherEducationMilitaryDto();
+    EducationProfessionalTechnicalMilitarySchoolDto showProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();   
+    HigherEducationMilitaryDto modelHigherEducationMilitary = new HigherEducationMilitaryDto();
+    HigherEducationMilitaryDto showHigherEducationMilitary = new HigherEducationMilitaryDto();
     EducationDataGeneralDto modelGeneral = new EducationDataGeneralDto();
     List<EducationDataGeneralDto> getGeneral = new List<EducationDataGeneralDto>();
 
@@ -773,10 +784,14 @@
         getGeneral = EducationAdapter.GetGeneralEducation(Id).ToList();
         var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).FirstOrDefault();
         var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).FirstOrDefault();
+        var higherEducationId = getGeneral.Where(e => e.HigherEducationId > 0).Select(e => e.HigherEducationId).FirstOrDefault();
+        var professionalTechnicalMilitarySchoolId = getGeneral.Where(p => p.ProfessionalTechnicalMilitaryId > 0).Select(p => p.ProfessionalTechnicalMilitaryId).FirstOrDefault();
+        var higherEducationMilitaryId = getGeneral.Where(m => m.HigherEducationlMilitaryId > 0).Select(m => m.HigherEducationlMilitaryId).FirstOrDefault();
         showSchool = EducationAdapter.GetEducationSchoolId(schoolId);
         showEducationProfessionalTechnicalSchool = EducationAdapter.GetEducationProfessionalTechnicalSchoolId(professionalTechnicalSchoolId);
-
-        
+        showHigherEducation = EducationAdapter.GetHightEducationId(higherEducationId);
+        showProfessionalTechnicalMilitarySchool = EducationAdapter.GetEducationProfessionalTechnicalMilitarySchoolId(professionalTechnicalMilitarySchoolId);
+        showHigherEducationMilitary = EducationAdapter.GetHigherEducationMilitaryId(higherEducationMilitaryId);
     } 
 
     public void ResetSearch()
@@ -792,22 +807,48 @@
     private void HandleValidSubmitSchool()
     {
         var schoolId = EducationAdapter.SaveEducationSchool(modelSchool);
-        modelGeneral.PersonId = Id;
-        modelGeneral.SchoolId = schoolId;
-        EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+        string name = "School";
+        SaveEducationGeneral(schoolId,name);
+        //modelGeneral.PersonId = Id;
+        //modelGeneral.SchoolId = schoolId;
+        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
     private void HandleValidSubmitProfessionalTechnicalSchool()
     {
         var professionalTechnicalSchoolId = EducationAdapter.SaveEducationProfessionalTechnicalSchool(modelProfessionalTechnicalSchool);
-        modelGeneral.PersonId = Id;
-        modelGeneral.ProfessionalTechnicalSchoolId = professionalTechnicalSchoolId;
-        EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+        string name = "ProfessionalTechnicalSchool";
+        SaveEducationGeneral(professionalTechnicalSchoolId,name);
+        //modelGeneral.PersonId = Id;
+        //modelGeneral.ProfessionalTechnicalSchoolId = professionalTechnicalSchoolId;
+        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
     private void HandleValidSubmitHigherEducation()
     {
+        var higherEducationId = EducationAdapter.SaveHigherEducation(modelHigherEducation);
+        string name = "HigherEducation";
+        SaveEducationGeneral(higherEducationId,name);
+        //modelGeneral.PersonId = Id;
+        //modelGeneral.HigherEducationId = higherEducationId;
+        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+    }
 
+    private void HandleValidSubmitEducationProfessionalTechnicalMilitarySchool()
+    {
+        var educationProfessionalTechnicalMilitarySchoolId = EducationAdapter.SaveEducationProfessionalTechnicalMilitarySchool(modelProfessionalTechnicalMilitarySchool);
+        string name = "EducationProfessionalTechnicalMilitarySchool";
+        SaveEducationGeneral(educationProfessionalTechnicalMilitarySchoolId,name);
+        //modelGeneral.PersonId = Id;
+        //modelGeneral.ProfessionalTechnicalMilitaryId = educationProfessionalTechnicalMilitarySchoolId;
+        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+    }
+
+    private void HandleValidSubmitHigherMilitaryEducation()
+    {
+        var modelHigherMilitaryEducationId = EducationAdapter.SaveHigherEducationMilitary(modelHigherEducationMilitary);
+        string name = "HigherEducationMilitary";
+        SaveEducationGeneral(modelHigherMilitaryEducationId,name);
     }
 
     private void ShowPopup(int id)
@@ -817,7 +858,32 @@
 
     private void DeleteSchool(int id)
     {
-        
+
+    }
+
+    private void SaveEducationGeneral(int id, string name)
+    {
+        modelGeneral.PersonId = Id;
+        switch (name){
+        case "School":
+            modelGeneral.SchoolId = id;
+            break;
+        case "ProfessionalTechnicalSchool":
+            modelGeneral.ProfessionalTechnicalSchoolId = id;
+            break;
+        case "HigherEducation":
+            modelGeneral.HigherEducationId = id;
+            break;
+        case "ProfessionalTechnicalMilitary":
+            modelGeneral.ProfessionalTechnicalMilitaryId = id;
+            break;
+        case "HigherEducationMilitary":
+            modelGeneral.HigherEducationlMilitaryId = id;
+            break;
+  
+}
+       // modelGeneral.HigherEducationlMilitaryId = id;
+        EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
 

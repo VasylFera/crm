@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace web.EF
 {
     public class EducationProfessionalTechnicalSchoolModel:BasicModel
-    {
+    {      
         [Key]
         public int Id { get; set; }
         public string Start { get; set; }

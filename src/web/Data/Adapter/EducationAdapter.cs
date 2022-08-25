@@ -122,6 +122,59 @@ namespace web.Data.Adapter
             return result;
         }
 
+        public static HigherEducationDto GetHightEducationId(int Id)
+        {
+            HigherEducationDto result = new HigherEducationDto();
+
+            var sql = string.Format(@"EXEC [sp_GetHigherEducationId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new HigherEducationDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Start = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Start"),
+                    End = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "End"),
+                    StatusHigherEducationlCertificate = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "StatusHigherEducationlCertificate"),
+                    NameHigherEducation = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "NameHigherEducation"),
+                    SeriaHigherEducationCertificate = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "SeriaHigherEducationCertificate"),
+                    NumberHigherEducationCertificate = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "NumberHigherEducationCertificate"),
+                    SpecialtyHigherEducation = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "SpecialtyHigherEducation"),
+                    ТameOfTheMilitaryDepartment = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "ТameOfTheMilitaryDepartment"),
+                    MilitarySpecialty = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MilitarySpecialty")
+                };
+            }
+
+            return result;
+        }
+
+        public static EducationProfessionalTechnicalMilitarySchoolDto GetEducationProfessionalTechnicalMilitarySchoolId(int Id)
+        {
+            EducationProfessionalTechnicalMilitarySchoolDto result = new EducationProfessionalTechnicalMilitarySchoolDto();
+
+            var sql = string.Format(@"EXEC [sp_EducationProfessionalTechnicalMilitarySchoolId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new EducationProfessionalTechnicalMilitarySchoolDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    RVCReferralNumber = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "RVCReferralNumber"),
+                    RVCReferralDate = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "RVCReferralDate"),
+                    NameProfessionalTechnicalMilitarySchool = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "NameProfessionalTechnicalMilitarySchool"),
+                    Start = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Start"),
+                    End = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "End"),                          
+                    SpecialtyProfessionalTechnicalMilitarySchool = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "SpecialtyProfessionalTechnicalMilitarySchool")                   
+                };
+            }
+
+            return result;
+        }
+
         public static int SaveEducationProfessionalTechnicalSchool(EducationProfessionalTechnicalSchoolDto model)
         {
             var sql = string.Empty;
@@ -191,6 +244,164 @@ namespace web.Data.Adapter
                        
                     });
                 }
+            }
+
+            return result;
+        }
+
+        public static int SaveHigherEducation(HigherEducationDto model)
+        {
+            var sql = string.Empty;
+            int Id = 0;
+            if (model.Id == 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveHigherEducation] {0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),
+                DataBaseHelper.SafeSqlString(model.StatusHigherEducationlCertificate),
+                DataBaseHelper.SafeSqlString(model.NameHigherEducation),
+                DataBaseHelper.SafeSqlString(model.SeriaHigherEducationCertificate),
+                DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationCertificate),
+                DataBaseHelper.SafeSqlString(model.SpecialtyHigherEducation),
+                DataBaseHelper.SafeSqlString(model.ТameOfTheMilitaryDepartment),
+                DataBaseHelper.SafeSqlString(model.MilitarySpecialty));
+
+
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
+                    }
+                }
+
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveHigherEducation] {0}, {1},{2},{3},{4},{5},{6},{7},{8},{9}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),
+                DataBaseHelper.SafeSqlString(model.StatusHigherEducationlCertificate),
+                DataBaseHelper.SafeSqlString(model.NameHigherEducation),
+                DataBaseHelper.SafeSqlString(model.SeriaHigherEducationCertificate),
+                DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationCertificate),
+                DataBaseHelper.SafeSqlString(model.SpecialtyHigherEducation),
+                DataBaseHelper.SafeSqlString(model.ТameOfTheMilitaryDepartment),
+                DataBaseHelper.SafeSqlString(model.MilitarySpecialty));
+                DataBaseHelper.RunSql(sql);
+            }
+
+            return Id;
+        }
+
+        public static int SaveEducationProfessionalTechnicalMilitarySchool(EducationProfessionalTechnicalMilitarySchoolDto model)
+        {
+            var sql = string.Empty;
+            int Id = 0;
+            if (model.Id == 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveEducationProfessionalTechnicalMilitarySchool] {0},{1},{2},{3},{4},{5},{6}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.RVCReferralNumber),
+                DataBaseHelper.SafeSqlString(model.RVCReferralDate),
+                DataBaseHelper.SafeSqlString(model.NameProfessionalTechnicalMilitarySchool),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),                             
+                DataBaseHelper.SafeSqlString(model.SpecialtyProfessionalTechnicalMilitarySchool));
+
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
+                    }
+                }
+
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveEducationProfessionalTechnicalMilitarySchool] {0}, {1},{2},{3},{4},{5},{6}",
+                 DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.RVCReferralNumber),
+                DataBaseHelper.SafeSqlString(model.RVCReferralDate),
+                DataBaseHelper.RawSafeSqlString(model.NameProfessionalTechnicalMilitarySchool),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),
+                DataBaseHelper.SafeSqlString(model.SpecialtyProfessionalTechnicalMilitarySchool));
+                DataBaseHelper.RunSql(sql);
+            }
+
+            return Id;
+        }
+
+        public static int SaveHigherEducationMilitary(HigherEducationMilitaryDto model)
+        {
+            var sql = string.Empty;
+            int Id = 0;
+            if (model.Id == 0)
+            {
+                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0},{1},{2},{3},{4},{5},{6},{7}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),
+                DataBaseHelper.SafeSqlString(model.StatusHigherEducationlMilitaryCertificate),
+                DataBaseHelper.SafeSqlString(model.NameHigherEducationMilitary),
+                DataBaseHelper.SafeSqlString(model.SeriaHigherEducationMilitaryCertificate),               
+                DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationMilitaryCertificate),
+                DataBaseHelper.RawSafeSqlString(model.MilitarySpecialty));
+
+                var dataResult = DataBaseHelper.GetSqlResult(sql);
+                if (dataResult != null && dataResult.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataResult.Rows)
+                    {
+                        Id = DataBaseHelper.GetIntegerValueFromRowByName(dataResult.Rows[0], "Id");
+                    }
+                }
+
+            }
+            else
+            {
+                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0}, {1},{2},{3},{4},{5},{6},{7}}",
+                DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.SafeSqlString(model.Start),
+                DataBaseHelper.SafeSqlString(model.End),
+                DataBaseHelper.SafeSqlString(model.StatusHigherEducationlMilitaryCertificate),
+                DataBaseHelper.SafeSqlString(model.NameHigherEducationMilitary),
+                DataBaseHelper.SafeSqlString(model.SeriaHigherEducationMilitaryCertificate),
+                DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationMilitaryCertificate),
+                DataBaseHelper.RawSafeSqlString(model.MilitarySpecialty));
+                DataBaseHelper.RunSql(sql);
+            }
+
+            return Id;
+        }
+
+        public static HigherEducationMilitaryDto GetHigherEducationMilitaryId(int Id)
+        {
+            HigherEducationMilitaryDto result = new HigherEducationMilitaryDto();
+
+            var sql = string.Format(@"EXEC [sp_EducationHigherEducationMilitaryId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new HigherEducationMilitaryDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    Start = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Start"),
+                    End = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "End"),
+                    StatusHigherEducationlMilitaryCertificate = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "StatusHigherEducationlMilitaryCertificate"),
+                    NameHigherEducationMilitary = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "NameHigherEducationMilitary"),
+                    SeriaHigherEducationMilitaryCertificate = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "SeriaHigherEducationMilitaryCertificate"),                   
+                    NumberHigherEducationMilitaryCertificate = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "NumberHigherEducationMilitaryCertificate"),
+                    MilitarySpecialty = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MilitarySpecialty"),
+                };
             }
 
             return result;
