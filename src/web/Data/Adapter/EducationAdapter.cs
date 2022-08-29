@@ -96,6 +96,26 @@ namespace web.Data.Adapter
             return result;
         }
 
+        public static void DeleteSchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveSchool {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteEducationDataGeneralSchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationDataGeneralSchool {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
         public static EducationProfessionalTechnicalSchoolDto GetEducationProfessionalTechnicalSchoolId(int Id)
         {
             EducationProfessionalTechnicalSchoolDto result = new EducationProfessionalTechnicalSchoolDto();
@@ -120,6 +140,25 @@ namespace web.Data.Adapter
             }
 
             return result;
+        }
+        public static void DeleteEducationProfessionalTechnicalSchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationProfessionalTechnicalSchoolId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteEducationDataGeneralProfessionalTechnicalSchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationDataGeneralEducationProfessionalTechnicalSchoolId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
         }
 
         public static HigherEducationDto GetHightEducationId(int Id)
@@ -150,6 +189,26 @@ namespace web.Data.Adapter
             return result;
         }
 
+        public static void DeleteHightEducationId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveHightEducationId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteDataGeneralHightEducationId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationDataGeneralHightEducationId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
         public static EducationProfessionalTechnicalMilitarySchoolDto GetEducationProfessionalTechnicalMilitarySchoolId(int Id)
         {
             EducationProfessionalTechnicalMilitarySchoolDto result = new EducationProfessionalTechnicalMilitarySchoolDto();
@@ -174,6 +233,7 @@ namespace web.Data.Adapter
 
             return result;
         }
+
 
         public static int SaveEducationProfessionalTechnicalSchool(EducationProfessionalTechnicalSchoolDto model)
         {
@@ -338,6 +398,26 @@ namespace web.Data.Adapter
             return Id;
         }
 
+        public static void DeleteProfessionalTechnicalMilitarySchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveProfessionalTechnicalMilitarySchoolId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteDataGeneralProfessionalTechnicalMilitarySchoolId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationDataGeneralProfessionalTechnicalMilitarySchoolId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
         public static int SaveHigherEducationMilitary(HigherEducationMilitaryDto model)
         {
             var sql = string.Empty;
@@ -380,6 +460,27 @@ namespace web.Data.Adapter
 
             return Id;
         }
+
+        public static void DeleteHigherEducationMilitaryId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveHigherEducationMilitaryId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
+        public static void DeleteDataGeneralHigherMilitaryId(int id)
+        {
+            if (id > 0)
+            {
+                string sql = string.Format(@"exec sp_RemoveEducationDataGeneralHigherMilitaryId {0}",
+                DataBaseHelper.RawSafeSqlString(id));
+                DataBaseHelper.RunSql(sql);
+            }
+        }
+
 
         public static HigherEducationMilitaryDto GetHigherEducationMilitaryId(int Id)
         {

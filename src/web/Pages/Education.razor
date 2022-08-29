@@ -114,8 +114,7 @@
           <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
               <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
-                    <tr>
-                      <th calss="text-center">#</th>
+                    <tr>                     
                        <th calss="text-center">Рік початку</th>
                         <th calss="text-center">Рік закінчення</th>
                        <th calss="text-center">Рівень</th>   
@@ -126,28 +125,25 @@
                         
                         <th calss="text-center">Дія</th>  
                     </tr>
-                  </thead>
-                 
-              
-                          
-                     
+                  </thead>                             
+                                              
                       <tbody> 
                                
-                                         <tr>          
-                                  <td scope="row">1</td> 
-                                  <td calss="text-center">@showSchool.Start</td> 
-                                  <td calss="text-center">@showSchool.End</td> 
-                                  <td calss="text-center">@showSchool.StatusSchoolCertificate</td> 
-                                  <td calss="text-center">@showSchool.NumberOfClasses</td> 
-                                  <td calss="text-center">@showSchool.NameSchool</td> 
-                                  <td calss="text-center">@showSchool.SeriaSchoolCertificate</td> 
-                                  <td calss="text-center">@showSchool.NumberSchoolCertificate</td> 
-                                  <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditSchool(showSchool.Id))">
-                                           Edit
-                                   </button>
-                                    <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showSchool.Id))" >Delete</button>
-                              </td>
+                       <tr>          
+                            @if(showSchool.Id>0)
+                                  {
+                                    <td calss="text-center">@showSchool.Start</td> 
+                                    <td calss="text-center">@showSchool.End</td> 
+                                    <td calss="text-center">@showSchool.StatusSchoolCertificate</td> 
+                                    <td calss="text-center">@showSchool.NumberOfClasses</td> 
+                                    <td calss="text-center">@showSchool.NameSchool</td> 
+                                    <td calss="text-center">@showSchool.SeriaSchoolCertificate</td> 
+                                    <td calss="text-center">@showSchool.NumberSchoolCertificate</td> 
+                                    <td>
+                                     <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditSchool(showSchool.Id))">Edit</button>
+                                      <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showSchool.Id))" >Delete</button>
+                                    </td>
+                                  }                                                                                                           
                        </tr>                 
                               
                                                          
@@ -264,8 +260,7 @@
           <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
               <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
-                    <tr>
-                      <th calss="text-center">#</th>
+                    <tr>                     
                        <th calss="text-center">Рік початку</th>
                         <th calss="text-center">Рік закінчення</th>
                        <th calss="text-center">Рівень</th> 
@@ -281,8 +276,7 @@
                       <tbody>                                           
                         <tr>  
                             @if(!string.IsNullOrEmpty(showEducationProfessionalTechnicalSchool.NameProfessionalTechnicalSchool))
-                              {
-                                          <td scope="row">1</td> 
+                              {                                          
                               <td calss="text-center">@showEducationProfessionalTechnicalSchool.Start</td> 
                               <td calss="text-center">@showEducationProfessionalTechnicalSchool.End</td> 
                               <td calss="text-center">@showEducationProfessionalTechnicalSchool.StatusProfessionalTechnicalSchoolCertificate</td> 
@@ -294,7 +288,7 @@
                                    <button class="btn btn-sm btn btn-outline-info"@onclick="(() =>EditProfessionalTechnicalSchool(showEducationProfessionalTechnicalSchool.Id))">
                                            Edit
                                    </button>
-                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteProfessionalTechnicalSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
                               </td>
                                }
                                   
@@ -429,8 +423,7 @@
           <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
              <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
-                    <tr>
-                      <th scope="col">#</th>
+                    <tr>                     
                        <th scope="col">Початок</th>
                         <th scope="col">Закінчення</th>
                        <th scope="col">Рівень</th>                      
@@ -446,8 +439,7 @@
                   <tbody>
                     <tr>
                       @if(!string.IsNullOrEmpty(showHigherEducation.NameHigherEducation))
-                              {
-                                          <td scope="row">1</td> 
+                              {                                        
                               <td calss="text-center">@showHigherEducation.Start</td> 
                               <td calss="text-center">@showHigherEducation.End</td> 
                               <td calss="text-center">@showHigherEducation.StatusHigherEducationlCertificate</td> 
@@ -461,7 +453,7 @@
                                    <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditHigherEducation(showHigherEducation.Id))">
                                            Edit
                                    </button>
-                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducation.Id))" >Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteHigherEducation(showHigherEducation.Id))" >Delete</button>
                               </td>
                                }
                    </tr>                   
@@ -574,8 +566,7 @@
           <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
              <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
-                    <tr>
-                          <th scope="col">#</th>
+                    <tr>                         
                           <th scope="col">№ Направлення РВК</th>  
                           <th scope="col">Дата Направлення РВК</th>  
                           <th scope="col">Назва навчального закладу</th>
@@ -588,8 +579,7 @@
                   <tbody>
                     <tr>
                       @if(!string.IsNullOrEmpty(showProfessionalTechnicalMilitarySchool.NameProfessionalTechnicalMilitarySchool))
-                      {
-                              <td scope="row">1</td> 
+                      {                             
                               <td calss="text-center">@showProfessionalTechnicalMilitarySchool.RVCReferralNumber</td> 
                               <td calss="text-center">@showProfessionalTechnicalMilitarySchool.RVCReferralDate</td> 
                               <td calss="text-center">@showProfessionalTechnicalMilitarySchool.NameProfessionalTechnicalMilitarySchool</td> 
@@ -600,7 +590,7 @@
                                    <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditProfessionalTechnicalMilitarySchool(showProfessionalTechnicalMilitarySchool.Id))">
                                            Edit
                                    </button>
-                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showProfessionalTechnicalMilitarySchool.Id))" >Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteEducationProfessionalTechnicalMilitarySchool(showProfessionalTechnicalMilitarySchool.Id))" >Delete</button>
                               </td>
                     }
                    </tr>                   
@@ -718,8 +708,7 @@
           <div class="table-responsive-md u-datatable col-sm-12 shadow-primary-lg p-3 mb-5 rounded">
              <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content">
                   <thead>
-                    <tr>
-                      <th scope="col">#</th>
+                    <tr>                     
                        <th scope="col">Рік початку</th>
                        <th scope="col">Рік закінчення</th>
                        <th scope="col">Рівень</th>                      
@@ -733,8 +722,7 @@
                   <tbody>
                     <tr>
                     @if(!string.IsNullOrEmpty(showHigherEducationMilitary.NameHigherEducationMilitary))
-                      {
-                              <td scope="row">1</td> 
+                      {                              
                               <td calss="text-center">@showHigherEducationMilitary.Start</td> 
                               <td calss="text-center">@showHigherEducationMilitary.End</td>  
                               <td calss="text-center">@showHigherEducationMilitary.StatusHigherEducationlMilitaryCertificate</td> 
@@ -746,7 +734,7 @@
                                    <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditHigherMilitaryEducation(showHigherEducationMilitary.Id))">
                                            Edit
                                    </button>
-                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducationMilitary.Id))" >Delete</button>
+                                    <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteHigherMilitaryEducation(showHigherEducationMilitary.Id))" >Delete</button>
                               </td>
                     }
                    </tr>                   
@@ -783,23 +771,16 @@
     protected override void OnInitialized()
     {        
         GetAllDataPerson();
-    } 
-
-    public void ResetSearch()
-    {
-
-    }
-
-    private void Collaps()
-    {       
-
-    }
+    }          
 
     private void HandleValidSubmitSchool()
     {
         var schoolId = EducationAdapter.SaveEducationSchool(modelSchool);
         string name = "School";
-        SaveEducationGeneral(schoolId,name);
+        if(schoolId > 0)
+        {
+            SaveEducationGeneral(schoolId,name);
+        }      
 
         _navigationManager.NavigateTo("/education/"+ Id,true);
     }
@@ -815,11 +796,22 @@
         modelSchool = new EducationSchoolDto();
     }
 
+    private void DeleteSchool(int id)
+    {
+        EducationAdapter.DeleteSchoolId(id);
+        EducationAdapter.DeleteEducationDataGeneralSchoolId(id);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
     private void HandleValidSubmitProfessionalTechnicalSchool()
     {
         var professionalTechnicalSchoolId = EducationAdapter.SaveEducationProfessionalTechnicalSchool(modelProfessionalTechnicalSchool);
         string name = "ProfessionalTechnicalSchool";
-        SaveEducationGeneral(professionalTechnicalSchoolId,name);  
+        if(professionalTechnicalSchoolId > 0)
+        {
+            SaveEducationGeneral(professionalTechnicalSchoolId,name); 
+        }
 
         _navigationManager.NavigateTo("/education/"+ Id,true);
     }
@@ -834,11 +826,22 @@
         modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     }
 
+    private void DeleteProfessionalTechnicalSchool(int id)
+    {
+        EducationAdapter.DeleteEducationProfessionalTechnicalSchoolId(id);
+        EducationAdapter.DeleteEducationDataGeneralProfessionalTechnicalSchoolId(id);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
     private void HandleValidSubmitHigherEducation()
     {
         var higherEducationId = EducationAdapter.SaveHigherEducation(modelHigherEducation);
         string name = "HigherEducation";
-        SaveEducationGeneral(higherEducationId,name);   
+        if(higherEducationId > 0)
+        {
+            SaveEducationGeneral(higherEducationId,name);
+        }
 
         _navigationManager.NavigateTo("/education/"+ Id,true);
     }
@@ -853,11 +856,22 @@
         modelHigherEducation = new HigherEducationDto();
     }
 
+    private void DeleteHigherEducation(int id)
+    {
+        EducationAdapter.DeleteHightEducationId(id);
+        EducationAdapter.DeleteDataGeneralHightEducationId(id);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
     private void HandleValidSubmitEducationProfessionalTechnicalMilitarySchool()
     {
         var educationProfessionalTechnicalMilitarySchoolId = EducationAdapter.SaveEducationProfessionalTechnicalMilitarySchool(modelProfessionalTechnicalMilitarySchool);
-        string name = "EducationProfessionalTechnicalMilitarySchool";
-        SaveEducationGeneral(educationProfessionalTechnicalMilitarySchoolId,name);
+        string name = "ProfessionalTechnicalMilitary";
+        if(educationProfessionalTechnicalMilitarySchoolId > 0)
+        {
+            SaveEducationGeneral(educationProfessionalTechnicalMilitarySchoolId,name);
+        }
 
         _navigationManager.NavigateTo("/education/"+ Id,true);
     }
@@ -872,11 +886,22 @@
         modelProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();
     }
 
+    private void DeleteEducationProfessionalTechnicalMilitarySchool(int id)
+    {
+        EducationAdapter.DeleteProfessionalTechnicalMilitarySchoolId(id);
+        EducationAdapter.DeleteDataGeneralProfessionalTechnicalMilitarySchoolId(id);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
     private void HandleValidSubmitHigherMilitaryEducation()
     {
         var modelHigherMilitaryEducationId = EducationAdapter.SaveHigherEducationMilitary(modelHigherEducationMilitary);
         string name = "HigherEducationMilitary";
-        SaveEducationGeneral(modelHigherMilitaryEducationId,name);
+        if(modelHigherMilitaryEducationId > 0)
+        {
+            SaveEducationGeneral(modelHigherMilitaryEducationId,name);
+        }
 
         _navigationManager.NavigateTo("/education/"+ Id,true);
     }
@@ -889,16 +914,14 @@
     private void ResetHigherMilitaryEducation()
     {
         modelHigherEducationMilitary = new HigherEducationMilitaryDto();    
-    }
+    }         
 
-    private void ShowPopup(int id)
+    private void DeleteHigherMilitaryEducation(int id)
     {
+        EducationAdapter.DeleteDataGeneralHigherMilitaryId(id);
+        EducationAdapter.DeleteHigherEducationMilitaryId(id);
 
-    }
-
-    private void DeleteSchool(int id)
-    {
-
+        _navigationManager.NavigateTo("/education/"+ Id,true);
     }
 
     private void SaveEducationGeneral(int id, string name)
@@ -924,20 +947,13 @@
 
         EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
-
-
-    private void OnValueChanged(ChangeEventArgs e)
-    {
-
-
-        this.StateHasChanged();
-    }
+      
 
     private void GetAllDataPerson()
     {
          getGeneral = EducationAdapter.GetGeneralEducation(Id).ToList();
-        var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).FirstOrDefault();
-        var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).FirstOrDefault();
+        var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).LastOrDefault();
+        var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).LastOrDefault();
         var higherEducationId = getGeneral.Where(e => e.HigherEducationId > 0).Select(e => e.HigherEducationId).FirstOrDefault();
         var professionalTechnicalMilitarySchoolId = getGeneral.Where(p => p.ProfessionalTechnicalMilitaryId > 0).Select(p => p.ProfessionalTechnicalMilitaryId).FirstOrDefault();
         var higherEducationMilitaryId = getGeneral.Where(m => m.HigherEducationlMilitaryId > 0).Select(m => m.HigherEducationlMilitaryId).FirstOrDefault();
