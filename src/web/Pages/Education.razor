@@ -1,6 +1,7 @@
 ﻿@page "/education"
 @page "/education/{Id:int}"
 @inject IStringLocalizer<App> _localizer
+@inject NavigationManager _navigationManager
 
   <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
@@ -105,7 +106,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSchool">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -142,7 +143,7 @@
                                   <td calss="text-center">@showSchool.SeriaSchoolCertificate</td> 
                                   <td calss="text-center">@showSchool.NumberSchoolCertificate</td> 
                                   <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showSchool.Id))">
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditSchool(showSchool.Id))">
                                            Edit
                                    </button>
                                     <button class=" btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showSchool.Id))" >Delete</button>
@@ -255,7 +256,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetProfessionalTechnicalSchool">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -271,7 +272,7 @@
                         <th calss="text-center">Найменування навчального закладу</th>
                        <th calss="text-center">Серія диплому</th> 
                        <th calss="text-center">Номер диплому</th> 
-                        
+                        <th calss="text-center">Спеціальність</th> 
                         <th calss="text-center">Дія</th>  
                     </tr>
                   </thead>                          
@@ -290,7 +291,7 @@
                               <td calss="text-center">@showEducationProfessionalTechnicalSchool.NumberProfessionalTechnicalSchoolCertificate</td> 
                               <td calss="text-center">@showEducationProfessionalTechnicalSchool.SpecialtyProfessionalTechnicalSchool</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showEducationProfessionalTechnicalSchool.Id))">
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() =>EditProfessionalTechnicalSchool(showEducationProfessionalTechnicalSchool.Id))">
                                            Edit
                                    </button>
                                     <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showEducationProfessionalTechnicalSchool.Id))" >Delete</button>
@@ -420,7 +421,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetHigherEducation">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -430,10 +431,10 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                       <th scope="col">Рік початку</th>
-                        <th scope="col">Рік закінчення</th>
+                       <th scope="col">Початок</th>
+                        <th scope="col">Закінчення</th>
                        <th scope="col">Рівень</th>                      
-                       <th scope="col">Назва навчального закладу</th>
+                       <th scope="col">Назва закладу</th>
                        <th scope="col">Серія диплома</th> 
                        <th scope="col">Номер диплома</th> 
                         <th scope="col">Спеціальність</th>  
@@ -457,7 +458,7 @@
                               <td calss="text-center">@showHigherEducation.ТameOfTheMilitaryDepartment</td> 
                               <td calss="text-center">@showHigherEducation.MilitarySpecialty</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showHigherEducation.Id))">
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditHigherEducation(showHigherEducation.Id))">
                                            Edit
                                    </button>
                                     <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducation.Id))" >Delete</button>
@@ -565,7 +566,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetProfessionalTechnicalMilitarySchool">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -596,7 +597,7 @@
                               <td calss="text-center">@showProfessionalTechnicalMilitarySchool.End</td>                                                                                  
                               <td calss="text-center">@showProfessionalTechnicalMilitarySchool.SpecialtyProfessionalTechnicalMilitarySchool</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showProfessionalTechnicalMilitarySchool.Id))">
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditProfessionalTechnicalMilitarySchool(showProfessionalTechnicalMilitarySchool.Id))">
                                            Edit
                                    </button>
                                     <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showProfessionalTechnicalMilitarySchool.Id))" >Delete</button>
@@ -709,7 +710,7 @@
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Add"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
+                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetHigherMilitaryEducation">&nbsp;@_localizer["Cancel"]&nbsp;</NavLink>
                 </div>
             </div>
         </EditForm>
@@ -742,7 +743,7 @@
                               <td calss="text-center">@showHigherEducationMilitary.NumberHigherEducationMilitaryCertificate</td> 
                               <td calss="text-center">@showHigherEducationMilitary.MilitarySpecialty</td> 
                               <td>
-                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => ShowPopup(showHigherEducationMilitary.Id))">
+                                   <button class="btn btn-sm btn btn-outline-info"@onclick="(() => EditHigherMilitaryEducation(showHigherEducationMilitary.Id))">
                                            Edit
                                    </button>
                                     <button class="btn btn-sm btn btn-outline-danger" @onclick="(() => DeleteSchool(showHigherEducationMilitary.Id))" >Delete</button>
@@ -780,18 +781,8 @@
     string[] getSchool = {"Початкова","Базова","Повна загальна"};
     string[] getStatusEducation = { "1Початкова","Базова","Повна загальна","2Професійно-технічна","Середньо-спеціальна","3Молодший спеціаліст","Бакалавр","Спеціаліст","Магістр","4ТР","CР","ОТР" };
     protected override void OnInitialized()
-    {
-        getGeneral = EducationAdapter.GetGeneralEducation(Id).ToList();
-        var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).FirstOrDefault();
-        var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).FirstOrDefault();
-        var higherEducationId = getGeneral.Where(e => e.HigherEducationId > 0).Select(e => e.HigherEducationId).FirstOrDefault();
-        var professionalTechnicalMilitarySchoolId = getGeneral.Where(p => p.ProfessionalTechnicalMilitaryId > 0).Select(p => p.ProfessionalTechnicalMilitaryId).FirstOrDefault();
-        var higherEducationMilitaryId = getGeneral.Where(m => m.HigherEducationlMilitaryId > 0).Select(m => m.HigherEducationlMilitaryId).FirstOrDefault();
-        showSchool = EducationAdapter.GetEducationSchoolId(schoolId);
-        showEducationProfessionalTechnicalSchool = EducationAdapter.GetEducationProfessionalTechnicalSchoolId(professionalTechnicalSchoolId);
-        showHigherEducation = EducationAdapter.GetHightEducationId(higherEducationId);
-        showProfessionalTechnicalMilitarySchool = EducationAdapter.GetEducationProfessionalTechnicalMilitarySchoolId(professionalTechnicalMilitarySchoolId);
-        showHigherEducationMilitary = EducationAdapter.GetHigherEducationMilitaryId(higherEducationMilitaryId);
+    {        
+        GetAllDataPerson();
     } 
 
     public void ResetSearch()
@@ -809,29 +800,57 @@
         var schoolId = EducationAdapter.SaveEducationSchool(modelSchool);
         string name = "School";
         SaveEducationGeneral(schoolId,name);
-        //modelGeneral.PersonId = Id;
-        //modelGeneral.SchoolId = schoolId;
-        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
+    private void EditSchool(int id)
+    {
+        modelSchool = EducationAdapter.GetEducationSchoolId(id);
+
+    }
+
+    private void ResetSchool()
+    {
+        modelSchool = new EducationSchoolDto();
     }
 
     private void HandleValidSubmitProfessionalTechnicalSchool()
     {
         var professionalTechnicalSchoolId = EducationAdapter.SaveEducationProfessionalTechnicalSchool(modelProfessionalTechnicalSchool);
         string name = "ProfessionalTechnicalSchool";
-        SaveEducationGeneral(professionalTechnicalSchoolId,name);
-        //modelGeneral.PersonId = Id;
-        //modelGeneral.ProfessionalTechnicalSchoolId = professionalTechnicalSchoolId;
-        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+        SaveEducationGeneral(professionalTechnicalSchoolId,name);  
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
+    private void EditProfessionalTechnicalSchool(int id)
+    {
+        modelProfessionalTechnicalSchool = EducationAdapter.GetEducationProfessionalTechnicalSchoolId(id);
+    }
+
+    private void ResetProfessionalTechnicalSchool()
+    {
+        modelProfessionalTechnicalSchool = new EducationProfessionalTechnicalSchoolDto();
     }
 
     private void HandleValidSubmitHigherEducation()
     {
         var higherEducationId = EducationAdapter.SaveHigherEducation(modelHigherEducation);
         string name = "HigherEducation";
-        SaveEducationGeneral(higherEducationId,name);
-        //modelGeneral.PersonId = Id;
-        //modelGeneral.HigherEducationId = higherEducationId;
-        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+        SaveEducationGeneral(higherEducationId,name);   
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
+    private void EditHigherEducation(int id)
+    {
+        modelHigherEducation = EducationAdapter.GetHightEducationId(id);
+    }
+
+    private void ResetHigherEducation()
+    {
+        modelHigherEducation = new HigherEducationDto();
     }
 
     private void HandleValidSubmitEducationProfessionalTechnicalMilitarySchool()
@@ -839,9 +858,18 @@
         var educationProfessionalTechnicalMilitarySchoolId = EducationAdapter.SaveEducationProfessionalTechnicalMilitarySchool(modelProfessionalTechnicalMilitarySchool);
         string name = "EducationProfessionalTechnicalMilitarySchool";
         SaveEducationGeneral(educationProfessionalTechnicalMilitarySchoolId,name);
-        //modelGeneral.PersonId = Id;
-        //modelGeneral.ProfessionalTechnicalMilitaryId = educationProfessionalTechnicalMilitarySchoolId;
-        //EducationAdapter.SaveEducationDataGeneral(modelGeneral);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
+    private void EditProfessionalTechnicalMilitarySchool(int id)
+    {
+        modelProfessionalTechnicalMilitarySchool = EducationAdapter.GetEducationProfessionalTechnicalMilitarySchoolId(id);
+    }
+
+    private void ResetProfessionalTechnicalMilitarySchool()
+    {
+        modelProfessionalTechnicalMilitarySchool = new EducationProfessionalTechnicalMilitarySchoolDto();
     }
 
     private void HandleValidSubmitHigherMilitaryEducation()
@@ -849,6 +877,18 @@
         var modelHigherMilitaryEducationId = EducationAdapter.SaveHigherEducationMilitary(modelHigherEducationMilitary);
         string name = "HigherEducationMilitary";
         SaveEducationGeneral(modelHigherMilitaryEducationId,name);
+
+        _navigationManager.NavigateTo("/education/"+ Id,true);
+    }
+
+    private void  EditHigherMilitaryEducation(int id)
+    {
+        modelHigherEducationMilitary = EducationAdapter.GetHigherEducationMilitaryId(id);
+    }
+
+    private void ResetHigherMilitaryEducation()
+    {
+        modelHigherEducationMilitary = new HigherEducationMilitaryDto();    
     }
 
     private void ShowPopup(int id)
@@ -865,32 +905,46 @@
     {
         modelGeneral.PersonId = Id;
         switch (name){
-        case "School":
-            modelGeneral.SchoolId = id;
-            break;
-        case "ProfessionalTechnicalSchool":
-            modelGeneral.ProfessionalTechnicalSchoolId = id;
-            break;
-        case "HigherEducation":
-            modelGeneral.HigherEducationId = id;
-            break;
-        case "ProfessionalTechnicalMilitary":
-            modelGeneral.ProfessionalTechnicalMilitaryId = id;
-            break;
-        case "HigherEducationMilitary":
-            modelGeneral.HigherEducationlMilitaryId = id;
-            break;
-  
-}
-       // modelGeneral.HigherEducationlMilitaryId = id;
+            case "School":
+                modelGeneral.SchoolId = id;
+                break;
+            case "ProfessionalTechnicalSchool":
+                modelGeneral.ProfessionalTechnicalSchoolId = id;
+                break;
+            case "HigherEducation":
+                modelGeneral.HigherEducationId = id;
+                break;
+            case "ProfessionalTechnicalMilitary":
+                modelGeneral.ProfessionalTechnicalMilitaryId = id;
+                break;
+            case "HigherEducationMilitary":
+                modelGeneral.HigherEducationlMilitaryId = id;
+                break;
+        } 
+
         EducationAdapter.SaveEducationDataGeneral(modelGeneral);
     }
 
 
-     private void OnValueChanged(ChangeEventArgs e)
+    private void OnValueChanged(ChangeEventArgs e)
     {
-       
+
 
         this.StateHasChanged();
+    }
+
+    private void GetAllDataPerson()
+    {
+         getGeneral = EducationAdapter.GetGeneralEducation(Id).ToList();
+        var schoolId = getGeneral.Where(a=>a.SchoolId > 0).Select(q => q.SchoolId).FirstOrDefault();
+        var professionalTechnicalSchoolId = getGeneral.Where(a=>a.ProfessionalTechnicalSchoolId > 0).Select(q => q.ProfessionalTechnicalSchoolId).FirstOrDefault();
+        var higherEducationId = getGeneral.Where(e => e.HigherEducationId > 0).Select(e => e.HigherEducationId).FirstOrDefault();
+        var professionalTechnicalMilitarySchoolId = getGeneral.Where(p => p.ProfessionalTechnicalMilitaryId > 0).Select(p => p.ProfessionalTechnicalMilitaryId).FirstOrDefault();
+        var higherEducationMilitaryId = getGeneral.Where(m => m.HigherEducationlMilitaryId > 0).Select(m => m.HigherEducationlMilitaryId).FirstOrDefault();
+        showSchool = EducationAdapter.GetEducationSchoolId(schoolId);
+        showEducationProfessionalTechnicalSchool = EducationAdapter.GetEducationProfessionalTechnicalSchoolId(professionalTechnicalSchoolId);
+        showHigherEducation = EducationAdapter.GetHightEducationId(higherEducationId);
+        showProfessionalTechnicalMilitarySchool = EducationAdapter.GetEducationProfessionalTechnicalMilitarySchoolId(professionalTechnicalMilitarySchoolId);
+        showHigherEducationMilitary = EducationAdapter.GetHigherEducationMilitaryId(higherEducationMilitaryId);
     }
 }

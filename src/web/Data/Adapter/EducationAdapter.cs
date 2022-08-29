@@ -99,7 +99,7 @@ namespace web.Data.Adapter
         public static EducationProfessionalTechnicalSchoolDto GetEducationProfessionalTechnicalSchoolId(int Id)
         {
             EducationProfessionalTechnicalSchoolDto result = new EducationProfessionalTechnicalSchoolDto();
-
+                                          
             var sql = string.Format(@"EXEC [sp_GetEducationProfessionalTechnicalSchoolId] {0}",
             DataBaseHelper.RawSafeSqlString(Id));
             var sqlResult = DataBaseHelper.GetSqlResult(sql);
@@ -325,10 +325,10 @@ namespace web.Data.Adapter
             else
             {
                 sql = string.Format(@"EXEC [sp_SaveEducationProfessionalTechnicalMilitarySchool] {0}, {1},{2},{3},{4},{5},{6}",
-                 DataBaseHelper.RawSafeSqlString(model.Id),
+                DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.RVCReferralNumber),
                 DataBaseHelper.SafeSqlString(model.RVCReferralDate),
-                DataBaseHelper.RawSafeSqlString(model.NameProfessionalTechnicalMilitarySchool),
+                DataBaseHelper.SafeSqlString(model.NameProfessionalTechnicalMilitarySchool),
                 DataBaseHelper.SafeSqlString(model.Start),
                 DataBaseHelper.SafeSqlString(model.End),
                 DataBaseHelper.SafeSqlString(model.SpecialtyProfessionalTechnicalMilitarySchool));
@@ -344,7 +344,7 @@ namespace web.Data.Adapter
             int Id = 0;
             if (model.Id == 0)
             {
-                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0},{1},{2},{3},{4},{5},{6},{7}",
+                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0},{1},{2},{3},{4},{5},{6}, {7}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.Start),
                 DataBaseHelper.SafeSqlString(model.End),
@@ -352,7 +352,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(model.NameHigherEducationMilitary),
                 DataBaseHelper.SafeSqlString(model.SeriaHigherEducationMilitaryCertificate),               
                 DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationMilitaryCertificate),
-                DataBaseHelper.RawSafeSqlString(model.MilitarySpecialty));
+                DataBaseHelper.SafeSqlString(model.MilitarySpecialty));
 
                 var dataResult = DataBaseHelper.GetSqlResult(sql);
                 if (dataResult != null && dataResult.Rows.Count > 0)
@@ -366,7 +366,7 @@ namespace web.Data.Adapter
             }
             else
             {
-                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0}, {1},{2},{3},{4},{5},{6},{7}}",
+                sql = string.Format(@"EXEC [sp_SaveHigherEducationMilitary] {0},{1},{2},{3},{4},{5},{6},{7}",
                 DataBaseHelper.RawSafeSqlString(model.Id),
                 DataBaseHelper.SafeSqlString(model.Start),
                 DataBaseHelper.SafeSqlString(model.End),
@@ -374,7 +374,7 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(model.NameHigherEducationMilitary),
                 DataBaseHelper.SafeSqlString(model.SeriaHigherEducationMilitaryCertificate),
                 DataBaseHelper.RawSafeSqlString(model.NumberHigherEducationMilitaryCertificate),
-                DataBaseHelper.RawSafeSqlString(model.MilitarySpecialty));
+                DataBaseHelper.SafeSqlString(model.MilitarySpecialty));
                 DataBaseHelper.RunSql(sql);
             }
 
