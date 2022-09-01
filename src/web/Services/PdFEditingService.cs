@@ -27,7 +27,7 @@ namespace web.Services
             nameField.Value = new PdfString("12/07/2022");
 
             var nameField1 = (PdfTextField)(form.Fields["FullName"]);
-            nameField1.Value = new PdfString(" Столярчуку  Василю Степановичу", PdfStringEncoding.Unicode);
+            nameField1.Value = new PdfString("Столярчуку  Василю Степановичу", PdfStringEncoding.Unicode);
 
             var nameField2 = (PdfTextField)(form.Fields["FullAddress"]);
             nameField2.Value = new PdfString("Львівська обл, м.Радехів, вул. Стоянівська 39", PdfStringEncoding.Unicode);

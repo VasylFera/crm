@@ -34,5 +34,7 @@ namespace web.Data.ModelDtos
         public string VillageName { get; set; }
         public string MaritalStatusNameId { get; set; }   
         public string UserId { get; set; }
+        public int StatusId { get; set; }
+        public string Rank { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@page "/admin-home"
-@inject NavigationManager NavigationManager
+@inject NavigationManager _navigationManager
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> _localizer
 @layout AdminLayout
@@ -53,48 +53,48 @@
         <!-- Card Details -->
         <div class="row">
           <div class="col-sm-4 mb-2 mb-sm-0">           
-           <EditForm Model="@modelPerson" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+           <EditForm Model="@personalSearch" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />
        
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelPerson.LastName" placeholder="@_localizer["Last Name"]" aria-label="Last Name"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.LastName" placeholder="@_localizer["Last Name"]" aria-label="Last Name"  aria-invalid="true">
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelPerson.FirstName" placeholder="@_localizer["First Name"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.FirstName" placeholder="@_localizer["First Name"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelPerson.FatherName" placeholder="@_localizer["FatherName"]" aria-label="First Name" aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.FatherName" placeholder="@_localizer["FatherName"]" aria-label="First Name" aria-invalid="true">
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelPerson.IndividualPersonalNumber" placeholder="@_localizer["Individual Personal Number"]" aria-label="Individual Personal Number"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.IdentityNumber" placeholder="@_localizer["Individual Personal Number"]" aria-label="Individual Personal Number"  aria-invalid="true">
                   </div>
                 </div>             
                </div>        
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="modelPerson.PlaceOfResidence" placeholder="@_localizer["Place Of Residence"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.ResidentialAddress" placeholder="@_localizer["Place Of Residence"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div>             
             <div class="row">
                 <div class="ml-lg-3 m-3">
                     <button type="submit" class="btn btn-xs btn-soft-secondary mr-1">&nbsp;@_localizer["Search"]&nbsp;</button>
-                    <NavLink class="btn btn-xs btn-primary" @onclick="ResetSearch">&nbsp;@_localizer["Reset"]&nbsp;</NavLink>
+                    <button type="button" class="btn btn-xs btn-primary" @onclick="ResetSearchPerson">&nbsp;@_localizer["Reset"]&nbsp;</button>
                 </div>
             </div>
         </EditForm>
@@ -113,20 +113,24 @@
                        <th scope="col">Команда</th>  
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <NavLink  href="counter"> 
-                          <th scope="row">1</th> 
-                      </NavLink> 
-                      <td>лейтенант</td>
-                      <td>Столярчук</td>
-                      <td>Василь</td>
-                      <td>Степанович</td>
-                      <td>16.09.1984</td>  
-                      <td>Павлів</td> 
-                      <td>А0284</td> 
-                   </tr>                   
-            </tbody>
+                  <tbody>              
+                   
+                        @foreach(var item in getPersonalShow)
+                        {
+                          <tr>
+                             <td>@item.Id</td>
+                             <td>@item.Rank</td>
+                             <td>@item.LastName</td>   
+                             <td>@item.FirstName</td>
+                             <td>@item.FatherName</td> 
+                             <td>@item.DateOfBirth.ToString("d")</td>
+                             <td>@item.VillageName</td>                            
+                          @* <td>@item.ResidentialAddress</td>*@
+                          </tr>
+                        }
+                   
+                  
+               </tbody>
           </table>
           </div>
         </div>
@@ -366,6 +370,13 @@
     PersonalDataDto modelPerson = new PersonalDataDto();
     VehicleDto modelVechicle = new VehicleDto();
     MobOfficerDto modelMobOfficer = new MobOfficerDto();
+    StatusDto statusModel = new StatusDto();
+    AllAddressDto allAddress = new AllAddressDto();
+    VillageDto villageDto = new VillageDto();
+
+    PersonalDataSearchDto personalSearch = new PersonalDataSearchDto();
+    IEnumerable<PersonalDataSearchDto> getPersonalSearch = new List<PersonalDataSearchDto>();
+    List<PersonalDataDto> getPersonalShow = new List<PersonalDataDto>();
 
     protected override void OnInitialized()
     {
@@ -378,12 +389,42 @@
 
     private void HandleValidSubmit()
     {
+        getPersonalSearch =  PersonalDataAdapter.GetPersonalSearch(personalSearch);
 
+        foreach(var item in getPersonalSearch)
+        {
+            modelPerson = PersonalDataAdapter.GetPersonalDataId(item.Id);
+            allAddress = RegionAdapter.GetVillageName(item.Id);  
+            villageDto = RegionAdapter.GetVillageId(allAddress.Id);
+            statusModel = StatusAdapter.GetAllStatus().Where(q => q.Id == modelPerson.StatusId).FirstOrDefault();
+            modelPerson.VillageName = villageDto.Name;
+            if(statusModel != null)
+            {
+                modelPerson.Rank = statusModel.Name;
+            }
+            else
+            {
+                modelPerson.Rank = "Не служив";
+            }
+
+            getPersonalShow.Add(modelPerson);
+        }
+        
+        //statusModel = StatusAdapter.GetAllStatus().Where(a => a.Id == modelPerson.StatusId).FirstOrDefault();
+        //modelPerson.Rank = statusModel.Name;
     }
 
     public void ResetSearch()
     {
+              
+    }
 
+    private void ResetSearchPerson()
+    {        
+         personalSearch = new PersonalDataSearchDto();
+         getPersonalShow = new List<PersonalDataDto>();      
+         
+         this.StateHasChanged();
     }
 
     public enum Filter
@@ -393,4 +434,5 @@
         Soldiers
     }
    
+    
 }

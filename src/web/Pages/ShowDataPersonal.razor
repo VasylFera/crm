@@ -68,9 +68,8 @@
         maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
         personalDataModel.MaritalStatus = maritalStatusModel.Name;
 
-        allAddress = RegionAdapter.GetVillageName(Id);
-        int id = allAddress.Id;
-        villageDto = RegionAdapter.GetVillageId(id);
+        allAddress = RegionAdapter.GetVillageName(Id);        
+        villageDto = RegionAdapter.GetVillageId(allAddress.Id);
         personalDataModel.VillageName = villageDto.Name;
     }
 
