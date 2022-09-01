@@ -389,7 +389,8 @@
 
     private void HandleValidSubmit()
     {
-        getPersonalSearch =  PersonalDataAdapter.GetPersonalSearch(personalSearch);
+        getPersonalShow = new List<PersonalDataDto>(); 
+        getPersonalSearch =  SearchAdapter.GetPersonalSearch(personalSearch);
 
         foreach(var item in getPersonalSearch)
         {

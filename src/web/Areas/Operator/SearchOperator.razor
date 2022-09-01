@@ -17,7 +17,7 @@
         <div class="row">
             
           <div class="col-sm-4 mb-2 mb-sm-0">           
-          <EditForm Model="@model" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
+          <EditForm Model="@personalSearch" OnValidSubmit="HandleValidSubmit" class="body  p-3 mb-5 rounded ">
         <DataAnnotationsValidator />    
          <div class="row">
                @* <div class="ml-lg-3 m-3">
@@ -30,28 +30,27 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.LastName" placeholder="@_localizer["LastName"]" aria-label="Last Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid last name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.LastName" placeholder="@_localizer["LastName"]" aria-label="Last Name">
                  </div>
                 </div>            
                </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.FirstName" placeholder="@_localizer["FirstName"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.FirstName" placeholder="@_localizer["FirstName"]" aria-label="First Name"  >
+                 </div>
+                </div>             
+              </div>
+               <div class="row d-flex">
+                   <div class="col-lg-12 form-group">
+                    <div class="input-group input-group-pill" >
                  </div>
                 </div>             
               </div>
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.FatherName" placeholder="@_localizer["FatherName"]" aria-label="First Name" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid first name." aria-invalid="true">
-                 </div>
-                </div>             
-              </div>
-               <div class="row d-flex">
-                   <div class="col-lg-12 form-group">
-                    <div class="input-group input-group-pill">
-                       <input type="date"  class="form-control" @bind-value="model.DateOfBirth" placeholder="@_localizer["DateOfBirth"]" >
+                       <input type="text"  class="form-control" @bind-value="personalSearch.BirthDay" placeholder="@_localizer["DateOfBirth"]" >
 
                   </div>
                 </div>             
@@ -60,7 +59,7 @@
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="model.IndividualPersonalNumber" placeholder="@_localizer["IndividualPersonalNumber"]" aria-label="Individual Place Of Residence" aria-describedby="subscribeButton subscribeSrEmail-error" required="" data-msg="Please enter a valid Place Of Residence." aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.IdentityNumber" placeholder="@_localizer["IndividualPersonalNumber"]" >
                   </div>
                 </div>             
              </div>                        
@@ -86,21 +85,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @*  @foreach(var item in getAllVehicles)
-                       {
-                            int index = @getAllVehicles.IndexOf(item)+1;
-                      <tr>
-                          <NavLink  href="counter"> 
-                             <th scope="row">@index</th> 
-                         </NavLink>                                           
-                          <td>@item.TypeCar</td>
-                          <td>@item.BrandOfMmachine</td>
-                          <td>@item.StateCarNumber</td>
-                          <td>@item.YearOfGraduation.ToString("d")</td>
-                          <td>@item.FactoryName</td>  
-                          <td>@item.TechnicalCondition</td>                     
-                       </tr>       
-                      }*@
+                     @foreach(var item in getPersonalShow)
+                        {
+                          <tr>
+                             <td>@item.Id</td>                            
+                             <td>@item.LastName</td>   
+                             <td>@item.FirstName</td>
+                             <td>@item.FatherName</td> 
+                             <td>@item.DateOfBirth.ToString("d")</td>
+                             <td>@item.IndividualPersonalNumber</td>                            
+                          @* <td>@item.ResidentialAddress</td>*@
+                          </tr>
+                        }
                                       
             </tbody>
           </table>          
@@ -110,15 +106,17 @@
       </div>    
 
 @code {
-    PersonalDataDto model = new PersonalDataDto();
-    SearchOperationDto searchOperation = new SearchOperationDto();
+    PersonalDataDto modelPerson = new PersonalDataDto();
+    PersonalDataSearchDto personalSearch = new PersonalDataSearchDto();
+    IEnumerable<PersonalDataSearchDto> getPersonalSearch = new List<PersonalDataSearchDto>();
+    List<PersonalDataDto> getPersonalShow = new List<PersonalDataDto>();
 
     protected override void OnInitialized()
     {
-        model.DateOfBirth = DateTime.Now;
+        modelPerson.DateOfBirth = DateTime.Now;
     }
 
-      public void ResetSearch()
+    public void ResetSearch()
     {
 
     }
@@ -130,6 +128,13 @@
 
     private void HandleValidSubmit()
     {
+         getPersonalShow = new List<PersonalDataDto>();    
+         getPersonalSearch =  SearchAdapter.GetPersonalSearch(personalSearch);
 
+        foreach(var item in getPersonalSearch)
+        {
+            modelPerson = PersonalDataAdapter.GetPersonalDataId(item.Id);           
+            getPersonalShow.Add(modelPerson);
+        }
     }
 }
