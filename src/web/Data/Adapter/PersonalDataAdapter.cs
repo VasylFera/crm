@@ -11,11 +11,16 @@ namespace web.Data.Adapter
             public static int SavePersonalData(PersonalDataDto personalDataModel)
             {
               var sql = string.Empty;
-              var Id = 0;         
-                         
-            if(personalDataModel.Id == 0)
+              var Id = 0;
+
+            if (personalDataModel.StatusId == 0)
             {
-                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18}",
+                personalDataModel.StatusId = 1;
+            }
+
+            if (personalDataModel.Id == 0)
+            {
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19}",
                 DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
                 DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
                 DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
@@ -35,7 +40,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
                 DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote),
-                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId));
+                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId),
+                DataBaseHelper.RawSafeSqlString(personalDataModel.StatusId));
                                 
                 var dataResult = DataBaseHelper.GetSqlResult(sql);
                 if (dataResult != null && dataResult.Rows.Count > 0)
@@ -50,7 +56,7 @@ namespace web.Data.Adapter
             }
             else
             {
-                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18}",
+                sql = string.Format(@"EXEC [sp_SavePersonalData] {0}, {1}, {2}, {3}, {4},{5}, {6}, {7}, {8},{9},{10}, {11},{12}, {13}, {14},{15},{16},{17},{18},{19}",
                 DataBaseHelper.RawSafeSqlString(personalDataModel.Id),
                 DataBaseHelper.SafeSqlString(personalDataModel.FatherName),
                 DataBaseHelper.SafeSqlString(personalDataModel.NoneFatherName),
@@ -70,7 +76,8 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone1),
                 DataBaseHelper.SafeSqlString(personalDataModel.Phone2),
                 DataBaseHelper.SafeSqlString(personalDataModel.ServiceNote),
-                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId));
+                DataBaseHelper.SafeSqlString(personalDataModel.MaritalStatusNameId),
+                DataBaseHelper.RawSafeSqlString(personalDataModel.StatusId));
                 DataBaseHelper.RunSql(sql);                
             }
 

@@ -80,14 +80,14 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="personalSearch.IdentityNumber" placeholder="@_localizer["Individual Personal Number"]" aria-label="Individual Personal Number"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.IdentityNumber" placeholder="@_localizer["IndividualPersonalNumber"]" aria-label="Individual Personal Number"  aria-invalid="true">
                   </div>
                 </div>             
                </div>        
                 <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                     <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="personalSearch.ResidentialAddress" placeholder="@_localizer["Place Of Residence"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
+                       <input type="text" class="form-control" @bind-value="personalSearch.ResidentialAddress" placeholder="@_localizer["PlaceOfResidence"]" aria-label="Individual Place Of Residence"  aria-invalid="true">
                   </div>
                 </div>             
              </div>             
@@ -117,8 +117,9 @@
                    
                         @foreach(var item in getPersonalShow)
                         {
+                          int index = @getPersonalShow.IndexOf(item)+1;
                           <tr>
-                             <td>@item.Id</td>
+                             <td><a href="#">@index</a></td>
                              <td>@item.Rank</td>
                              <td>@item.LastName</td>   
                              <td>@item.FirstName</td>

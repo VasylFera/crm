@@ -17,7 +17,7 @@ namespace web.EF
         public string Sex { get; set; }
         public string DateOfBirth { get; set; }
         public string RefusalOfIndividualPersonalNumber { get; set; }
-        public int IndividualPersonalNumber { get; set; }
+        public string IndividualPersonalNumber { get; set; }
         public string Email { get; set; }
         public bool MaritalStatus { get; set; }
         public string Note { get; set; }

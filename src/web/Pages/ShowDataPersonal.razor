@@ -1,6 +1,13 @@
 ﻿@page "/show-data-personal/{Id:int}"
 @inject NavigationManager _navigationManager
 
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
+              <li class="breadcrumb-item"><a href="/search-operator">Search operator</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Show data person</li>
+        </ol>
+</nav>
+
 <div class="col-sm-12 mb-2 mb-sm-0 body  p-3 mb-5 rounded">
     <h2 class="text-center">@personalDataModel.LastName  @personalDataModel.FirstName @personalDataModel.FatherName</h2>
              <table class="table table-responsive-md u-datatable  shadow-primary-lg p-3 mb-5 rounded">
@@ -108,6 +115,7 @@
         {
             personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
         }
+
 
         PersonalDataAdapter.SavePersonalData(personalDataModel);
         popupFixData = false;

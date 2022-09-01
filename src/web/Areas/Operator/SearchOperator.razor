@@ -87,14 +87,19 @@
                   <tbody>
                      @foreach(var item in getPersonalShow)
                         {
+                             int index = @getPersonalShow.IndexOf(item)+1;
                           <tr>
-                             <td>@item.Id</td>                            
+                             <td><a href="#">@index</a></td>                            
                              <td>@item.LastName</td>   
                              <td>@item.FirstName</td>
                              <td>@item.FatherName</td> 
                              <td>@item.DateOfBirth.ToString("d")</td>
                              <td>@item.IndividualPersonalNumber</td>                            
-                          @* <td>@item.ResidentialAddress</td>*@
+                            <td >
+                                 <img @onclick="(() => Edit(item.Id))"  src="./images/edit.png" /> 
+
+                                 
+                           </td>  
                           </tr>
                         }
                                       
@@ -118,7 +123,10 @@
 
     public void ResetSearch()
     {
-
+        personalSearch = new PersonalDataSearchDto();
+        getPersonalShow = new List<PersonalDataDto>();      
+         
+        this.StateHasChanged();
     }
 
     private void Collaps()
@@ -136,5 +144,11 @@
             modelPerson = PersonalDataAdapter.GetPersonalDataId(item.Id);           
             getPersonalShow.Add(modelPerson);
         }
+    }
+
+     public void Edit(int id)
+    {
+        _navigationManager.NavigateTo("/edit-personal-data/" + id);       
+
     }
 }

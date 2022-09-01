@@ -144,6 +144,9 @@
   <data name="Date Of Birth" xml:space="preserve">
     <value>Дата народження</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Дата народження</value>
+  </data>
   <data name="District" xml:space="preserve">
     <value>Район</value>
   </data>
@@ -165,10 +168,19 @@
   <data name="First Name" xml:space="preserve">
     <value>Ім'я</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
   <data name="Individual Personal Number" xml:space="preserve">
     <value>Індифікаційний номер</value>
   </data>
+  <data name="IndividualPersonalNumber" xml:space="preserve">
+    <value>ІПН</value>
+  </data>
   <data name="Last Name" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
     <value>Прізвище</value>
   </data>
   <data name="Major Fera" xml:space="preserve">
@@ -188,6 +200,9 @@
   </data>
   <data name="Place Of Residence" xml:space="preserve">
     <value>Населений пункт</value>
+  </data>
+  <data name="PlaceOfResidence" xml:space="preserve">
+    <value>Micце проживання</value>
   </data>
   <data name="Please select a login method." xml:space="preserve">
     <value>Будь ласка введіть логін.</value>

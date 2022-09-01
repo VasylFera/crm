@@ -165,6 +165,7 @@
     List<AllAddressDto> getAllAddress = new List<AllAddressDto>();
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
     AllAddressDto modelAllAddress = new AllAddressDto();
+    StatusDto statusModel = new StatusDto();
 
     string[] GetTypeBlood = { "I(0)","II(A)","III(B)","AB(IV)" };
     string[] GetAllTypeBlood = { "RH(-)", "RH(+)" };
@@ -174,11 +175,12 @@
     {
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
         getAllCountry= RegionAdapter.GetAllCountries();
-        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();               
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();  
+        statusModel = StatusAdapter.GetAllStatus().Where(q => q.Id == personalDataModel.StatusId).FirstOrDefault();
     }
 
     private void HandleValidSubmit()
-    {
+    {       
         CheackMarriadStatus();
         PersonalDataAdapter.SavePersonalData(personalDataModel);
         SavePersonDataAddress();
