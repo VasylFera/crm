@@ -6,7 +6,7 @@
 
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-no-gutter mb-3 m-md-3">
-            <li class="breadcrumb-item active" aria-current="page">@_localizer["SearchOperator"]</li>
+            <li class="breadcrumb-item active" aria-current="page">@_localizer["SearchPeople"]</li>
         </ol>
   </nav>
    <NavLink class="btn btn-secondary m-3" href="/operator-home">&nbsp;@_localizer["Add"]&nbsp;</NavLink>
@@ -30,7 +30,7 @@
                <div class="row d-flex">
                    <div class="col-lg-12 form-group">
                    <div class="input-group input-group-pill">
-                       <input type="text" class="form-control" @bind-value="personalSearch.LastName" placeholder="@_localizer["LastName"]" aria-label="Last Name">
+                       <input type="text" class="form-control" @bind-value="personalSearch.LastName" placeholder="@_localizer["LastName"]"required="" aria-label="Last Name">
                  </div>
                 </div>            
                </div>

@@ -156,6 +156,12 @@
   <data name="Please select a login method." xml:space="preserve">
     <value>Please select a login method.</value>
   </data>
+  <data name="SearchOperator" xml:space="preserve">
+    <value>Search Operator</value>
+  </data>
+  <data name="SearchPeople" xml:space="preserve">
+    <value>Search People</value>
+  </data>
   <data name="Site Language" xml:space="preserve">
     <value>Site Language</value>
   </data>

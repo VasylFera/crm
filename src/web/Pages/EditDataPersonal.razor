@@ -11,7 +11,7 @@
         <DataAnnotationsValidator />
              <h5 class="m-1">Прізвище</h5>
              <div class="input-group-pill mb-2">
-              <input type="text" class="form-control" @bind-value="personalDataModel.LastName"  placeholder="Прізвище" aria-label="Прізвище">
+              <input type="text" class="form-control" @bind-value="personalDataModel.LastName"  placeholder="Прізвище" >
             </div>
             <h5 class="m-1">Ім'я</h5>
             <div class="input-group-pill mb-2">
@@ -179,6 +179,11 @@
 
     private void HandleValidSubmit()
     {     
+        if(string.IsNullOrEmpty(personalDataModel.FatherName) && string.IsNullOrEmpty(personalDataModel.FatherName))
+        {
+            return;
+        }
+
         personalDataModel.MaritalStatusNameId = maritasStatusId;
         PersonalDataAdapter.SavePersonalData(personalDataModel);
         SavePersonDataAddress();

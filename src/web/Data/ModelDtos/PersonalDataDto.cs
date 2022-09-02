@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace web.Data.ModelDtos
 {
     public class PersonalDataDto
     {
-        public int Id { get; set; }
+        public int Id { get; set; }               
         public string LastName { get; set; }
         public string FatherName { get; set; }
         public string FirstName { get; set; }

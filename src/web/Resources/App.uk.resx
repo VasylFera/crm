@@ -222,6 +222,12 @@
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
+  <data name="SearchOperator" xml:space="preserve">
+    <value>Оператор вводу</value>
+  </data>
+  <data name="SearchPeople" xml:space="preserve">
+    <value>Пошук військово-зобов'язаних</value>
+  </data>
   <data name="Site Language" xml:space="preserve">
     <value>Мова програми</value>
   </data>
