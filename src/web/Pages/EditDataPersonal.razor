@@ -118,9 +118,8 @@
                       <div class="input-group-pill mb-2">
                            <input type="text" class="form-control"@bind-value="personalDataModel.Email" placeholder="Електронна адресса">
                       </div>
-                      <h5 class="m-1">Сімейний стан</h5>
-                      @* <label for="additional">@_localizer["Choose an option"]:</label>*@
-                            <InputSelect @bind-Value="personalDataModel.Filter" class="form-control input-group-pill mb-2">
+                      <h5 class="m-1">Сімейний стан</h5>                 
+                            <InputSelect @bind-Value="maritasStatusId" class="form-control input-group-pill mb-2">
                                 <option value="">-- Виберіть сімейний стан --</option>
                                  @foreach (var item in getAllMaritasStatus)
                                 {
@@ -153,7 +152,7 @@
     int districtId;
     int otgId;
     int villageId;
-
+    string maritasStatusId;
 
     PersonalDataDto personalDataModel = new PersonalDataDto();
     List<CountryDto> getAllCountry = new List<CountryDto>();
@@ -163,6 +162,7 @@
     List<VillageDto> getAllVillages = new List<VillageDto>();
     List<MaritalStatusDto> getAllMaritasStatus = new List<MaritalStatusDto>();
     List<AllAddressDto> getAllAddress = new List<AllAddressDto>();
+    AllAddressDto getAddress = new AllAddressDto();
     MaritalStatusDto maritalStatusModel = new MaritalStatusDto();
     AllAddressDto modelAllAddress = new AllAddressDto();
     StatusDto statusModel = new StatusDto();
@@ -173,19 +173,16 @@
 
     protected override void OnInitialized()
     {
-        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
-        getAllCountry= RegionAdapter.GetAllCountries();
-        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();  
-        statusModel = StatusAdapter.GetAllStatus().Where(q => q.Id == personalDataModel.StatusId).FirstOrDefault();
+        GetAllDataForPage();
+        MapAllAddress();       
     }
 
     private void HandleValidSubmit()
-    {       
-        CheackMarriadStatus();
+    {     
+        personalDataModel.MaritalStatusNameId = maritasStatusId;
         PersonalDataAdapter.SavePersonalData(personalDataModel);
         SavePersonDataAddress();
-        ShowMarriadStatus();
-
+       
         _navigationManager.NavigateTo("/show-data-personal/" + Id);
     }
 
@@ -230,12 +227,6 @@
         this.StateHasChanged();
     } 
 
-    private string CheackMaritalStatusForEdit()
-    {
-        var temp = PersonalDataAdapter.GetPersonalDataId(Id);
-        return temp.MaritalStatusNameId;
-    }
-
     private void SavePersonDataAddress()
     {
         getAllAddress = RegionAdapter.GetAllAddress(Id);
@@ -246,27 +237,33 @@
         modelAllAddress.OtgId = districtId;
         modelAllAddress.VillageId = villageId;
         modelAllAddress.IdPersonal = Convert.ToString(Id);
-        RegionAdapter.SaveAllAddress(modelAllAddress);
-    }
+        personalDataModel.MaritalStatusNameId = maritasStatusId;
 
-    private void ShowMarriadStatus()
+        RegionAdapter.SaveAllAddress(modelAllAddress);
+    }      
+       
+    private void GetAllDataForPage()
     {
+        personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
+        getAllCountry= RegionAdapter.GetAllCountries();
+        getAllRegion = RegionAdapter.GetAllRegions();
+        getAllDistrict = RegionAdapter.GetAllDistricts();
+        getAllOtg = RegionAdapter.GetAllOtgs();
+        getAllVillages = RegionAdapter.GetAllVillages();
+        getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();         
+        statusModel = StatusAdapter.GetAllStatus().Where(q => q.Id == personalDataModel.StatusId).FirstOrDefault();
+        getAddress = PersonalDataAdapter.GetPersonalCountryDataId(Id);                
         getAllMaritasStatus = MaritalStatusAdapter.GetAllMaritalStatus();
         personalDataModel = PersonalDataAdapter.GetPersonalDataId(Id);
-        int numVal = Int32.Parse(personalDataModel.MaritalStatusNameId);
-        maritalStatusModel.Name = MaritalStatusAdapter.GetAllMaritalStatus().Where(q => q.Id == numVal).FirstOrDefault().Name;
-        personalDataModel.MaritalStatus = maritalStatusModel.Name;
+        maritasStatusId = personalDataModel.MaritalStatusNameId;
     }
 
-    private void CheackMarriadStatus()
+    private void MapAllAddress()
     {
-         personalDataModel.MaritalStatusNameId = personalDataModel.Filter;
-
-        var checkMaritalStatusId = CheackMaritalStatusForEdit();
-        if(string.IsNullOrEmpty(personalDataModel.MaritalStatusNameId))
-        {
-            personalDataModel.MaritalStatusNameId = Convert.ToString(checkMaritalStatusId);
-        }
-
+        countryId = getAddress.CountryId;
+        regionId = getAddress.RegionId;
+        districtId = getAddress.DistrictId;
+        otgId = getAddress.OtgId;
+        villageId = getAddress.VillageId;
     }
 }

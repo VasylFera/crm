@@ -113,7 +113,8 @@ namespace web.Data.Adapter
                     VillageName = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "VillageName"),
                     MaritalStatusNameId = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "MaritalStatusNameId"),
                     Phone1 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Phone1"),
-                    Phone2 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Phone2")
+                    Phone2 = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "Phone2"),
+                    ServiceNote = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "ServiceNote")
                 };
             }
 
@@ -132,6 +133,32 @@ namespace web.Data.Adapter
                 DataBaseHelper.SafeSqlString(model.ServedDescription));
                 DataBaseHelper.RunSql(sql);
             }           
-        }              
+        }
+
+        public static AllAddressDto GetPersonalCountryDataId(int Id)
+        {
+            AllAddressDto result = new AllAddressDto();
+
+            var sql = string.Format(@"EXEC [sp_GetPersonalCountryDataId] {0}",
+            DataBaseHelper.RawSafeSqlString(Id));
+            var sqlResult = DataBaseHelper.GetSqlResult(sql);
+
+            if (sqlResult.Rows.Count > 0)
+            {
+                result = new AllAddressDto
+                {
+                    Id = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "Id"),
+                    CountryId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "CountryId"),
+                    RegionId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "RegionId"),
+                    DistrictId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "DistrictId"),
+                    OtgId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "OtgId"),
+                    VillageId = DataBaseHelper.GetIntegerValueFromRowByName(sqlResult.Rows[0], "VillageId"),
+                    IdPersonal = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "IdPersonal"),
+                    UserId = DataBaseHelper.GetValueFromRowByName(sqlResult.Rows[0], "UserId")                   
+                };
+            }
+
+            return result;
+        }
     }
 }
